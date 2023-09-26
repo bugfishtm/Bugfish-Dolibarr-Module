@@ -1,55 +1,36 @@
-![Bugfish](https://img.shields.io/badge/Bugfish-Framework-orange)
+![Bugfish](https://img.shields.io/badge/Bugfish-Dolibarr-orange)
 ![Status](https://img.shields.io/badge/Status-Finished-green)
 ![License](https://img.shields.io/badge/License-MIT-black)
 ![Version](https://img.shields.io/badge/Version-2.2-white)
 
+Repository: https://github.com/bugfishtm/Bugfish-Dolibarr-Module  
+Documentation: https://bugfishtm.github.io/Bugfish-Dolibarr-Module/  
+You can find the available documentation in the repositories "docs" folder!
+
+
 # Dolibarr Framework
+This is the repository of the Bugfish Dolibarr Framework! It consists of a smaller functions file (dolibarr_functions.php) and a Dolibarr module. All functions from the dolibarr_functions.php are included in the module itself. This module does install the "Bugfish Framework", which documentation you can find here: https://bugfishtm.github.io/bugfish-framework.
 
-## Documentations
-Look inside folders for readme and license informations! Documentations can be found in the docs folder. Just execute the index.html file in your webbrowser. (example: via drag and drop)
-
-You can find the documentation at www.bugfish.eu, besides  that there is a documentation inside the docs folder of this repository and at https://bugfishtm.github.io/Bugfish-Dolibarr-Module !  
-
-You can find the Documentation here:  
-https://bugfishtm.github.io/Bugfish-Dolibarr-Module/
-
-You can find the Github Page here:  
-https://github.com/bugfishtm/Bugfish-Dolibarr-Module
-
-## Informations
-
-Here you can find a dolibarr Module which does connect the Bugfish-Framework PHP Functions and more with Dolibarr! It comes with unique functions like a logchange for different internal areas (factures, proposals and more!). You have a set of Dolibarr Optimized Functions which you can use for development and other debugging Tools inside that Module. For informations about the included Bugfish Framework it is Advised to check the Bugfish Frameworks Documentation inside the Release File of the fitting Dolibarr Module Version. The current latest Dolibarr Module Versions Bugfish Framework Version is 1.2.0. You can update the framework manually in the module by updating the framework files in the modules /remote folder! (If needed.)
-
-You can find the documentation for the included bugfish Framework at this location! Be sure to use the documentation fitting the version inside this module of the bugfish framework. The current version is 1.2.0. You can find older documentations in the bugfish frameworks release files.  
-
-Bugfish Framework Documentations: https://bugfishtm.github.io/bugfish-framework  
-  
-With Bugfish, you'll have the tools you need to create web applications that not only deliver wide-ranging functionality but also prioritize the highest standards of security, all while maintaining the flexibility to adapt to your unique project requirements. Join the Bugfish PHP Framework community and unlock the full potential of your web development endeavors.
-
-Introducing the Bugfish PHP Framework: a powerful toolkit of classes and functions that not only offers extensive functionality, flexibility, and security but also provides a significant speed advantage, ensuring your web applications perform at their best.
+In the documentation at the link at the top of this readme, you can find detailed informations about the dolibarr module and versioning related to the bugfish-framework. You can always update the bugfish framework inside the module yourself by putting the frameworks files into the "remote" directory of the installed dolibarr module. The dolibarr module serves different features, a short description of these features can be find below.
 
 
-## Dolibarr Function Library (m_*)
+## Extension Functions (dolibarr_functions.php)
 
-Presenting a collection of functions tailored for use with Dolibarr ERP CRM. These functions can be seamlessly integrated into your Dolibarr modules or effortlessly utilized via our dedicated Dolibarr CRM module within the framework. This integration ensures automatic function availability across all sections of Dolibarr. Explore the comprehensive list of functions below, complete with explanatory insights.You are searching something to improve your coding speed in dolibarr? Or may include our full framework with a dolibarr module? Hold on, you are at the right place! Explore the Bugfish Framework, a versatile solution that not only enhances Dolibarr ERP development but also extends its capabilities to a broader spectrum. This framework offers a specialized module to significantly improve coding speed, efficiency, and code quality while maintaining robust security. A standout feature of the Bugfish Framework is its adaptability. Seamlessly integrate it with Dolibarr for accelerated development, or utilize its core functions independently when needed. Elevate your Dolibarr ERP development and beyond with Bugfish Framework.
+This Functions are already included in this Dolibarr Module. But if you want to use this functions without the module, you can include the file dolibarr_functions.php. Inside the Documentation (link at the top of this readme) can be found more information about different functions and detailed descriptions.
 
-**You can use the functions as standalone without the module by including the function library php file in the repositories root folder!** 
+## Bugfish Dolibarr Module
 
-## Module Features
-
-Below a list of some Modules Functionalities explanations!
+A Dolibarr Module to add Development and Other usefull Coding and Logging Features, it can inercept MySQL and Javascript Errors. It has a full functional Changelog for different Internal areas and can serve messages for different modules if you are a developer!
+You can install release files in this repositories "_release" folder directly in dolibarr. See documentation for Installation Information, as a line in dolibarr.conf needs to be changed. More information can be found in the documentation, see the link at the top of this readme file.
 
 ### Feature: Trigger and Object Logging
-
 Triggers and object information related to that trigger are intercepted and can be viewed in the Triggers section under Utilities in the xFramework menu item.
 
 ### Feature: Javascript Error Logging
-
 Javascript errors caused by users can be viewed in the log under Utilities -> xFramework -> Javascript Loggin.
 
 ### Feature: MySQL Error Logging
 Only logging querys used with x_class_mysql.
-
 MySQL error messages that arose when using the x_class_mysql can be viewed in the section under Utilities in the menu item xFramework.
 
 ### Feature: Changelog
@@ -57,7 +38,7 @@ MySQL error messages that arose when using the x_class_mysql can be viewed in th
 The following areas are intercepted: facture bank_account facture_fourn commande propal user societe product orderpicking expedition supplier_proposal commande_fournisseur fichinter [These are the $ref] - Changes to the respective areas can be viewed under Utilities - xFramework - Process logs if you have the respective rights. The following fields are ignored: tms rowid Fields are marked with the following prefix for functions: mn [main table] xt [extrafield]
 
 ## Issues
-If you encounter issues or have questions using this software, do not hesitate write us at our Forum on www.bugfish.eu/forum !
+If you encounter issues or have questions using this software, do not hesitate write us at our Forum on www.bugfish.eu/forum! Besides that you can always request help at request@bugfish.eu!
 
 ## License
-	For License Informations see License.md inside directories!
+For License Informations see License.md inside directories! This software is licensed with MIT License! The dolibarr Module may underlie other licensing restrictings, as it is a module extension of dolibarr itself and uses dolibarrs framework to exist.
