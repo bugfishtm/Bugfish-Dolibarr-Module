@@ -21,7 +21,7 @@
 	/*******************************/
 	/* Include Files 			   */
 	/*******************************/
-	foreach (glob($dolibarr_main_document_root."/custom/xframework/remote/dolibarr/m_*.php") as $filename){ require_once $filename; }	
+	foreach (glob($dolibarr_main_document_root."/custom/xframework/dolibarr_functions/m_*.php") as $filename){ require_once $filename; }	
 	foreach (glob($dolibarr_main_document_root."/custom/xframework/remote/classes/x_*.php") as $filename){ require_once $filename; }		
 	foreach (glob($dolibarr_main_document_root."/custom/xframework/remote/functions/x_*.php") as $filename){ require_once $filename; }		
 	
@@ -178,4 +178,3 @@
 			$isADif = true;$output["from"] = $secondx[1];$output["to"] = $firstx[1];}}}
 			if(!$isADif) {return false;}
 			return $output;}
-?>

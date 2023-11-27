@@ -318,54 +318,6 @@
 			# Finish
 			print '</table></form></div>';
 		}				
-		
-		/////////////////////////////////////////////////
-		// Enable Filters
-		/*public function enableFilters($table, $user_id, $show = true, $adds = true, $filterid = false) {
-			if(!$table_id) { $table_id = $this->table_id;  }
-			// Set the Needed Variables
-			$this->filter_active 	 = true;
-			$this->filter_table 	 = $table;
-			$this->filter_user_id 	 = $user_id;
-			
-			$this->filter_show 		 = $show;
-			$this->filter_adds 		 = $adds;
-			
-			if(!$filterid) { if(is_numeric($_GET[$this->table_id."filterid"])) { $this->filter_current_id = $_GET[$this->table_id."filter"]; } else { $this->filter_current_id = false;  }  }
-			else { if(is_numeric($_GET[$this->table_id."filterid"])) { $this->filter_current_id = $_GET[$this->table_id."filter"]; } else { $this->filter_current_id = $filterid; }  }
-			// Get the Filters Array
-			$this->filter_array 	= is_array();
-			$sql_res = $this->db->query("SELECT * FROM ".$this->filter_table." WHERE table_id = '".$this->filter_current_id."' AND user_id = '".$this->filter_user_id."' ORDER BY is_default DESC");
-			if ($sql_res) { if ($this->db->num_rows($sql_res) > 0) { $count = $this->db->num_rows($sql_res);  for ($i=0; $i<$count; $i++){
-				array_push($this->filter_array, get_object_vars($this->db->fetch_object($sql_res))); 
-			}}}}*/
-		/////////////////////////////////////////////////
-		// Show the Filters
-		/* public function printFilters($formlocations) {
-			if($this->filter_show) {
-				echo '<div id="m_mtf_'.$this->table_id.'" class="m_masterTable_filter"><select onchange="window.location.href = \''.$formlocations.'\'">'; 
-				$tmpdisplay = ""; foreach( $this->filter_array as $key => $value ){
-					if( $value["is_default"] == 1 ) { $tmpdisplay = "<option value='".$value["id"]."'>".$value["filter_name"]."</option>"; } else { $tmpdisplay = '<option value="0">Aktuell: Kein Filter</option>'; }
-				} echo $tmpdisplay;
-				foreach( $this->filter_array as $key => $value ){ if( $value["is_default"] != 1 ) { echo "<option value='".$value["id"]."'>".$value["filter_name"]."</option>"; } } echo '</select>'; 
-				if($this->filter_adds) {
-					echo '<button onclick=\'$( "#m_mtfs_'.$this->table_id.'" ).toggle();\'>Filtereinstellungen</a>';
-					echo '<div id="m_mtfs_'.$this->table_id.'" style="display: none;width: 100%; text-align: right; position: absolute; background: yellow; max-width: 250px;z-index: 1000 !important;right: 2%;">';	
-					echo '<form method="post" action="'.$formlocations.'">';
-					$isediting  = false; foreach( $this->filter_array as $keyx => $value1 ){ if($value1["id"] == $this->filter_current_id) {$isediting = $value1;} }
-					foreach( $this->column_array as $key => $value ){
-						if(is_array($isediting)) {
-							if (in_array($value["fieldname"],  unserialize($isediting["ar_fields"]))) {
-								 echo "<div style='float: left;text-align: left;'><input type='checkbox' name='m_mtc_".$this->table_id."_".$value["fieldname"]."' checked>".$value["viewname"]."</div>";
-							} else { echo "<div style='float: left;;text-align: left;'><input type='checkbox' name='m_mtc_".$this->table_id."_".$value["fieldname"]."'>".$value["viewname"]."</div>";	}
-						} else { echo "<div style='float: left;;text-align: left;'><input type='checkbox' name='m_mtc_".$this->table_id."_".$value["fieldname"]."'>".$value["viewname"]."</div>";	}	
-					}	
-					if(is_array($isediting)) { echo '<input type="submit" name="m_mtcse_'.$this->table_id.'" value="Filter Bearbeiten"><input type="hidden" name="m_mtch_'.$this->table_id.'" value="'.$this->filter_current_id.'">';} 
-					else {echo '<input type="submit" name="m_mtcsa_'.$this->table_id.'" value="Filter Erstellen"><input type="text" name="m_mtcsn_'.$this->table_id.'" value="'.$isediting["filter_name"].'" placeholder="Filter-Name">';}
-					echo '</form></div>';
-				} echo '</div>';	
-			}
-		}*/		
 	}		
 
 	// Check if a Var is Set

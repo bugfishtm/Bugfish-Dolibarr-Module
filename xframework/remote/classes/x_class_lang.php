@@ -10,15 +10,10 @@
 		:!:  !:!  :!:  !:!  :!:   !::  :!:       :!:      !:!   :!:  !:!  
 		 :: ::::  ::::: ::   ::: ::::   ::        ::  :::: ::   ::   :::  
 		:: : ::    : :  :    :: :: :    :        :    :: : :     :   : :  
-		   ____         _     __                      __  __         __           __  __
-		  /  _/ _    __(_)__ / /    __ _____  __ __  / /_/ /  ___   / /  ___ ___ / /_/ /
-		 _/ /  | |/|/ / (_-</ _ \  / // / _ \/ // / / __/ _ \/ -_) / _ \/ -_|_-</ __/_/ 
-		/___/  |__,__/_/___/_//_/  \_, /\___/\_,_/  \__/_//_/\__/ /_.__/\__/___/\__(_)  
-								  /___/                           
-		Bugfish Framework Codebase // All rights Reserved
-		// Autor: Jan-Maurice Dahlmanns (Bugfish)
-		// Website: www.bugfish.eu 
-	*/
+			  __                                   _   		Autor: Jan-Maurice Dahlmanns (Bugfish)
+			 / _|_ _ __ _ _ __  _____ __ _____ _ _| |__		Bugfish Framework Codebase
+			|  _| '_/ _` | '  \/ -_) V  V / _ \ '_| / /		https://github.com/bugfishtm
+			|_| |_| \__,_|_|_|_\___|\_/\_/\___/_| |_\_\       */
 	class x_class_lang {		
 		// Class Variables
 		private $mysql   = false; 
@@ -51,7 +46,7 @@
 				$this->init(); } else {
 				if($file_name) {
 					$this->filemode = true;
-					if(file_exists($file_name)) { 
+					if(file_exists($file_name) AND !is_dir($file_name)) { 
 						$file = file($file_name, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
 						foreach ($file as $array) {
 							if(strpos($array, "=") > 1) { 
@@ -68,7 +63,6 @@
 				} 
 			}
 		}
-		
 		
 		// Init the Array to Fetch Translations Without SQL Queries for current Loaded Translation
 		private function init() {
@@ -106,7 +100,6 @@
 				return @$this->mysql->query("INSERT INTO `".$this->table."`(section, lang, identificator, translation) VALUES('".$this->section."', '".$this->mysql->escape($lang)."', '".$this->mysql->escape($key)."', ?);", $b);
 			}
 		}
-
 
 		// Translate for the current Loaded Language 
 		public function translate($key) {

@@ -42,7 +42,7 @@ class modxframework extends DolibarrModules {
 		$this->editor_name = 'Bugfish Industries';
 		$this->editor_url = 'https://www.bugfish.eu';
 		// Possible values for version are: 'development', 'experimental', 'dolibarr', 'dolibarr_deprecated' or a version string like 'x.y.z'
-		$this->version = '2.2';
+		$this->version = '2.4';
         // Url to the file with your last numberversion of this module
         // $this->url_last_version = 'http://www.example.com/versionmodule.txt';
 		// Key used in llx_const table to save module status enabled/disabled (where xframework is value of property name of module in uppercase)		
@@ -61,8 +61,8 @@ class modxframework extends DolibarrModules {
 		    'tpl' => 0,                                      	// Set this to 1 if module overwrite template dir (core/tpl)
 			'barcode' => 0,                                  	// Set this to 1 if module has its own barcode directory (core/modules/barcode)			
 			'models' => 0,                                   	// Set this to 1 if module has its own models directory (core/modules/xxx)
-			'css' => array("/custom/xframework/remote/css/xfpe_library.css.php"),	// Set this to relative path of css file if module has its own css file
-	 		'js' => array("/custom/xframework/js/xframework.js.php"),      // Set this to relative path of js file if module must load a js on all pages
+			'css' => array("/custom/xframework/remote/css/xcss_xfpe.css"),	// Set this to relative path of css file if module has its own css file
+	 		'js' => array("/custom/xframework/remote/js/xjs_library.js"),      // Set this to relative path of js file if module must load a js on all pages
 			'hooks' => array('all'),							// Set here all hooks context managed by module. To find available hook context, make a "grep -r '>initHooks(' *" on source code. You can also set hook context 'all'
 			'moduleforexternal' => 0							// Set this to 1 if feature of module are opened to external users			
 		);	

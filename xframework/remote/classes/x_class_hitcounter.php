@@ -10,15 +10,10 @@
 		:!:  !:!  :!:  !:!  :!:   !::  :!:       :!:      !:!   :!:  !:!  
 		 :: ::::  ::::: ::   ::: ::::   ::        ::  :::: ::   ::   :::  
 		:: : ::    : :  :    :: :: :    :        :    :: : :     :   : :  
-		   ____         _     __                      __  __         __           __  __
-		  /  _/ _    __(_)__ / /    __ _____  __ __  / /_/ /  ___   / /  ___ ___ / /_/ /
-		 _/ /  | |/|/ / (_-</ _ \  / // / _ \/ // / / __/ _ \/ -_) / _ \/ -_|_-</ __/_/ 
-		/___/  |__,__/_/___/_//_/  \_, /\___/\_,_/  \__/_//_/\__/ /_.__/\__/___/\__(_)  
-								  /___/                           
-		Bugfish Framework Codebase // All rights Reserved
-		// Autor: Jan-Maurice Dahlmanns (Bugfish)
-		// Website: www.bugfish.eu 
-	*/
+			  __                                   _   		Autor: Jan-Maurice Dahlmanns (Bugfish)
+			 / _|_ _ __ _ _ __  _____ __ _____ _ _| |__		Bugfish Framework Codebase
+			|  _| '_/ _` | '  \/ -_) V  V / _ \ '_| / /		https://github.com/bugfishtm
+			|_| |_| \__,_|_|_|_\___|\_/\_/\___/_| |_\_\       */
 	class x_class_hitcounter {
 		######################################################
 		// Class Variables
@@ -26,6 +21,7 @@
 		private $mysql			=  false;
 		private $mysqltable		=  false;
 		private $precookie 		=  "";
+		private $section 		=  "";
 		private $urlpath 		=  false;
 		private $urlmd5 		=  false;		
 		
@@ -55,18 +51,19 @@
 												  `full_url` varchar(512) NOT NULL DEFAULT '0' COMMENT 'Related Domain',
 												  `switches` int(10) DEFAULT '0' COMMENT 'Changes to this Site',
 												  `arrivals` int(10) NOT NULL DEFAULT '0' COMMENT 'Arrivals at this Site',
+												  `section` varchar(64) NOT NULL DEFAULT '' COMMENT 'Related Section',
 												  `summarized` int(10) NOT NULL DEFAULT '0' COMMENT 'All Hits for this URL',
 												  `creation` datetime DEFAULT CURRENT_TIMESTAMP COMMENT 'Creation',
 												  `modification` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT 'Modification',
 												  PRIMARY KEY (`id`),
-												  UNIQUE KEY `UNIQUE` (`full_url`) USING BTREE ) ;	");	}
+												  UNIQUE KEY `UNIQUE` (`full_url`, `section`) USING BTREE ) ;	");	}
 		
 		######################################################
 		// Constructor
 		######################################################
-		function __construct($thecon, $table, $precookie = "") {
+		function __construct($thecon, $table, $precookie = "", $section = "") {
 			if ( session_status() !== PHP_SESSION_ACTIVE ) { @session_start(); }
-			$this->mysql = $thecon; $this->mysqltable = $table;  $this->precookie = $precookie; 
+			$this->mysql = $thecon; $this->mysqltable = $table;  $this->precookie = $precookie; $this->section = $section; 
 			$this->urlpath = $this->prepareUrl(@$_SERVER['HTTP_HOST'].@$_SERVER['REQUEST_URI']); 
 			$this->urlmd5 = md5(@$this->urlpath);			
 			if(!$this->mysql->table_exists($table)) { $this->create_table(); $this->mysql->free_all();  } 
@@ -78,7 +75,9 @@
 		private function refresh_counters() {
 			$b[0]["type"]	=	"s";
 			$b[0]["value"]	=	$this->urlpath;
-			$res = $this->mysql->select("SELECT * FROM `".$this->mysqltable."` WHERE full_url = ?;",false, $b);
+			$b[1]["type"]	=	"s";
+			$b[1]["value"]	=	$this->section;
+			$res = $this->mysql->select("SELECT * FROM `".$this->mysqltable."` WHERE full_url = ? AND section = ?;",false, $b);
 			if(is_array($res)) {
 				$this->switches		=	$res["switches"];
 				$this->arrivals		=	$res["arrivals"];
@@ -107,17 +106,19 @@
 		function execute() {
 			$b[0]["type"]	=	"s";
 			$b[0]["value"]	=	$this->urlpath;
+			$b[1]["type"]	=	"s";
+			$b[1]["value"]	=	$this->section;
 			if($this->enabled) {
 				// Count Arrivals
 				$isarrival = false;	
 				if(@$_SESSION[$this->precookie."x_class_hitcounter"] != "ok") { 		
 					$isarrival = true;
-					$ar = $this->mysql->select("SELECT * FROM `".$this->mysqltable."` WHERE full_url = ?;",false, $b);
+					$ar = $this->mysql->select("SELECT * FROM `".$this->mysqltable."` WHERE full_url = ? AND section = ?;",false, $b);
 					if(is_array($ar)) {
-						$this->mysql->update("UPDATE `".$this->mysqltable."` SET arrivals = arrivals + 1, summarized = switches + arrivals WHERE full_url = ?;", $b);
+						$this->mysql->update("UPDATE `".$this->mysqltable."` SET arrivals = arrivals + 1, summarized = switches + arrivals WHERE full_url = ? AND section = ?;", $b);
 						$_SESSION[$this->precookie."x_class_hitcounter"] = "ok";	
 					} else {
-						$this->mysql->query("INSERT INTO `".$this->mysqltable."` (full_url, switches, arrivals) VALUES (?, \"0\", \"1\")", $b);
+						$this->mysql->query("INSERT INTO `".$this->mysqltable."` (full_url, switches, arrivals, section) VALUES (?, \"0\", \"1\", ?)", $b);
 					}
 					
 				}		
@@ -128,11 +129,11 @@
 				if(!is_array($current_switches_ar)) { $current_switches_ar = array(); }
 				foreach($current_switches_ar as $key => $value) { if($value == $this->urlmd5) { $ishittedarray = true; } }
 				if(!$ishittedarray AND !$isarrival) {
-					$ar = $this->mysql->select("SELECT * FROM `".$this->mysqltable."` WHERE full_url = ?;",false, $b);
+					$ar = $this->mysql->select("SELECT * FROM `".$this->mysqltable."` WHERE full_url = ?  AND section = ?;",false, $b);
 					if(is_array($ar)) {
-						$this->mysql->update("UPDATE ".$this->mysqltable." SET switches = switches + 1, summarized = switches + arrivals WHERE full_url = ?;", $b);
+						$this->mysql->update("UPDATE ".$this->mysqltable." SET switches = switches + 1, summarized = switches + arrivals WHERE full_url = ?  AND section = ?;", $b);
 					} else {
-						$this->mysql->query("INSERT INTO `".$this->mysqltable."` (full_url, switches, arrivals) VALUES (?, \"1\", \"0\")", $b);
+						$this->mysql->query("INSERT INTO `".$this->mysqltable."` (full_url, switches, arrivals, section) VALUES (?, \"1\", \"0\", ?)", $b);
 					}
 					array_push($current_switches_ar, $this->urlmd5);
 				}

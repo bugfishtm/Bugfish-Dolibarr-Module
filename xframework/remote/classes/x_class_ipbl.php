@@ -10,15 +10,10 @@
 		:!:  !:!  :!:  !:!  :!:   !::  :!:       :!:      !:!   :!:  !:!  
 		 :: ::::  ::::: ::   ::: ::::   ::        ::  :::: ::   ::   :::  
 		:: : ::    : :  :    :: :: :    :        :    :: : :     :   : :  
-		   ____         _     __                      __  __         __           __  __
-		  /  _/ _    __(_)__ / /    __ _____  __ __  / /_/ /  ___   / /  ___ ___ / /_/ /
-		 _/ /  | |/|/ / (_-</ _ \  / // / _ \/ // / / __/ _ \/ -_) / _ \/ -_|_-</ __/_/ 
-		/___/  |__,__/_/___/_//_/  \_, /\___/\_,_/  \__/_//_/\__/ /_.__/\__/___/\__(_)  
-								  /___/                           
-		Bugfish Framework Codebase // All rights Reserved
-		// Autor: Jan-Maurice Dahlmanns (Bugfish)
-		// Website: www.bugfish.eu 
-	*/
+			  __                                   _   		Autor: Jan-Maurice Dahlmanns (Bugfish)
+			 / _|_ _ __ _ _ __  _____ __ _____ _ _| |__		Bugfish Framework Codebase
+			|  _| '_/ _` | '  \/ -_) V  V / _ \ '_| / /		https://github.com/bugfishtm
+			|_| |_| \__,_|_|_|_\___|\_/\_/\___/_| |_\_\       */
 	class x_class_ipbl {
 		######################################################
 		// Class Variables
@@ -60,6 +55,7 @@
 		public function isblocked($renew = false) { if(!$renew) { return $this->blocked; } else { return $this->int_block_renew(); } }
 		// Function to Renew Local Blocked Variable for Constructor and Renew
 		private function int_block_renew() {
+			if($this->max == false OR $this->max == 0) { $this->blocked = false; return $this->blocked; }
 			$b[0]["type"]	=	"s";
 			$b[0]["value"]	=	$this->ip;
 			$r = @$this->mysql->select("SELECT * FROM `".$this->table."` WHERE ip_adr = ? AND fail > ".$this->max.";", false, $b);

@@ -10,15 +10,10 @@
 		:!:  !:!  :!:  !:!  :!:   !::  :!:       :!:      !:!   :!:  !:!  
 		 :: ::::  ::::: ::   ::: ::::   ::        ::  :::: ::   ::   :::  
 		:: : ::    : :  :    :: :: :    :        :    :: : :     :   : :  
-		   ____         _     __                      __  __         __           __  __
-		  /  _/ _    __(_)__ / /    __ _____  __ __  / /_/ /  ___   / /  ___ ___ / /_/ /
-		 _/ /  | |/|/ / (_-</ _ \  / // / _ \/ // / / __/ _ \/ -_) / _ \/ -_|_-</ __/_/ 
-		/___/  |__,__/_/___/_//_/  \_, /\___/\_,_/  \__/_//_/\__/ /_.__/\__/___/\__(_)  
-								  /___/                           
-		Bugfish Framework Codebase // All rights Reserved
-		// Autor: Jan-Maurice Dahlmanns (Bugfish)
-		// Website: www.bugfish.eu 
-	*/
+			  __                                   _   		Autor: Jan-Maurice Dahlmanns (Bugfish)
+			 / _|_ _ __ _ _ __  _____ __ _____ _ _| |__		Bugfish Framework Codebase
+			|  _| '_/ _` | '  \/ -_) V  V / _ \ '_| / /		https://github.com/bugfishtm
+			|_| |_| \__,_|_|_|_\___|\_/\_/\___/_| |_\_\       */
 	class x_class_referer {
 		######################################################
 		// Class Variables
@@ -37,10 +32,11 @@
 											  `id` int(10) NOT NULL AUTO_INCREMENT COMMENT 'Identificator',
 											  `full_url` varchar(512) NOT NULL DEFAULT '0' COMMENT 'Related Referer',
 											  `hits` int(10) NOT NULL DEFAULT '0' COMMENT 'Counted Hits',
+											  `section` varchar(64) NOT NULL DEFAULT '' COMMENT 'Related Section',
 											  `creation` datetime DEFAULT CURRENT_TIMESTAMP COMMENT 'Creation Date - Auto Set',
 											  `modification` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT 'Modification Date | Auto - Set',
 											  PRIMARY KEY (`id`),
-											  UNIQUE KEY `UNIQUE` (`full_url`) USING BTREE );");		
+											  UNIQUE KEY `UNIQUE` (`full_url`, `section`) USING BTREE );");		
 		}
 		
 		######################################################
@@ -75,18 +71,20 @@
 		######################################################
 		// Execute Function
 		######################################################
-		public function execute(){
+		public function execute($section = ""){
 			if ( $parts = @parse_url( @$_SERVER["HTTP_REFERER"] ) AND $this->enabled) {
 				$thecurrentreferer = $this->prepareUrl(@$parts[ "host" ]);
 				$b[0]["type"]	=	"s";
 				$b[0]["value"]	=	@substr(trim($thecurrentreferer), 0, 510);
+				$b[1]["type"]	=	"s";
+				$b[1]["value"]	=	@substr(trim($section), 0, 510);
 				if(@trim(@$parts[ "host" ]) != $this->refurl AND @trim(@$parts[ "host" ]) != "www.".$this->refurl AND @trim(@$parts[ "host" ]) != "") {
-					$query = "SELECT * FROM `".$this->mysqltable."` WHERE full_url = ?;";
+					$query = "SELECT * FROM `".$this->mysqltable."` WHERE full_url = ? AND section = ?;";
 					$sresult = @$this->mysql->select($query, false, $b);
 					if (!is_array($sresult)) { 
-						$query = @$this->mysql->query("INSERT INTO `".$this->mysqltable."` (full_url, hits) VALUES (?, 1)", $b);
+						$query = @$this->mysql->query("INSERT INTO `".$this->mysqltable."` (full_url, section, hits) VALUES (?, ?, 1)", $b);
 					} else {
-						$query = @$this->mysql->update("UPDATE `".$this->mysqltable."` SET hits = hits + 1 WHERE full_url = ?;", $b);
+						$query = @$this->mysql->update("UPDATE `".$this->mysqltable."` SET hits = hits + 1 WHERE full_url = ? AND section = ?;", $b);
 					}				
 				}
 			} return true;
