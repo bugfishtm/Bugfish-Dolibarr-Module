@@ -1,6 +1,5 @@
 <?php
-	/* 	
-		__________ ____ ___  ___________________.___  _________ ___ ___  
+	/* 	__________ ____ ___  ___________________.___  _________ ___ ___  
 		\______   \    |   \/  _____/\_   _____/|   |/   _____//   |   \ 
 		 |    |  _/    |   /   \  ___ |    __)  |   |\_____  \/    ~    \
 		 |    |   \    |  /\    \_\  \|     \   |   |/        \    Y    /
@@ -8,7 +7,7 @@
 				\/                 \/     \/                \/       \/  	
 							www.bugfish.eu
 							
-		Bugfish Dolibarr Framework Module
+	    Bugfish Framework
 		Copyright (C) 2024 Jan Maurice Dahlmanns [Bugfish]
 
 		This program is free software: you can redistribute it and/or modify
@@ -24,16 +23,36 @@
 		You should have received a copy of the GNU General Public License
 		along with this program.  If not, see <https://www.gnu.org/licenses/>.
 	*/
-	
-	// Prepare Head for Tabs and Make Adjustable by dolibarr Functions
-	function xframeworkPrepareHead($object) {
-		global $db, $langs, $conf;
-		$langs->load("xframework@xframework");
-		$h = 0;
-		$head = array();
-		//$head[$h][0] = dol_buildpath("/xframework/views/card.php", 1).'?id='.$object->id;
-		//$head[$h][1] = $langs->trans("Card");
-		//$head[$h++][2] = 'card';
-		complete_head_from_modules($conf, $langs, $object, $head, $h, 'xframework');
-		return $head;
-}
+			
+			
+	function x_curl_gettext($url) 
+	{ 
+		$ch = curl_init();
+		$user_agent='Mozilla/5.0 (Windows NT 6.1; rv:8.0) Gecko/20100101 Firefox/8.0';
+		curl_setopt($ch, CURLOPT_URL, $url);
+		curl_setopt($ch, CURLOPT_USERAGENT, $user_agent);
+		curl_setopt($ch, CURLOPT_HEADER, 0);
+		curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+		curl_setopt($ch,CURLOPT_CONNECTTIMEOUT,120);
+		curl_setopt($ch,CURLOPT_TIMEOUT,120);
+		curl_setopt($ch,CURLOPT_MAXREDIRS,10);
+		return  curl_exec ($ch);
+	}				
+			
+	function x_curl_getfile($file, $newFileName) { 
+		$err_msg = ''; 
+		$out = fopen($newFileName, 'wb'); 
+		if ($out == FALSE){ 
+		  exit; 
+		} 
+		$ch = curl_init(); 
+		curl_setopt($ch, CURLOPT_FILE, $out); 
+		curl_setopt($ch, CURLOPT_HEADER, 0); 
+		curl_setopt($ch, CURLOPT_URL, $file); 
+		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+		curl_exec($ch); 
+		curl_close($ch); 
+		fclose($out); 
+	}				
+		

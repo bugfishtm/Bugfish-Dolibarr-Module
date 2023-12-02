@@ -1,19 +1,28 @@
-<?php 
-	/* 	
-		@@@@@@@   @@@  @@@   @@@@@@@@  @@@@@@@@  @@@   @@@@@@   @@@  @@@  
-		@@@@@@@@  @@@  @@@  @@@@@@@@@  @@@@@@@@  @@@  @@@@@@@   @@@  @@@  
-		@@!  @@@  @@!  @@@  !@@        @@!       @@!  !@@       @@!  @@@  
-		!@   @!@  !@!  @!@  !@!        !@!       !@!  !@!       !@!  @!@  
-		@!@!@!@   @!@  !@!  !@! @!@!@  @!!!:!    !!@  !!@@!!    @!@!@!@!  
-		!!!@!!!!  !@!  !!!  !!! !!@!!  !!!!!:    !!!   !!@!!!   !!!@!!!!  
-		!!:  !!!  !!:  !!!  :!!   !!:  !!:       !!:       !:!  !!:  !!!  
-		:!:  !:!  :!:  !:!  :!:   !::  :!:       :!:      !:!   :!:  !:!  
-		 :: ::::  ::::: ::   ::: ::::   ::        ::  :::: ::   ::   :::  
-		:: : ::    : :  :    :: :: :    :        :    :: : :     :   : :  
-			  __                                   _   		Autor: Jan-Maurice Dahlmanns (Bugfish)
-			 / _|_ _ __ _ _ __  _____ __ _____ _ _| |__		Bugfish Framework Codebase
-			|  _| '_/ _` | '  \/ -_) V  V / _ \ '_| / /		https://github.com/bugfishtm
-			|_| |_| \__,_|_|_|_\___|\_/\_/\___/_| |_\_\       */
+<?php
+	/* 	__________ ____ ___  ___________________.___  _________ ___ ___  
+		\______   \    |   \/  _____/\_   _____/|   |/   _____//   |   \ 
+		 |    |  _/    |   /   \  ___ |    __)  |   |\_____  \/    ~    \
+		 |    |   \    |  /\    \_\  \|     \   |   |/        \    Y    /
+		 |______  /______/  \______  /\___  /   |___/_______  /\___|_  / 
+				\/                 \/     \/                \/       \/  	
+							www.bugfish.eu
+							
+	    Bugfish Framework
+		Copyright (C) 2024 Jan Maurice Dahlmanns [Bugfish]
+
+		This program is free software: you can redistribute it and/or modify
+		it under the terms of the GNU General Public License as published by
+		the Free Software Foundation, either version 3 of the License, or
+		(at your option) any later version.
+
+		This program is distributed in the hope that it will be useful,
+		but WITHOUT ANY WARRANTY; without even the implied warranty of
+		MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+		GNU General Public License for more details.
+
+		You should have received a copy of the GNU General Public License
+		along with this program.  If not, see <https://www.gnu.org/licenses/>.
+	*/
 	class x_class_benchmark {
 		######################################################
 		// Class Variables
@@ -80,13 +89,13 @@
 			if(!$this->only200 OR ($this->only200 AND @http_response_code() == 200)) {
 				$ar = $this->mysql->select("SELECT * FROM `".$this->mysqltable."` WHERE full_url = ? AND section = ?;",false, $b);
 				$b[2]["type"]	=	"s";
-				$b[2]["value"]	=	$querie_counter;	
+				$b[2]["value"]	=	$this->debug_obj->timer() ;	
 				$b[3]["type"]	=	"s";
 				$b[3]["value"]	=	$this->debug_obj->memory_usage();
 				$b[4]["type"]	=	"s";
 				$b[4]["value"]	=	$this->debug_obj->cpu_load();
 				$b[5]["type"]	=	"s";
-				$b[5]["value"]	=	$this->debug_obj->timer();				
+				$b[5]["value"]	=	$querie_counter;				
 				if(is_array($ar)) {
 					$b[6]["type"]	=	"s";
 					$b[6]["value"]	=	$this->urlpath;

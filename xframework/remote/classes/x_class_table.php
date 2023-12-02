@@ -1,19 +1,28 @@
-<?php 
-	/* 	
-		@@@@@@@   @@@  @@@   @@@@@@@@  @@@@@@@@  @@@   @@@@@@   @@@  @@@  
-		@@@@@@@@  @@@  @@@  @@@@@@@@@  @@@@@@@@  @@@  @@@@@@@   @@@  @@@  
-		@@!  @@@  @@!  @@@  !@@        @@!       @@!  !@@       @@!  @@@  
-		!@   @!@  !@!  @!@  !@!        !@!       !@!  !@!       !@!  @!@  
-		@!@!@!@   @!@  !@!  !@! @!@!@  @!!!:!    !!@  !!@@!!    @!@!@!@!  
-		!!!@!!!!  !@!  !!!  !!! !!@!!  !!!!!:    !!!   !!@!!!   !!!@!!!!  
-		!!:  !!!  !!:  !!!  :!!   !!:  !!:       !!:       !:!  !!:  !!!  
-		:!:  !:!  :!:  !:!  :!:   !::  :!:       :!:      !:!   :!:  !:!  
-		 :: ::::  ::::: ::   ::: ::::   ::        ::  :::: ::   ::   :::  
-		:: : ::    : :  :    :: :: :    :        :    :: : :     :   : :  
-			  __                                   _   		Autor: Jan-Maurice Dahlmanns (Bugfish)
-			 / _|_ _ __ _ _ __  _____ __ _____ _ _| |__		Bugfish Framework Codebase
-			|  _| '_/ _` | '  \/ -_) V  V / _ \ '_| / /		https://github.com/bugfishtm
-			|_| |_| \__,_|_|_|_\___|\_/\_/\___/_| |_\_\       */
+<?php
+	/* 	__________ ____ ___  ___________________.___  _________ ___ ___  
+		\______   \    |   \/  _____/\_   _____/|   |/   _____//   |   \ 
+		 |    |  _/    |   /   \  ___ |    __)  |   |\_____  \/    ~    \
+		 |    |   \    |  /\    \_\  \|     \   |   |/        \    Y    /
+		 |______  /______/  \______  /\___  /   |___/_______  /\___|_  / 
+				\/                 \/     \/                \/       \/  	
+							www.bugfish.eu
+							
+	    Bugfish Framework
+		Copyright (C) 2024 Jan Maurice Dahlmanns [Bugfish]
+
+		This program is free software: you can redistribute it and/or modify
+		it under the terms of the GNU General Public License as published by
+		the Free Software Foundation, either version 3 of the License, or
+		(at your option) any later version.
+
+		This program is distributed in the hope that it will be useful,
+		but WITHOUT ANY WARRANTY; without even the implied warranty of
+		MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+		GNU General Public License for more details.
+
+		You should have received a copy of the GNU General Public License
+		along with this program.  If not, see <https://www.gnu.org/licenses/>.
+	*/
 	class x_class_table {
 		// Class Variables
 		private $mysql     	= false;
@@ -35,15 +44,15 @@
 
 		// Spawn Deleting Exec
 		public function exec_delete() {
-			if(isset($_POST["x_class_table_exec_del_submit".$this->id])) { 
+			if(isset($_POST["x_class_table_exec_del_submit".$this->id])) {  
 				if(@is_numeric(@$_POST["x_class_table_exec_delete".$this->id])) { 
 					if($this->csrf) { 
 						$this->mysql->query("DELETE FROM `".$this->table."` WHERE `".$this->idf."` = '".$_POST["x_class_table_exec_delete".$this->id]."'");
-						@$_POST["x_class_table_return_type".$this->id] = "deleted";
-					} else { @$_POST["x_class_table_return_type".$this->id] = "csrf"; }
+						return "deleted";
+					} else { return "csrf"; }
 				}
 			}
-		}
+		}  
 
 		// Config For Creation and Editing
 		private $rel_url     		= ""; 
@@ -73,7 +82,7 @@
 		// Spawn Edit Exec
 		public function exec_edit() {
 			if(@is_array($this->edit_array)) {
-				if(@isset($_POST["x_class_table_exec_edit_submit".$this->id])) {  
+				if(@isset($_POST["x_class_table_exec_edit_submit".$this->id])) {   
 					if(@is_numeric(@$_POST["x_class_table_exec_edit".$this->id])) {  
 						if($this->csrf) { 
 							foreach($this->edit_array as $key => $value) {
@@ -81,18 +90,18 @@
 								else {$value_now = @$_POST["x_class_table_post_".$this->id."_".$value["field_name"]]; }
 								$b[0]["value"] = $value_now;
 								$b[0]["type"] = "s";
-								$object["mysql"]-query("UPDATE `".$this->table."` SET `".$value["field_name"]."` = ? WHERE `".$this->idf."` = '".$_POST["x_class_table_exec_edit".$this->id]."'", $b);
-							}	@$_POST["x_class_table_return_type".$this->id] = "edited";
-						} else { @$_POST["x_class_table_return_type".$this->id] = "csrf"; }
+								$this->mysql->query("UPDATE `".$this->table."` SET `".$value["field_name"]."` = ? WHERE `".$this->idf."` = '".$_POST["x_class_table_exec_edit".$this->id]."'", $b);
+							}	return "edited";
+						} else { return "csrf"; }
 					}
 				}
 			}
 		}		
 		
 		// Spawn Create Exec
-		public function exec_create() {
-			if(@is_array($this->create_array)) {
-				if(@isset($_POST["x_class_table_exec_create_submit".$this->id])) {   
+		public function exec_create() {  
+			if(@is_array($this->create_array)) { 
+				if(@isset($_POST["x_class_table_exec_create_submit".$this->id])) {  
 					if($this->csrf) {
 						$b = array();
 						$bt = "";
@@ -105,12 +114,12 @@
 							if($key != 0) { $bs .=	", ? ";	} else { $bs .=	" ? "; } 				
 							if($key != 0) { $bt .=	", `".$value["field_name"]."` ";	} else { $bt .=	" `".$value["field_name"]."` "; } 	
 						}	
-						$object["mysql"]-query("INSERT INTO `".$this->table."`(".$bt.") VALUES(".$bs.");", $b);
+						$this->mysql->query("INSERT INTO `".$this->table."`(".$bt.") VALUES(".$bs.");", $b);
 						unset($b);
 						unset($bt);
 						unset($bs);
-						@$_POST["x_class_table_return_type".$this->id] = "created";
-					} else { @$_POST["x_class_table_return_type".$this->id] = "csrf"; }
+						return "created";
+					} else { return "csrf"; }
 				}
 			}
 		}		
@@ -141,31 +150,30 @@
 			if(@is_array($this->create_array)) {
 				echo "<div class='x_class_table_box_create' id='x_class_table_create_id_".$this->id."'>";
 					echo "<form method='post' action='".$this->rel_url."'><input type='hidden' name='x_class_table_exec_csrf".$this->id."' value='".$this->csrfobj->get()."'>"; 
-						if(@$_GET["x_class_table_create".$this->id] == "true") {
-							foreach($this->create_array as $key => $value) { if(isset($value["field_title"])) { echo "<b>".$value["field_title"]."</b><br />"; } if(isset($value["field_descr"])) { echo $value["field_descr"]."<br />"; }?>
-								<!-- Int -->
-								<?php if($value["field_type"] == "int") { ?> <input class="<?php echo $value["field_classes"]; ?>"  type="number" value="" name="x_class_table_post_<?php echo $this->id."_".$value["field_name"]; ?>"><br /><?php } ?>				
-								<!-- String -->
-								<?php if($value["field_type"] == "string") { ?> <input class="<?php echo $value["field_classes"]; ?>"  type="text" value="" name="x_class_table_post_<?php echo $this->id."_".$value["field_name"]; ?>"><br /><?php } ?>					
-								<!-- Text -->
-								<?php if($value["field_type"] == "text") { ?> <textarea class="<?php echo $value["field_classes"]; ?>"  name="x_class_table_post_<?php echo $this->id."_".$value["field_name"]; ?>"></textarea><br /><?php } ?>
-								<!-- Bool -->
-								<?php if(false) { ?>Configure: <input class="<?php echo $value["field_classes"]; ?>" type="checkbox" name="x_class_table_post_<?php echo $this->id."_".$value["field_name"]; ?>" ><br /><?php } ?>		
-								<!-- Select -->
-								<?php if($value["field_type"] == "select") { ?>
-									<select class="<?php echo $value["field_classes"]; ?>"  name="x_class_table_post_<?php echo $this->id."_".$value["field_name"]; ?>">
-										<?php
-											 foreach($value["select_array"] AS $key => $value) { if(is_array($value)) {
-												echo '<option value="'.$value[1].'">'.$value[0]."</option>";
-											} else {
-													echo '<option value="'.$value.'">'.$value."</option>";	
-											} }
-										?>
-									</select><br />
-								<?php } ?>								
-							<?php }	
-						}
+						foreach($this->create_array as $key => $value) { if(isset($value["field_title"])) { echo "<b>".$value["field_title"]."</b><br />"; } if(isset($value["field_descr"])) { echo $value["field_descr"]."<br />"; }?>
+							<!-- Int -->
+							<?php if($value["field_type"] == "int") { ?> <input class="<?php echo $value["field_classes"]; ?>" placeholder="<?php echo $value["field_ph"]; ?>"  type="number" value="" name="x_class_table_post_<?php echo $this->id."_".$value["field_name"]; ?>"><br /><?php } ?>				
+							<!-- String -->
+							<?php if($value["field_type"] == "string") { ?> <input class="<?php echo $value["field_classes"]; ?>" placeholder="<?php echo $value["field_ph"]; ?>"  type="text" value="" name="x_class_table_post_<?php echo $this->id."_".$value["field_name"]; ?>"><br /><?php } ?>					
+							<!-- Text -->
+							<?php if($value["field_type"] == "text") { ?> <textarea class="<?php echo $value["field_classes"]; ?>" placeholder="<?php echo $value["field_ph"]; ?>"  name="x_class_table_post_<?php echo $this->id."_".$value["field_name"]; ?>"></textarea><br /><?php } ?>
+							<!-- Bool -->
+							<?php if(false) { ?>Configure: <input class="<?php echo $value["field_classes"]; ?>" type="checkbox" name="x_class_table_post_<?php echo $this->id."_".$value["field_name"]; ?>" ><br /><?php } ?>		
+							<!-- Select -->
+							<?php if($value["field_type"] == "select") { ?>
+								<select class="<?php echo $value["field_classes"]; ?>"  name="x_class_table_post_<?php echo $this->id."_".$value["field_name"]; ?>">
+									<?php
+										 foreach($value["select_array"] AS $key => $value) { if(is_array($value)) {
+											echo '<option value="'.$value[1].'">'.$value[0]."</option>";
+										} else {
+												echo '<option value="'.$value.'">'.$value."</option>";	
+										} }
+									?>
+								</select><br />
+							<?php } ?>								
+						<?php }	
 					echo "<input type='submit' class='".$button_class."' value='".$button_name."' name='x_class_table_exec_create_submit".$this->id."'>";
+					echo "<input type='hidden' value='1' name='x_class_table_exec_create_submit".$this->id."'>";
 					echo "</form>";
 				echo "</div>";
 			}
@@ -173,31 +181,31 @@
 		
 		// Spawn Editing Area
 		public function spawn_edit($button_name = "Edit Item", $button_class = "") {
-			if(@is_array($this->edit_array)) {
+			if(@is_array($this->edit_array) AND is_numeric(@$_POST["x_class_table_exec_edit".$this->id])) {
 				echo "<div class='x_class_table_box_edit' id='x_class_table_edit_id_".$this->id."'>";
 					echo "<form method='post' action='".$this->rel_url."'><input type='hidden' name='x_class_table_exec_csrf".$this->id."' value='".$this->csrfobj->get()."'>"; 
-						if(is_numeric(@$_GET["x_class_table_edit".$this->id])) {
-							$current = $object["mysql"]->select("SELECT * FROM `".$this->table."` WHERE `".$this->idf."` = '".$_POST["x_class_table_exec_edit".$this->id]."'", false);
+						//if(is_numeric(@$_GET["x_class_table_edit".$this->id])) {
+							$current = $this->mysql->select("SELECT * FROM `".$this->table."` WHERE `".$this->idf."` = '".$_POST["x_class_table_exec_edit".$this->id]."'", false);
 							foreach($this->edit_array as $key => $value) { if(isset($value["field_title"])) { echo "<b>".$value["field_title"]."</b><br />"; } if(isset($value["field_descr"])) { echo $value["field_descr"]."<br />"; }?>
 								<!-- Int -->
-								<?php if($value["field_type"] == "int") { ?> <input class="<?php echo $value["field_classes"]; ?>"  type="number" value="<?php echo @htmlentities(@$current[$value["field_name"]]); ?>" name="x_class_table_post_<?php echo $this->id."_".$value["field_name"]; ?>"><br /><?php } ?>				
+								<?php if($value["field_type"] == "int") { ?> <input class="<?php echo $value["field_classes"]; ?>" placeholder="<?php echo $value["field_ph"]; ?>"  type="number" value="<?php echo @htmlentities(@$current[$value["field_name"]]); ?>" name="x_class_table_post_<?php echo $this->id."_".$value["field_name"]; ?>"><br /><?php } ?>				
 								<!-- String -->
-								<?php if($value["field_type"] == "string") { ?> <input class="<?php echo $value["field_classes"]; ?>"  type="text" value="<?php echo @htmlentities(@$current[$value["field_name"]]); ?>" name="x_class_table_post_<?php echo $this->id."_".$value["field_name"]; ?>"><br /><?php } ?>					
+								<?php if($value["field_type"] == "string") { ?> <input class="<?php echo $value["field_classes"]; ?>" placeholder="<?php echo $value["field_ph"]; ?>"  type="text" value="<?php echo @htmlentities(@$current[$value["field_name"]]); ?>" name="x_class_table_post_<?php echo $this->id."_".$value["field_name"]; ?>"><br /><?php } ?>					
 								<!-- Text -->
-								<?php if($value["field_type"] == "text") { ?> <textarea class="<?php echo $value["field_classes"]; ?>"  name="x_class_table_post_<?php echo $this->id."_".$value["field_name"]; ?>"><?php echo nl2br(@htmlspecialchars(@$current[$value["field_name"]])); ?></textarea><br /><?php } ?>
+								<?php if($value["field_type"] == "text") { ?> <textarea class="<?php echo $value["field_classes"]; ?>" placeholder="<?php echo $value["field_ph"]; ?>"  name="x_class_table_post_<?php echo $this->id."_".$value["field_name"]; ?>"><?php echo nl2br(@htmlspecialchars(@$current[$value["field_name"]])); ?></textarea><br /><?php } ?>
 								<!-- Bool -->
-								<?php if(false) { ?>Configure: <input class="<?php echo $value["field_classes"]; ?>" type="checkbox" name="x_class_table_post_<?php echo $this->id."_".$value["field_name"]; ?>" ><br /><?php } ?>		
+								<?php if(false) { ?>Configure: <input class="<?php echo $value["field_classes"]; ?>" type="checkbox" placeholder="<?php echo $value["field_ph"]; ?>" name="x_class_table_post_<?php echo $this->id."_".$value["field_name"]; ?>" ><br /><?php } ?>		
 								
 								
 								<!-- Select -->
 								<?php if($value["field_type"] == "select") { ?>
 									<select class="<?php echo $value["field_classes"]; ?>"  name="x_class_table_post_<?php echo $this->id."_".$value["field_name"]; ?>">
-										<option value="<?php echo htmlentities($current[$value["field_classes"]]); ?>"><?php 
-											$nochange = @htmlentities($current[$value["field_classes"]]);
+										<option value="<?php echo htmlentities($current[$value["field_name"]]); ?>">Actual: <?php 
+											$nochange = @htmlentities($current[$value["field_name"]]);
 											if(is_array($value["select_array"])) {
 												foreach($value["select_array"] AS $kk => $vv) {
 													if(is_array($vv)) {
-														if($vv[1] == $current[$value["field_classes"]]) {
+														if($vv[1] == $current[$value["field_name"]]) {
 															$nochange = @htmlentities($vv[0]);
 														}
 													}
@@ -213,8 +221,9 @@
 									</select><br />
 								<?php } ?>								
 							<?php }	
-						}
+						//}
 					echo "<input type='submit' class='".$button_class."' value='".$button_name."' name='x_class_table_exec_edit_submit".$this->id."'>";
+					echo "<input type='hidden' value='".@$_POST["x_class_table_exec_edit".$this->id]."' name='x_class_table_exec_edit".$this->id."'>";
 					echo "</form>";
 				echo "</div>";
 			}
@@ -223,7 +232,7 @@
 		// Spawn table Area
 		public function spawn_table($title_array, $value_array, $editing = false, $deleting = false, $creating = false, $action_column = "Action", $classes = "") {
 			echo "<div class='x_class_table_box_table' id='x_class_table_id_".$this->id."'>";
-				if($creating) { echo "<a href='".$this->rel_url."/".$this->id."'>".$creating."</a>";}
+				if($creating) { echo "<a href='".$this->rel_url."'>".$creating."</a><br /><br />";}
 				echo '<table id=\'x_class_table_id_tbl_'.$this->id.'\' class="x_class_table_listing '.$classes.'">';
 					echo '<thead>';
 						echo '<tr>';
@@ -241,17 +250,18 @@
 						if(is_array($value_array)) {
 							foreach($value_array AS $key => $value) {
 								echo "<tr>";
-								$id = $value[$this->idf];
-								foreach($value AS $keyx => $valuex) { 
+								if($editing) { $id = $value[$this->idf]; }
+								if($deleting) { $id = $value[$this->idf]; }
+								foreach($value AS $keyx => $valuex) {  if($keyx == $this->idf) { continue;} 
 									echo "<td>";
 										echo $valuex;
 									echo "</td>";
 								}
 								if($deleting OR $editing) {
 									echo "<td>";
-										if($editing) { echo "<a href='".$this->rel_url."/".$id."'>".$editing."</a>"; }
-										if($deleting) { echo "<a href='".$this->rel_url."/".$id."'>".$deleting."</a>"; }
-									echo "</td>";
+										if($editing) { echo "<form method='post' action='".$this->rel_url."'><input type='hidden' name='x_class_table_exec_edit".$this->id."' value='".$id."'><button type='submit' name='x_class_table_exec_ed_submit".$this->id."'>".$editing."</a></form>"; }
+										if($deleting) { echo "<form method='post' action='".$this->rel_url."' class='x_class_table_button_delete'><input type='hidden' name='x_class_table_exec_delete".$this->id."' value='".$id."'><input type='hidden' name='x_class_table_exec_del_submit".$this->id."' value='".$id."'><input type='hidden' name='x_class_table_exec_csrf".$this->id."' value='".$this->csrfobj->get()."'><button type='submit' name='x_class_table_exec_del_submit".$id."'>".$deleting."</a></form>"; }
+									echo "</td>"; 
 									
 								}								
 								echo "</tr>";	

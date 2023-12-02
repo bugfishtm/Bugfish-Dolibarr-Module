@@ -2,8 +2,8 @@
 
 ![Bugfish](https://img.shields.io/badge/Bugfish-Framework-orange)
 ![Status](https://img.shields.io/badge/Status-Finished-green)
-![License](https://img.shields.io/badge/License-MIT-black)
-![Version](https://img.shields.io/badge/Version-2.1-white)
+![License](https://img.shields.io/badge/License-GPLv3-black)
+![Version](https://img.shields.io/badge/Version-2.2-white)
 
 # Bugfish Framework Documentation
 
@@ -59,4 +59,4 @@ Should you encounter any issues or have questions while using this software, ple
 
 ## Licensing Information
 
-The Bugfish Framework is released under the MIT License, affording you the freedom to use, modify, and distribute the project as you see fit. It is imperative to note that the "_vendor" folder contains various libraries, each with its own unique licenses. To ensure full compliance and understanding of the licensing terms associated with these included libraries, we encourage you to consult our comprehensive documentation on our GitHub page. This documentation provides exhaustive information regarding the specific licenses and any additional requirements tied to individual libraries. Your responsible adherence to these licenses is pivotal when utilizing this project. Your interest and collaboration are greatly appreciated.
+The Bugfish Framework is released under the GPLv3 License, affording you the freedom to use, modify, and distribute the project as you see fit. It is imperative to note that the "_vendor" folder contains various libraries, each with its own unique licenses. To ensure full compliance and understanding of the licensing terms associated with these included libraries, we encourage you to consult our comprehensive documentation on our GitHub page. This documentation provides exhaustive information regarding the specific licenses and any additional requirements tied to individual libraries. Your responsible adherence to these licenses is pivotal when utilizing this project. Your interest and collaboration are greatly appreciated. See Documentation of this Project in the _docs folder to get more insights about licenses of libraries used in this framework. All of them are LGPL or GPL Licenses.
