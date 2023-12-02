@@ -1,11 +1,29 @@
 <?php
-	/*
-		__________              _____.__       .__     
-		\______   \__ __  _____/ ____\__| _____|  |__  
-		 |    |  _/  |  \/ ___\   __\|  |/  ___/  |  \ 
-		 |    |   \  |  / /_/  >  |  |  |\___ \|   Y  \
-		 |______  /____/\___  /|__|  |__/____  >___|  /
-				\/     /_____/               \/     \/  Doliabrr Modules File Example */
+	/* 	
+		__________ ____ ___  ___________________.___  _________ ___ ___  
+		\______   \    |   \/  _____/\_   _____/|   |/   _____//   |   \ 
+		 |    |  _/    |   /   \  ___ |    __)  |   |\_____  \/    ~    \
+		 |    |   \    |  /\    \_\  \|     \   |   |/        \    Y    /
+		 |______  /______/  \______  /\___  /   |___/_______  /\___|_  / 
+				\/                 \/     \/                \/       \/  	
+							www.bugfish.eu
+							
+		Bugfish Dolibarr Framework Module
+		Copyright (C) 2024 Jan Maurice Dahlmanns [Bugfish]
+
+		This program is free software: you can redistribute it and/or modify
+		it under the terms of the GNU General Public License as published by
+		the Free Software Foundation, either version 3 of the License, or
+		(at your option) any later version.
+
+		This program is distributed in the hope that it will be useful,
+		but WITHOUT ANY WARRANTY; without even the implied warranty of
+		MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+		GNU General Public License for more details.
+
+		You should have received a copy of the GNU General Public License
+		along with this program.  If not, see <https://www.gnu.org/licenses/>.
+	*/
 
 // Include Dolibarr Modules File
 include_once DOL_DOCUMENT_ROOT .'/core/modules/DolibarrModules.class.php';
@@ -42,7 +60,7 @@ class modxframework extends DolibarrModules {
 		$this->editor_name = 'Bugfish Industries';
 		$this->editor_url = 'https://www.bugfish.eu';
 		// Possible values for version are: 'development', 'experimental', 'dolibarr', 'dolibarr_deprecated' or a version string like 'x.y.z'
-		$this->version = '2.4';
+		$this->version = '2.5';
         // Url to the file with your last numberversion of this module
         // $this->url_last_version = 'http://www.example.com/versionmodule.txt';
 		// Key used in llx_const table to save module status enabled/disabled (where xframework is value of property name of module in uppercase)		
