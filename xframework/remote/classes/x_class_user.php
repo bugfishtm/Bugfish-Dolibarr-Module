@@ -913,7 +913,7 @@ class x_class_user {
 			if($this->log_mail_edit) {$this->mysql->query("UPDATE `".$this->dt_keys."` SET is_active = 0 WHERE fk_user = ".$f["id"]." AND key_type = '".$this->key_mail_edit."'");	
 			} else { $this->mysql->query("DELETE FROM `".$this->dt_keys."` WHERE fk_user = ".$f["id"]." AND key_type = '".$this->key_mail_edit."'");};
 			// Update last Mail Edit
-			$this->mysql->query("UPDATE `".$this->dt_users."` SET req_mail_edit = CURRENT_TIMESTAMP() WHERE id = '".$userid."'");
+			$this->mysql->query("UPDATE `".$this->dt_users."` SET req_mail_edit = CURRENT_TIMESTAMP() WHERE id = '".@$id."'");
 			// Create the Token
 			$token	=	$this->token_gen();
 			$this->mail_edit_token_create($f["id"], $token);

@@ -54,7 +54,7 @@
 												  `value_memory` varchar(64) DEFAULT '0' COMMENT 'Site Loading Time',
 												  `value_load` varchar(64) DEFAULT '0' COMMENT 'Site Loading Time',
 												  `value_queries` varchar(64) DEFAULT '0' COMMENT 'Query Counter',
-												  `section` varchar(64) NULL DEFAULT '' COMMENT 'Related Section',
+												  `section` varchar(128) NULL DEFAULT '' COMMENT 'Related Section',
 												  `creation` datetime DEFAULT CURRENT_TIMESTAMP COMMENT 'Creation',
 												  `modification` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT 'Modification',
 												  PRIMARY KEY (`id`),

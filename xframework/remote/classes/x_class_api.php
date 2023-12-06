@@ -35,7 +35,7 @@
 												  `id` int(9) NOT NULL AUTO_INCREMENT COMMENT 'Unique ID',
 												  `direction` varchar(12) NOT NULL COMMENT 'Token Type',
 												  `api_token` varchar(512) NOT NULL COMMENT 'Token for API Requests',
-												  `section` varchar(16) NOT NULL COMMENT 'Value for Constant',
+												  `section` varchar(128) NOT NULL COMMENT 'Value for Constant',
 												  `last_use` datetime NULL COMMENT 'Last Use Date in Check',
 												  `creation` datetime DEFAULT CURRENT_TIMESTAMP COMMENT 'Creation Date of Entry | Will be Auto-Set',
 												  `modification` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT 'Modification Date of Entry with Auto-Update on Change',
