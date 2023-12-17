@@ -80,7 +80,7 @@
 											  `creation` datetime DEFAULT CURRENT_TIMESTAMP COMMENT 'Creation Date | Auto - Set',
 											  `success` tinyint(1) DEFAULT NULL COMMENT '1 - Mail OK Sended | Else - Mail Error',
 											  `debugmsg` text COMMENT 'Debug Message',
-											  `section` varchar(64) DEFAULT NULL COMMENT 'Related Section',
+											  `section` varchar(128) DEFAULT NULL COMMENT 'Related Section',
 											  PRIMARY KEY (`id`));");}		
 		
 		// Construct

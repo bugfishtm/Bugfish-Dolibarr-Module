@@ -40,7 +40,7 @@
 								  `output` text NULL COMMENT 'Error MySQL Output',
 								  `success` int(1) NULL COMMENT '1 - Query OK | 2 - Query Error',
 								  `creation` datetime DEFAULT CURRENT_TIMESTAMP COMMENT 'Creation Date',
-								  `section` varchar(64) DEFAULT NULL COMMENT 'Related Section',
+								  `section` varchar(128) DEFAULT NULL COMMENT 'Related Section',
 								  PRIMARY KEY (`id`));");}
 		/*	  ____  ____   ____   _______/  |________ __ __   _____/  |_ 
 			_/ ___\/  _ \ /    \ /  ___/\   __\_  __ \  |  \_/ ___\   __\

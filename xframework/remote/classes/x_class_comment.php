@@ -61,7 +61,7 @@
 									  `modification` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT 'Modification Date | Auto - Set',
 									  `status` tinyint(1) DEFAULT NULL COMMENT '0:Wait 1:OK 2:Internal 3:System',
 									  `upvotes` int(9) DEFAULT '0' COMMENT 'Upvote Counter for Starter Status',
-									  `section` varchar(64) DEFAULT NULL COMMENT 'Related Section',
+									  `section` varchar(128) DEFAULT NULL COMMENT 'Related Section',
 									  PRIMARY KEY (`id`)) ;");}
 		
 		// Construct Class

@@ -94,7 +94,7 @@
 										  `creation` datetime DEFAULT current_timestamp(),
 										  `errormsg` longtext DEFAULT NULL,
 										  `urlstring` varchar(512) DEFAULT NULL,
-										  `section` varchar(512) DEFAULT NULL,
+										  `section` varchar(128) DEFAULT NULL,
 										  PRIMARY KEY (`id`)
 										);");
 		}

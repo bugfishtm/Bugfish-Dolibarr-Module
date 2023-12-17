@@ -45,7 +45,7 @@
 										  `filename` text COMMENT 'Filename if Upload Function',
 										  `settings` text COMMENT 'Settings for this Request',
 										  `output` text COMMENT 'Output for this Request',
-										  `section` varchar(64) DEFAULT '' COMMENT 'Related Section',
+										  `section` varchar(128) DEFAULT '' COMMENT 'Related Section',
 										  `type` varchar(64) COMMENT 'Request Type',
 										  `creation` datetime DEFAULT CURRENT_TIMESTAMP COMMENT 'Creation',
 										  PRIMARY KEY (`id`) );");

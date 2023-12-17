@@ -41,7 +41,7 @@
 											  `id` int(10) NOT NULL AUTO_INCREMENT COMMENT 'Identificator',
 											  `full_url` varchar(512) NOT NULL DEFAULT '0' COMMENT 'Related Referer',
 											  `hits` int(10) NOT NULL DEFAULT '0' COMMENT 'Counted Hits',
-											  `section` varchar(64) NOT NULL DEFAULT '' COMMENT 'Related Section',
+											  `section` varchar(128) NOT NULL DEFAULT '' COMMENT 'Related Section',
 											  `creation` datetime DEFAULT CURRENT_TIMESTAMP COMMENT 'Creation Date - Auto Set',
 											  `modification` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT 'Modification Date | Auto - Set',
 											  PRIMARY KEY (`id`),
