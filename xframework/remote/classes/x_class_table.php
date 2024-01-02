@@ -188,11 +188,11 @@
 							$current = $this->mysql->select("SELECT * FROM `".$this->table."` WHERE `".$this->idf."` = '".$_POST["x_class_table_exec_edit".$this->id]."'", false);
 							foreach($this->edit_array as $key => $value) { if(isset($value["field_title"])) { echo "<b>".$value["field_title"]."</b><br />"; } if(isset($value["field_descr"])) { echo $value["field_descr"]."<br />"; }?>
 								<!-- Int -->
-								<?php if($value["field_type"] == "int") { ?> <input class="<?php echo $value["field_classes"]; ?>" placeholder="<?php echo $value["field_ph"]; ?>"  type="number" value="<?php echo @htmlentities(@$current[$value["field_name"]]); ?>" name="x_class_table_post_<?php echo $this->id."_".$value["field_name"]; ?>"><br /><?php } ?>				
+								<?php if($value["field_type"] == "int") { ?> <input class="<?php echo $value["field_classes"]; ?>" placeholder="<?php echo $value["field_ph"]; ?>"  type="number" value="<?php echo htmlentities(@$current[$value["field_name"]] ?? ''); ?>" name="x_class_table_post_<?php echo $this->id."_".$value["field_name"]; ?>"><br /><?php } ?>				
 								<!-- String -->
-								<?php if($value["field_type"] == "string") { ?> <input class="<?php echo $value["field_classes"]; ?>" placeholder="<?php echo $value["field_ph"]; ?>"  type="text" value="<?php echo @htmlentities(@$current[$value["field_name"]]); ?>" name="x_class_table_post_<?php echo $this->id."_".$value["field_name"]; ?>"><br /><?php } ?>					
+								<?php if($value["field_type"] == "string") { ?> <input class="<?php echo $value["field_classes"]; ?>" placeholder="<?php echo $value["field_ph"]; ?>"  type="text" value="<?php echo htmlentities(@$current[$value["field_name"]] ?? ''); ?>" name="x_class_table_post_<?php echo $this->id."_".$value["field_name"]; ?>"><br /><?php } ?>					
 								<!-- Text -->
-								<?php if($value["field_type"] == "text") { ?> <textarea class="<?php echo $value["field_classes"]; ?>" placeholder="<?php echo $value["field_ph"]; ?>"  name="x_class_table_post_<?php echo $this->id."_".$value["field_name"]; ?>"><?php echo nl2br(@htmlspecialchars(@$current[$value["field_name"]])); ?></textarea><br /><?php } ?>
+								<?php if($value["field_type"] == "text") { ?> <textarea class="<?php echo $value["field_classes"]; ?>" placeholder="<?php echo $value["field_ph"]; ?>"  name="x_class_table_post_<?php echo $this->id."_".$value["field_name"]; ?>"><?php echo nl2br(htmlspecialchars($current[$value["field_name"]] ?? '')); ?></textarea><br /><?php } ?>
 								<!-- Bool -->
 								<?php if(false) { ?>Configure: <input class="<?php echo $value["field_classes"]; ?>" type="checkbox" placeholder="<?php echo $value["field_ph"]; ?>" name="x_class_table_post_<?php echo $this->id."_".$value["field_name"]; ?>" ><br /><?php } ?>		
 								

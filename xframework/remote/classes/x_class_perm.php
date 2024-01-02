@@ -32,7 +32,7 @@
 		// Table Initialization
 		private function create_table() {
 			return $this->mysql->query("CREATE TABLE IF NOT EXISTS `".$this->tablename."` (
-										  `id` int(10) NOT NULL AUTO_INCREMENT COMMENT 'Identificator',
+										  `id` int(10) NOT NULL AUTO_INCREMENT COMMENT 'Unique ID to Identify',
 										  `ref` int(10) NOT NULL COMMENT 'Related Reference',
 										  `content` text NOT NULL COMMENT 'Permission Array',
 										  `section` varchar(128) DEFAULT NULL COMMENT 'Related Section',
@@ -52,7 +52,9 @@
 		public function get_perm($ref) { return $this->getPerm($ref); }
 		public function getPerm($ref) {
 			if(is_numeric($ref)) { 
-				$ar = $this->mysql->select("SELECT * FROM `".$this->tablename."` WHERE ref = \"".$ref."\" AND section = '".$this->section."'", false);
+				$b[0]["type"]	=	"s"; $b[0]["value"]	=	$ref; 
+				$b[1]["type"]	=	"s"; $b[1]["value"]	=	$this->section; 
+				$ar = $this->mysql->select("SELECT * FROM `".$this->tablename."` WHERE ref = ? AND section = ?", false, $b);
 				if(is_array($ar)) {
 					$newar	= unserialize($ar["content"]);
 					if(is_array($newar)) { return $newar; } else {return array();}
@@ -115,11 +117,19 @@
 		private function set_perm($ref, $array) { return $this->setPerm($ref, $array); }
 		private function setPerm($ref, $array) {	
 			if(is_numeric($ref)) { 
-				$query = $this->mysql->select("SELECT * FROM `".$this->tablename."` WHERE ref = \"".$ref."\" AND section = '".$this->section."'", false);
+				$b[0]["type"]	=	"s"; $b[0]["value"]	=	$ref; 
+				$b[1]["type"]	=	"s"; $b[1]["value"]	=	$this->section; 
+				$query = $this->mysql->select("SELECT * FROM `".$this->tablename."` WHERE ref = ? AND section = ?", false, $b);
 				if ($query ) { 
-					$this->mysql->update("UPDATE `".$this->tablename."` SET content = '".$this->mysql->escape(serialize($array))."' WHERE ref = '".$ref."' AND section = '".$this->section."'  ");
+					$b[0]["type"]	=	"s"; $b[0]["value"]	=	serialize($array); 
+					$b[1]["type"]	=	"s"; $b[1]["value"]	=	$ref; 
+					$b[2]["type"]	=	"s"; $b[2]["value"]	=	$this->section; 
+					$this->mysql->update("UPDATE `".$this->tablename."` SET content = ? WHERE ref = ? AND section = ?  ", $b);
 				} else { 
-					$this->mysql->query("INSERT INTO `".$this->tablename."` (ref, content, section) VALUES('".$ref."', '".$this->mysql->escape(serialize($array))."', '".$this->section."')"); 
+					$b[0]["type"]	=	"s"; $b[0]["value"]	=	$ref; 
+					$b[1]["type"]	=	"s"; $b[1]["value"]	=	serialize($array); 
+					$b[2]["type"]	=	"s"; $b[2]["value"]	=	$this->section; 
+					$this->mysql->query("INSERT INTO `".$this->tablename."` (ref, content, section) VALUES(?, ?, ?)", $b); 
 				}
 				return true;
 			} return false; 		
@@ -143,7 +153,10 @@
 		public function remove_perms($ref) { if(is_numeric($ref)) { return $this->setPerm($ref, array()); } return false; }
 		public function clear_perms($ref) { if(is_numeric($ref)) { return $this->setPerm($ref, array()); } return false; }
 		// Delete a Ref from Permission Table	
-		public function delete_ref($ref) { if(is_numeric($ref)) { return $this->mysql->query("DELETE FROM `".$this->tablename."` WHERE ref = \"".$ref."\" AND section = '".$this->section."'"); } return false; }
+		public function delete_ref($ref) { if(is_numeric($ref)) { 
+			$b[0]["type"]	=	"s"; $b[0]["value"]	=	$ref; 
+			$b[1]["type"]	=	"s"; $b[1]["value"]	=	$this->section; 
+			return $this->mysql->query("DELETE FROM `".$this->tablename."` WHERE ref = ? AND section = ?", $b); } return false; }
 		// Get a Ref Object
 		public function item($ref) { $item = new x_class_perm_item($this->mysql, $this->tablename, $this->section, $ref, $this->getPerm($ref)); return $item; }
 	}

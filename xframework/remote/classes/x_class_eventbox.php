@@ -84,7 +84,7 @@
 		}
 		
 		// Show Eventbox if Set
-		public function show($closebutton = false) {
+		public function show($closebutton = false, $filter = false) {
 			if(@$_SESSION[$this->cookie."x_class_eventbox_skip"]) { $_SESSION[$this->cookie."x_class_eventbox_skip"] = false; return true; } 
 			if(is_array($_SESSION[$this->cookie."x_class_eventbox"])) {
 				$hasitem = false;
@@ -98,7 +98,7 @@
 								echo '<div class="x_class_eventbox_msg x_class_eventbox_msg_'.$value["type"].'">';
 									echo '<div class="x_class_eventbox_msg_inner">';
 										echo '<div class="x_class_eventbox_msg_text">';
-											echo $value["text"];
+											if(!$filter) { echo $value["text"]; } else { echo htmlspecialchars($value["text"] ?? ''); }
 										echo '</div>';
 										if($closebutton) {
 											echo '<div class="x_class_eventbox_msg_close" onclick="this.parentNode.parentNode.remove()">';

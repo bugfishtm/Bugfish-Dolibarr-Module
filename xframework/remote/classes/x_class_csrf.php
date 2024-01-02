@@ -74,7 +74,7 @@
 			if(!$override_valid_time) { $override_valid_time = $this->valid_time;}
 			$tmp_s	=	@$_SESSION[$this->extension."x_class_csrf"];
 			$tmp_st	=	@$_SESSION[$this->extension."x_class_csrf_tms"];
-			if(@$code == $tmp_s AND @$code != NULL AND @trim($code) != "") {
+			if(@$code == $tmp_s AND @$code != NULL AND trim($code  ?? '') != "") {
 				if((time() - $tmp_st) < $override_valid_time AND $tmp_st != NULL AND isset($tmp_st)) {
 						return true;
 				} return false;
@@ -86,7 +86,7 @@
 		public function check_lkey($code, $override_valid_time = false) {
 			if(@$this->l_key_time == false) { $cct = "undef"; } else { $cct = @$this->l_key_time; }	
 			if(!$override_valid_time) { $override_valid_time = $this->valid_time; }
-			if(@$code == @$this->l_key AND @$code != NULL AND @trim($code) != "") {
+			if(@$code == @$this->l_key AND @$code != NULL AND trim($code  ?? '') != "") {
 				if((time() - $cct) < $override_valid_time AND $cct != NULL AND isset($cct)) {
 					return true;
 				}			

@@ -54,7 +54,9 @@
 		function request($url, $payload, $token = false, $section = false) {
 			if(!$section) { $section = $this->section; }
 			if(!$token) { 
-				$res = $this->mysql->select("SELECT * FROM `".$this->table."` WHERE direction = 'out' AND section = '".$this->mysql->escape($section)."'", false, $bind);
+				$bind[0]["type"]	=	"s";
+				$bind[0]["value"]	=	$section;	
+				$res = $this->mysql->select("SELECT * FROM `".$this->table."` WHERE direction = 'out' AND section = ?", false, $bind);
 				if(is_array($res)) {
 					$token = $res["api_token"];
 				} else { return "local-error:notokenprovided-noautotokenfound"; }		
@@ -97,14 +99,18 @@
 		public function token_add_incoming($token, $section = false) {
 			if(!$section) { $section = $this->section; }
 			$b[0]["type"]	=	"s";
-			$b[0]["value"]	=	trim($token);				
-			return @$this->mysql->query("INSERT INTO `".$this->table."`(api_token, section, direction) VALUES(?, '".$this->mysql->escape($section)."', 'in');", $b);}
+			$b[0]["value"]	=	trim($token ?? '');	
+			$bind[1]["type"]	=	"s";
+			$bind[1]["value"]	=	$section;			
+			return @$this->mysql->query("INSERT INTO `".$this->table."`(api_token, section, direction) VALUES(?, ?, 'in');", $b);}
 			
 		public function token_add_outgoing($token, $section = false) {
 			if(!$section) { $section = $this->section; }
 			$b[0]["type"]	=	"s";
-			$b[0]["value"]	=	trim($token);				
-			return @$this->mysql->query("INSERT INTO `".$this->table."`(api_token, section, direction) VALUES(?, '".$this->mysql->escape($section)."', 'out');", $b);}
+			$b[0]["value"]	=	trim($token ?? '');	
+			$bind[1]["type"]	=	"s";
+			$bind[1]["value"]	=	$section;			
+			return @$this->mysql->query("INSERT INTO `".$this->table."`(api_token, section, direction) VALUES(?, ?, 'out');", $b);}
 	
 		public function token_generate_incoming($section = false, $len = 32, $comb = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890') {
 			$pass = array(); $combLen = strlen($comb) - 1; for ($i = 0; $i < $len; $i++) { $n = mt_rand(0, $combLen); $pass[] = $comb[$n]; } $newtoken = implode($pass);
@@ -114,21 +120,27 @@
 		public function token_delete_incoming($token, $section = false) {
 			if(!$section) { $section = $this->section; }
 			$bind[0]["type"]	=	"s";
-			$bind[0]["value"]	=	trim($token);
-			return $this->mysql->query("DELETE FROM `".$this->table."` WHERE direction = 'in' AND api_token = ? AND section = '".$this->mysql->escape($section)."'", $bind);}	
+			$bind[0]["value"]	=	trim($token ?? '');
+			$bind[1]["type"]	=	"s";
+			$bind[1]["value"]	=	$section;
+			return $this->mysql->query("DELETE FROM `".$this->table."` WHERE direction = 'in' AND api_token = ? AND section = ?", $bind);}	
 			
 		public function token_delete_outgoing($token, $section = false) {
 			if(!$section) { $section = $this->section; }
 			$bind[0]["type"]	=	"s";
-			$bind[0]["value"]	=	trim($token);
-			return $this->mysql->query("DELETE FROM `".$this->table."` WHERE direction = 'out' AND api_token = ? AND section = '".$this->mysql->escape($section)."'", $bind);}	
+			$bind[0]["value"]	=	trim($token ?? '');
+			$bind[1]["type"]	=	"s";
+			$bind[1]["value"]	=	$section;
+			return $this->mysql->query("DELETE FROM `".$this->table."` WHERE direction = 'out' AND api_token = ? AND section = ?", $bind);}	
 
 		public function token_check_incoming($token, $section = false) {
 			// Only checking incoming tokens, External cant be checked
 			if(!$section) { $section = $this->section; }
 			$bind[0]["type"]	=	"s";
-			$bind[0]["value"]	=	trim($token);
-			$res = $this->mysql->select("SELECT * FROM `".$this->table."` WHERE direction = 'in' AND api_token = ? AND section = '".$this->mysql->escape($section)."'", false, $bind);
+			$bind[0]["value"]	=	trim($token ?? '');
+			$bind[1]["type"]	=	"s";
+			$bind[1]["value"]	=	$section;
+			$res = $this->mysql->select("SELECT * FROM `".$this->table."` WHERE direction = 'in' AND api_token = ? AND section = ?", false, $bind);
 			if(is_array($res)) {
 				@$this->mysql->query("UPDATE `".$this->table."` SET last_use = CURRENT_TIMESTAMP() WHERE id = '".$res["id"]."'");
 				return true;

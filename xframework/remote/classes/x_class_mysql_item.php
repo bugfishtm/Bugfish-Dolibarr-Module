@@ -39,23 +39,23 @@
 
 		// Get Field of Current Item
 		public function get($field) {
-			$x = $this->mysql->select("SELECT * FROM `".$this->tablename."` WHERE ".$this->id_field." = ".$this->id.";", false);
+			$x = $this->mysql->select("SELECT * FROM `".$this->tablename."` WHERE `".$this->id_field."` = ".$this->id.";", false);
 			if(is_array($x)){ return @$x[$field]; } else { return false;}}
 		
 		// Get Array of Current Item
-		public function get_array() { return $this->mysql->select("SELECT * FROM `".$this->tablename."` WHERE ".$this->id_field." = ".$this->id.";", false); }
+		public function get_array() { return $this->mysql->select("SELECT * FROM `".$this->tablename."` WHERE `".$this->id_field."` = ".$this->id.";", false); }
 
 		// Update Current Item
 		public function update($field, $value) {
 			$bind[0]["value"] =	$value;
 			$bind[0]["type"] =	"s";
-			return $this->mysql->query("UPDATE `".$this->tablename."` SET ".$field." = ? WHERE ".$this->id_field." = ".$this->id.";", $bind);}
+			return $this->mysql->query("UPDATE `".$this->tablename."` SET `".$field."` = ? WHERE `".$this->id_field."` = ".$this->id.";", $bind);}
 
 		// Update Current Item on NULL
-		public function update_null($field) {return $this->mysql->query("UPDATE `".$this->tablename."` SET ".$field." = NULL WHERE ".$this->id_field." = ".$this->id.";");}		
+		public function update_null($field) {return $this->mysql->query("UPDATE `".$this->tablename."` SET `".$field."` = NULL WHERE `".$this->id_field."` = ".$this->id.";");}		
 		
 		// Delete Current Item
-		public function delete() {return $this->mysql->query("DELETE FROM `".$this->tablename."` WHERE ".$this->id_field." = ".$this->id.";");}
+		public function delete() {return $this->mysql->query("DELETE FROM `".$this->tablename."` WHERE `".$this->id_field."` = ".$this->id.";");}
 		
 		// Clone Item with another ID
 		public function clone($id) {

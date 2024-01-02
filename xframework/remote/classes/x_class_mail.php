@@ -113,7 +113,9 @@
 			$b[5]["value"] = @serialize(@$content);
 			$b[6]["type"] = "s";
 			$b[6]["value"] = @serialize(@$debug_message);
-			$this->l_mysql->query("INSERT INTO `".$this->l_table."`(receiver, bcc, cc, attach, subject, msgtext, success, debugmsg, section) VALUES(?, ?, ?,?,?,?, '".$success."', ?, '".$this->l_section."');", $b);
+			$b[7]["type"] = "s";
+			$b[7]["value"] = $this->l_section;
+			$this->l_mysql->query("INSERT INTO `".$this->l_table."`(receiver, bcc, cc, attach, subject, msgtext, success, debugmsg, section) VALUES(?, ?, ?,?,?,?, '".$success."', ?, ?);", $b);
 			return true; } return true;
 		}
 
@@ -194,18 +196,18 @@
 			$tmp_mailer->isSMTP();
 		
 			// Write SMTP Settings from Class or Settings Override Array		
-			if(!is_string($settings["host"])) 			{$tmp_mailer->Host 			= $this->host; 			} else { $tmp_mailer->Host 			= $settings["host"];}
+			if(!is_string(@$settings["host"])) 			{$tmp_mailer->Host 			= $this->host; 			} else { $tmp_mailer->Host 			= $settings["host"];}
 			if(!isset($settings["smtpauth"])) 		{$tmp_mailer->SMTPAuth 	    = $this->smtpauth; 		} else { $tmp_mailer->SMTPAuth 		= $settings["smtpauth"];}
-			if(!is_string($settings["username"])) 		{$tmp_mailer->Username 	    = $this->username;		} else { $tmp_mailer->Username 		= $settings["username"];}
-			if(!is_string($settings["password"])) 		{$tmp_mailer->Password 	    = $this->password;  	} else { $tmp_mailer->Password 		= $settings["password"];}		
+			if(!is_string(@$settings["username"])) 		{$tmp_mailer->Username 	    = $this->username;		} else { $tmp_mailer->Username 		= $settings["username"];}
+			if(!is_string(@$settings["password"])) 		{$tmp_mailer->Password 	    = $this->password;  	} else { $tmp_mailer->Password 		= $settings["password"];}		
 			if(!isset($settings["smtpsecure"])) 	{$tmp_mailer->SMTPSecure    = $this->smtpsecure; 	} else { $tmp_mailer->SMTPSecure 	= $settings["smtpsecure"]; }
-			if(!is_numeric($settings["port"])) 			{$tmp_mailer->Port 		    = $this->port;	 		} else { $tmp_mailer->Port 			= $settings["port"]; }
-			if(!is_bool($settings["keep_alive"])) 	{$tmp_mailer->SMTPKeepAlive = $this->keep_alive; 	} else { $tmp_mailer->SMTPKeepAlive = $settings["keep_alive"]; }		
-			if(!is_string($settings["charset"])) 		{$tmp_mailer->CharSet 	   	= $this->charset; 		} else { $tmp_mailer->CharSet 		= $settings["charset"]; }
-			if(!is_string($settings["encoding"])) 		{$tmp_mailer->Encoding 		= $this->encoding; 		} else { $tmp_mailer->Encoding 		= $settings["encoding"]; }		
-			if(!is_bool($settings["html"])) 			{$tmp_mailer->isHTML($this->html); 					} else { $tmp_mailer->isHTML($settings["html"]); }		
-			if(!is_numeric($settings["smtpdebuglevel"])) 		{$tmp_mailer->SMTPDebug     = $this->smtpdebuglevel; 	} else { $tmp_mailer->SMTPDebug 	= $settings["smtpdebuglevel"]; }
-			if($settings["allow_insecure_connection"] !== false) {
+			if(!is_numeric(@$settings["port"])) 			{$tmp_mailer->Port 		    = $this->port;	 		} else { $tmp_mailer->Port 			= $settings["port"]; }
+			if(!is_bool(@$settings["keep_alive"])) 	{$tmp_mailer->SMTPKeepAlive = $this->keep_alive; 	} else { $tmp_mailer->SMTPKeepAlive = $settings["keep_alive"]; }		
+			if(!is_string(@$settings["charset"])) 		{$tmp_mailer->CharSet 	   	= $this->charset; 		} else { $tmp_mailer->CharSet 		= $settings["charset"]; }
+			if(!is_string(@$settings["encoding"])) 		{$tmp_mailer->Encoding 		= $this->encoding; 		} else { $tmp_mailer->Encoding 		= $settings["encoding"]; }		
+			if(!is_bool(@$settings["html"])) 			{$tmp_mailer->isHTML($this->html); 					} else { $tmp_mailer->isHTML($settings["html"]); }		
+			if(!is_numeric(@$settings["smtpdebuglevel"])) 		{$tmp_mailer->SMTPDebug     = $this->smtpdebuglevel; 	} else { $tmp_mailer->SMTPDebug 	= $settings["smtpdebuglevel"]; }
+			if(@$settings["allow_insecure_connection"] !== false) {
 				if($this->allow_insecure_connection) {				$tmp_mailer->SMTPOptions = [
 				  'ssl' => [
 					'verify_peer' => false,
@@ -232,7 +234,7 @@
 			$tmp_mailer->Body = $HEADER.$content.$FOOTER;
 
 			// Sender
-			if(is_array($settings["sender"])) { 
+			if(is_array(@$settings["sender"])) { 
 				if(isset($settings["sender"][0]) AND isset($settings["sender"][1])) {
 					$tmp_mailer->setFrom($settings["sender"][0], $settings["sender"][1]);
 				} elseif(isset($settings["sender"][1])) {
@@ -244,7 +246,7 @@
 				$tmp_mailer->setFrom($this->setFromMail, $this->setFromName);
 			}			
 			// Reply To
-			if(is_array($settings["replyto"])) { 
+			if(is_array(@$settings["replyto"])) { 
 				if(isset($settings["replyto"][0]) AND isset($settings["replyto"][1])) {
 					$tmp_mailer->addReplyTo($settings["replyto"][0], $settings["replyto"][1]);
 				} elseif(isset($settings["replyto"][1])) {

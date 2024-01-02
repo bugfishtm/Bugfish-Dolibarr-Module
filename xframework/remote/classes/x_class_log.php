@@ -36,10 +36,10 @@
 		######################################################
 		private function create_table() {
 			return $this->mysql->query("CREATE TABLE IF NOT EXISTS `".$this->table."` (
-												  `id` int(10) NOT NULL AUTO_INCREMENT COMMENT 'Identificator',
+												  `id` int(10) NOT NULL AUTO_INCREMENT COMMENT 'Unique ID to Identify',
 												  `type` int(10) DEFAULT '0' COMMENT '0 - Unspecified | 1 - Error | 2 - Warning | 3 - Notification',
-												  `message` text COMMENT 'Logged Text',
-												  `section` VARCHAR(128) NULL COMMENT 'Logged Category',
+												  `message` text COMMENT 'Message Text',
+												  `section` VARCHAR(128) NULL COMMENT 'Multi Section',
 												  `creation` datetime DEFAULT CURRENT_TIMESTAMP COMMENT 'Creation Date | Will be Auto-Set',
 												  PRIMARY KEY (`id`) );");
 		}
@@ -71,7 +71,9 @@
 			if(is_numeric($type)) { 
 				$b[0]["type"]	=	"s";
 				$b[0]["value"]	=	$message;
-				return $this->mysql->query("INSERT INTO `".$this->table."` (type, message, section) VALUES (\"".$type."\", ?, '".$this->section."')", $b);}
+				$b[1]["type"]	=	"s";
+				$b[1]["value"]	=	$this->section;
+				return $this->mysql->query("INSERT INTO `".$this->table."` (type, message, section) VALUES (\"".$type."\", ?, ?)", $b);}
 			else { return false; }			
 		}	
 		
@@ -82,7 +84,9 @@
 		public function notify($message) {
 			$b[0]["type"]	=	"s";
 			$b[0]["value"]	=	$message;
-			return $this->mysql->query("INSERT INTO `".$this->table."` (type, message, section) VALUES (3, ?, '".$this->section."')", $b);
+			$b[1]["type"]	=	"s";
+			$b[1]["value"]	=	$this->section;
+			return $this->mysql->query("INSERT INTO `".$this->table."` (type, message, section) VALUES (3, ?, ?)", $b);
 		}		
 		
 		######################################################
@@ -92,7 +96,9 @@
 		public function warning($message) {
 			$b[0]["type"]	=	"s";
 			$b[0]["value"]	=	$message;
-			return $this->mysql->query("INSERT INTO `".$this->table."` (type, message, section) VALUES (2, ?, '".$this->section."')", $b);
+			$b[1]["type"]	=	"s";
+			$b[1]["value"]	=	$this->section;
+			return $this->mysql->query("INSERT INTO `".$this->table."` (type, message, section) VALUES (2, ?, ?)", $b);
 		}		
 		
 		######################################################
@@ -104,21 +110,28 @@
 		public function error($message) {
 			$b[0]["type"]	=	"s";
 			$b[0]["value"]	=	$message;
-			return $this->mysql->query("INSERT INTO `".$this->table."` (type, message, section) VALUES (1, ?,'".$this->section."')", $b);
+			$b[1]["type"]	=	"s";
+			$b[1]["value"]	=	$this->section;
+			return $this->mysql->query("INSERT INTO `".$this->table."` (type, message, section) VALUES (1, ?, ?)", $b);
 		}		
 
 		######################################################
 		// Get Log Table Entries as Array
 		######################################################	
 		public function list_get($limit = 50) { 
-			return @$this->mysql->select("SELECT * FROM `".$this->table."` WHERE section = '".$this->section."' ORDER BY id DESC LIMIT ".$this->mysql->escape($limit).";", true); 
+			if(is_numeric($limit)) {} else { $limit = 50; }
+			$b[0]["type"]	=	"s";
+			$b[0]["value"]	=	$this->section;
+			return @$this->mysql->select("SELECT * FROM `".$this->table."` WHERE section = ? ORDER BY id DESC LIMIT ".$limit.";", true); 
 		}	
 
 		######################################################
 		// Delete Entries in Logtable List and reset Auto Increment
 		######################################################	
 		public function list_flush_section() { 
-			@$this->mysql->query("DELETE FROM `".$this->table."` WHERE section = '".$this->section."';"); 
+			$b[0]["type"]	=	"s";
+			$b[0]["value"]	=	$this->section;
+			@$this->mysql->query("DELETE FROM `".$this->table."` WHERE section = ?;", $b); 
 			@$this->mysql->auto_increment($this->table, 1); 
 			return true;
 		}	

@@ -57,7 +57,7 @@
 				print '<tr class="x_table_complex_tr">';$tcount	=	0;
 				foreach( $array[0] as $key => $value ){
 					$tmp_placeholder = $titlelist[$tcount];$tcount = $tcount + 1;
-					$tmp_value = @htmlspecialchars($_POST['x_t_c_'.$key]);
+					$tmp_value = htmlspecialchars($_POST['x_t_c_'.$key] ?? '');
 					print '<th><input type="text" name="x_t_c_'.$key.'" value="'.@$tmp_value.'" placeholder="'.$tmp_placeholder.'"></th>';}
 				print '</tr>';}
 		print '<tr class="x_table_complex_tr">';$t_r_count	= 0 ;
@@ -72,7 +72,7 @@
 			foreach( $array as $key => $value ){
 					$search_relevant	=	true;
 					foreach( $array[$key] as $key1 => $value1 ){
-						if(isset($_POST["x_t_c_".$key1]) AND @trim($_POST["x_t_c_".$key1]) != "") {if(strpos($value1, $_POST["x_t_c_".$key1]) <= -1) {$search_relevant	=	false;}}}							
+						if(isset($_POST["x_t_c_".$key1]) AND trim($_POST["x_t_c_".$key1] ?? '') != "") {if(strpos($value1, $_POST["x_t_c_".$key1]) <= -1) {$search_relevant	=	false;}}}							
 				if($search_relevant) {
 					print '<tr class="x_table_complex_tr">';
 					$t_r_count	=	0;

@@ -65,18 +65,19 @@
 									  PRIMARY KEY (`id`)) ;");}
 		
 		// Construct Class
-		function __construct($mysql, $table, $precookie, $module, $target) {
+		function __construct($mysql, $table, $precookie, $module, $target, $section = "") {
 			if (session_status() === PHP_SESSION_NONE) { session_start(); }
 			$this->mysqlobj = $mysql;
 			$this->table    = $table;
 			$this->pre      = $precookie;
 			$this->target   = $target;
+			$this->section   = $section;
 			$this->module   = $module;
 			
 			// Prepare Commented Array
-			if(!@unserialize(@$_SESSION[$this->pre."xc_comment"])) { $_SESSION[$this->pre."xc_comment"] = serialize(array());}
-			if(!@isset($_SESSION[$this->pre."xc_comment"])) { $_SESSION[$this->pre."xc_comment"] == serialize(array()); }
-			$tmp = @unserialize(@$_SESSION[$this->pre."xc_comment"]);
+			if(!@unserialize(@$_SESSION[$this->pre."x_class_comment"])) { $_SESSION[$this->pre."x_class_comment"] = serialize(array());}
+			if(!@isset($_SESSION[$this->pre."x_class_comment"])) { $_SESSION[$this->pre."x_class_comment"] == serialize(array()); }
+			$tmp = @unserialize(@$_SESSION[$this->pre."x_class_comment"]);
 			if(!is_array($tmp)) { $this->vote_arr = array(); } else { $this->vote_arr = $tmp; }
 			
 			// CHeck if Vote is Done For Current Object
@@ -125,7 +126,9 @@
 			$bind[0]["type"] =  "s";
 			$bind[1]["value"] = $this->target;
 			$bind[1]["type"] =  "s";
-			$q	=	@$this->mysqlobj->query('SELECT * FROM `'.$this->table .'` WHERE target = ? AND targetid = ? '.$sorting, $bind);
+			$bind[2]["value"] = $this->section;
+			$bind[2]["type"] =  "s";
+			$q	=	@$this->mysqlobj->query('SELECT * FROM `'.$this->table .'` WHERE target = ? AND targetid = ?  AND section = ? '.$sorting, $bind);
 			while($r=@mysqli_fetch_array($q)){ 
 				 if($hide_system_msg AND $r["status"] == 3) { continue; }
 				 if($hide_internal_msg AND $r["status"] == 2) { continue; }
@@ -145,7 +148,9 @@
 			$bind[0]["type"] =  "s";
 			$bind[1]["value"] = $this->target;
 			$bind[1]["type"] =  "s";
-			$q	=	@$this->mysqlobj->query('SELECT * FROM `'.$this->table .'` WHERE target = ? AND targetid = ? '.$sorting, $bind);
+			$bind[2]["value"] = $this->section;
+			$bind[2]["type"] =  "s";
+			$q	=	@$this->mysqlobj->query('SELECT * FROM `'.$this->table .'` WHERE target = ? AND targetid = ? AND section = ? '.$sorting, $bind);
 			while($r=@mysqli_fetch_array($q)){ 
 				 if($hide_system_msg AND $r["status"] == 3) { continue; }
 				 if($hide_internal_msg AND $r["status"] == 2) { continue; }
@@ -168,9 +173,11 @@
 			$bind[0]["type"] =  "s";
 			$bind[1]["value"] = $this->target;
 			$bind[1]["type"] =  "s";
+			$bind[2]["value"] = $this->section;
+			$bind[2]["type"] =  "s";
 
 			// Insert System Entrie if Not Exists
-			$q	= @$this->mysqlobj->query( 'SELECT * FROM `'.$this->table .'` WHERE status = 3 AND target = ? AND targetid = ?', $bind);
+			$q	= @$this->mysqlobj->query( 'SELECT * FROM `'.$this->table .'` WHERE status = 3 AND target = ? AND targetid = ? AND section = ? ', $bind);
 			if(mysqli_num_rows($q) <= 0) {
 				$bind1[0]["value"] = $this->module;
 				$bind1[0]["type"] =  "s";
@@ -180,12 +187,14 @@
 				$bind1[2]["type"] =  "s";
 				$bind1[3]["value"] = $this->sys_text;
 				$bind1[3]["type"] =  "s";		
-				@$this->mysqlobj->query( "INSERT INTO `".$this->table ."` (target, targetid, name, text, status) VALUE(?,?,?,?, 3);", $bind1); 
+				$bind1[4]["value"] = $this->section;
+				$bind1[4]["type"] =  "s";
+				@$this->mysqlobj->query( "INSERT INTO `".$this->table ."` (target, targetid, name, text, status, section) VALUE(?,?,?,?, 3, ?);", $bind1); 
 				$this->init_res = 1;
 			}
 			
 			// Endorse Counter Update
-			$q	= @$this->mysqlobj->query( 'SELECT * FROM `'.$this->table .'` WHERE status = 3 AND target = ? AND targetid = ?', $bind);
+			$q	= @$this->mysqlobj->query( 'SELECT * FROM `'.$this->table .'` WHERE status = 3 AND target = ? AND targetid = ? AND section = ? ', $bind);
 			if(mysqli_num_rows($q) <= 0) {
 				if($r 	= @mysqli_fetch_array($q) ) {
 					$this->upvote = $r["upvotes"];
@@ -193,7 +202,7 @@
 			} else { $this->upvote = 0; } 
 
 			// Comment Counter Update
-			$q	= @$this->mysqlobj->query( 'SELECT * FROM `'.$this->table .'` WHERE target = ? AND targetid = ?', $bind);
+			$q	= @$this->mysqlobj->query( 'SELECT * FROM `'.$this->table .'` WHERE target = ? AND targetid = ? AND section = ? ', $bind);
 			if(mysqli_num_rows($q) <= 0) {	
 				$this->comment = mysqli_num_rows($q);
 			} else { $this->comment = 0; } 
@@ -202,17 +211,17 @@
 			// New Vote
 			if(!$this->vote_done) {
 				if(@$_GET["x_comment_vote"]  == "vote") {
-					array_push($_SESSION[$this->pre."xc_comment"], $this->module.$this->target);
+					array_push($_SESSION[$this->pre."x_class_comment"], $this->module.$this->target);
 					array_push($this->vote_arr, $this->module.$this->target);
 					$this->vote_done = true;
 					$this->init_res = 2;
-					@$this->mysqlobj->update( "UPDATE `".$this->table ."` SET upvotes = upvotes + 1 WHERE target = ? AND targetid = ? AND status = 3");
+					@$this->mysqlobj->update( "UPDATE `".$this->table ."` SET upvotes = upvotes + 1 WHERE target = ? AND targetid = ? AND status = 3  AND section = ? ", $bind);
 				}
 			}
 			// New Comment
 			if(isset($_POST["x_comment_submit"])) {
-				if (trim(@$_POST["x_comment_name"]) != "" AND trim(@$_POST["x_comment_text"]) != "" AND isset($_POST["x_comment_text"]) AND isset($_POST["x_comment_name"])){
-					if (trim(strtolower(@$_POST["x_comment_name"])) == $this->sys_name){$_POST["x_comment_name"] = "Guest_".trim(strtolower(@$_POST["x_comment_name"])); }
+				if (trim(@$_POST["x_comment_name"] ?? '') != "" AND trim(@$_POST["x_comment_text"] ?? '') != "" AND isset($_POST["x_comment_text"]) AND isset($_POST["x_comment_name"])){
+					if (trim(strtolower(@$_POST["x_comment_name"])) == $this->sys_name){$_POST["x_comment_name"] = "Guest_".trim(strtolower(@$_POST["x_comment_name"]) ?? ''); }
 					if (@$captcha_code_if_delivered == @$_POST["x_comment_captcha"] AND @$captcha_code_if_delivered != false){
 						$bind[0]["value"] = $_POST["x_comment_name"];
 						$bind[0]["type"] = "s";
@@ -221,8 +230,10 @@
 						$bind[2]["value"] = $this->module;
 						$bind[2]["type"] = "s";
 						$bind[3]["value"] = $this->target;
-						$bind[3]["type"] = "s";								
-						$comment_sql1	=	'INSERT INTO `'.$this->table .'`(name, creation, text, target, targetid, status)VALUES(?, "'.date("Y-m-d H:i:s").'", ?, ?, ?, 0)';
+						$bind[3]["type"] = "s";					
+						$bind[4]["value"] = $this->section;
+						$bind[4]["type"] =  "s";				
+						$comment_sql1	=	'INSERT INTO `'.$this->table .'`(name, text, target, targetid, status, section)VALUES(?, ?, ?, ?, 0, ?)';
 						$comment_r1	=	$this->mysqlobj->query( $comment_sql1, $bind);
 						$this->init_res = 5;
 					} else { $this->init_res = 4; }

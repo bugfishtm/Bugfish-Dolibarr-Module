@@ -40,7 +40,9 @@
 
 		// Get Permissions to Local Array
 		public function refresh() {
-				$ar = $this->mysql->select("SELECT * FROM `".$this->tablename."` WHERE ref = \"".$this->ref."\" AND section = '".$this->section."'", false);
+				$b[0]["type"]	=	"s"; $b[0]["value"]	=	$this->ref; 
+				$b[1]["type"]	=	"s"; $b[1]["value"]	=	$this->section;
+				$ar = $this->mysql->select("SELECT * FROM `".$this->tablename."` WHERE ref = ? AND section = ?", false, $b);
 				if(is_array($ar)) {
 					$newar	= unserialize($ar["content"]);
 					if(is_array($newar)) { $this->permissions = $newar; } else {$this->permissions =  array();}
@@ -102,19 +104,30 @@
 				foreach($current_perm AS $key => $value) {
 					if($value != $permname) { array_push($newperm, $value); }
 				}
-			} return $this->set_perm($ref, $newperm);}	
+			} return $this->set_perm($this->ref, $newperm);}	
 
 		// Set Ref Permissions		
 		private function set_perm($ref, $array) { 	
-			$query = $this->mysql->select("SELECT * FROM `".$this->tablename."` WHERE ref = \"".$this->ref."\" AND section = '".$this->section."'", false);
+			$b[0]["type"]	=	"s"; $b[0]["value"]	=	$this->ref; 
+			$b[1]["type"]	=	"s"; $b[1]["value"]	=	$this->section;
+			$query = $this->mysql->select("SELECT * FROM `".$this->tablename."` WHERE ref = ? AND section = ?", false, $b);
 			if ($query) { 
-				$this->mysql->update("UPDATE `".$this->tablename."` SET content = '".$this->mysql->escape(serialize($array))."' WHERE ref = '".$ref."' AND section = '".$this->section."'  ");
+				$b[0]["type"]	=	"s"; $b[0]["value"]	=	serialize($array); 
+				$b[1]["type"]	=	"s"; $b[1]["value"]	=	$this->ref; 
+				$b[2]["type"]	=	"s"; $b[2]["value"]	=	$this->section;
+				$this->mysql->update("UPDATE `".$this->tablename."` SET content = ? WHERE ref = ? AND section = ?  ", $b);
 			} else { 
-				$this->mysql->query("INSERT INTO `".$this->tablename."` (ref, content, section) VALUES('".$this->ref."', '".$this->mysql->escape(serialize($array))."', '".$this->section."')"); 
+				$b[0]["type"]	=	"s"; $b[0]["value"]	=	$this->ref; 
+				$b[1]["type"]	=	"s"; $b[1]["value"]	=	serialize($array); 
+				$b[2]["type"]	=	"s"; $b[2]["value"]	=	$this->section;
+				$this->mysql->query("INSERT INTO `".$this->tablename."` (ref, content, section) VALUES(?,  ?, ?)", $b); 
 			} return true;}
 		
 		// Remove Ref Permissions	
 		public function remove_perms() { return $this->set_perm(array()); }
 		// Delete a Ref from Permission Table	
-		public function delete_ref() { return $this->mysql->query("DELETE FROM `".$this->tablename."` WHERE ref = \"".$this->ref."\" AND section = '".$this->section."'");}
+		public function delete_ref() { 
+			$b[0]["type"]	=	"s"; $b[0]["value"]	=	$this->ref; 
+			$b[1]["type"]	=	"s"; $b[1]["value"]	=	$this->section; 
+			return $this->mysql->query("DELETE FROM `".$this->tablename."` WHERE ref = ? AND section = ?", $b);}
 	}

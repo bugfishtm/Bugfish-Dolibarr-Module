@@ -154,7 +154,7 @@ class x_class_user {
 							`modification` datetime NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT 'Modification Date',
 							PRIMARY KEY (`id`));");}}	
 	## Group Functions
-	public function group_add($name, $description = "") {$bind[0]["value"] = trim($name); $bind[0]["type"] = "s";$bind[1]["value"] = trim($description); $bind[1]["type"] = "s";$this->mysql->query("INSERT INTO ".$this->table_group."(group_name, group_description) VALUES(?, ?)", $bind); return true;}
+	public function group_add($name, $description = "") {$bind[0]["value"] = trim($name ?? ''); $bind[0]["type"] = "s";$bind[1]["value"] = trim($description ?? ''); $bind[1]["type"] = "s";$this->mysql->query("INSERT INTO ".$this->table_group."(group_name, group_description) VALUES(?, ?)", $bind); return true;}
 	public function group_del($id) { if(is_numeric($id)) { $this->mysql->query("DELETE FROM `".$this->table_group."` WHERE id = ".$id.""); $this->mysql->query("DELETE FROM `".$this->table_group_link."` WHERE fk_group = ".$id."");} return true; }
 	public function group_users($groupid) {if(is_numeric($groupid)) {return $this->mysql->select("SELECT * FROM `".$this->table_group_link."` WHERE fk_group = ".$groupid."", true); return true;} return false;}
 	public function user_groups($userid) {if(is_numeric($userid)) {return $this->mysql->select("SELECT * FROM `".$this->table_group_link."` WHERE fk_user = ".$userid."", true); return true;} return false;}
@@ -426,7 +426,7 @@ class x_class_user {
 		// If Reference Exists than false
 			// Mail or other ref?
 			if($this->login_field == "user_mail") { $ref = $mail; } else { $ref = $nameref;  }
-			$bind[0]["value"] = strtolower(trim($ref)); $bind[0]["type"] = "s";
+			$bind[0]["value"] = strtolower(trim($ref ?? '')); $bind[0]["type"] = "s";
 			// Find Ref
 			$r = $this->mysql->select("SELECT * FROM `".$this->dt_users."` WHERE LOWER(".$this->login_field.") = ? AND user_confirmed = 1", false, $bind);
 			// User Exists Active with Ref
@@ -436,13 +436,13 @@ class x_class_user {
 		// Prepare Rank
 		if(!$rank) {$rank = 0;} else {$rank = $rank;}		
 		// Prepare Password
-		if(!$password OR trim($password) == "") {$password = "NULL";} else {$password = $this->password_crypt($password);}		
+		if(!$password OR trim($password ?? '') == "") {$password = "NULL";} else {$password = $this->password_crypt($password);}		
 		//Delete Other Unconfirmed
 		$this->mysql->query("DELETE FROM `".$this->dt_users."` WHERE user_confirmed = 0  AND LOWER(".$this->login_field.") = ?", $bind);
 		$this->mysql->query("UPDATE `".$this->dt_users."` SET user_shadow = NULL WHERE LOWER(user_shadow) = ?", $bind);
 		//Query
-		$bind[0]["value"] = trim($nameref); $bind[0]["type"] = "s";
-		$bind[1]["value"] = trim($mail); $bind[1]["type"] = "s";
+		$bind[0]["value"] = trim($nameref ?? ''); $bind[0]["type"] = "s";
+		$bind[1]["value"] = trim($mail ?? ''); $bind[1]["type"] = "s";
 		$this->mysql->query("INSERT INTO ".$this->dt_users."(user_name, user_mail, user_pass, user_rank, user_confirmed)
 		VALUES(?, ?, '". $password."', '".$rank."', '".$activated."')", $bind);	
 		return true;}	
@@ -466,21 +466,21 @@ class x_class_user {
 	public function change_rank($id = false, $new = false){ if(!$new) { return false;} if(!$this->int_opid($id)){ return false; } else { $id = $this->int_opid($id);} if(is_numeric($id) AND is_numeric($new)){return $this->mysql->query("UPDATE `".$this->dt_users."` SET user_rank = '".$new."' WHERE id = '".$id."'");}return false;}
 	## Change a Username
 	public function change_name($id = false, $new = false){  return $this->changeUserName($id , $new);}	
-	public function changeUserName($id = false, $new = false){ if(!$new) { return false;}  $bind[0]["value"] = trim($new);$bind[0]["type"] = "s";
+	public function changeUserName($id = false, $new = false){ if(!$new) { return false;}  $bind[0]["value"] = trim($new ?? '');$bind[0]["type"] = "s";
 		if(!$this->int_opid($id)){ return false; } else { $id = $this->int_opid($id);}
-		if(strlen(trim($new)) > 0) {} else { return false; }
+		if(strlen(trim($new ?? '')) > 0) {} else { return false; }
 		if(!$this->user_unique){
 			return $this->mysql->query("UPDATE `".$this->dt_users."` SET user_name = ? WHERE id = '".$id."'", $bind);
 		} else {
 			$r = $this->mysql->query("SELECT * FROM `".$this->dt_users."` WHERE id = '".$id."'");
 			if($rrx = $this->mysql->fetch_array($r)){
-				if(trim(strtolower($rrx["user_name"])) == trim(strtolower($new))) {return true;} }
+				if(trim(strtolower($rrx["user_name"]) ?? '') == trim(strtolower($new) ?? '')) {return true;} }
 		  if($this->usernameExistsActive($new)){return false;}else{$this->mysql->query("UPDATE `".$this->dt_users."` SET user_name = ? WHERE id = '".$id."'", $bind); return true;}}return false;}		
 	## Change Users Shadow Mail
 	public function change_shadow($id = false, $new = false){ return $this->changeUserShadowMail($id , $new);}	
-	public function changeUserShadowMail($id = false, $new = false){ if(!$new) { return false;}  $bind[0]["value"] = trim($new);$bind[0]["type"] = "s";
+	public function changeUserShadowMail($id = false, $new = false){ if(!$new) { return false;}  $bind[0]["value"] = trim($new ?? '');$bind[0]["type"] = "s";
 		if(!$this->int_opid($id)){ return false; } else { $id = $this->int_opid($id);}
-		if(strlen(trim($new)) > 0) { } else { return false; }
+		if(strlen(trim($new ?? '')) > 0) { } else { return false; }
 		if (!$this->mail_unique) { 
 			$this->mysql->query("UPDATE `".$this->dt_users."` SET user_shadow = ? WHERE id = '".$id."'", $bind);
 			return true;
@@ -489,35 +489,35 @@ class x_class_user {
 		return false;}		
 	## Change Users Mail	
 	public function change_mail($id = false, $new = false){ return $this->changeUserMail($id , $new);}	
-	public function changeUserMail($id = false, $new = false)  { if(!$new) { return false;}  $bind[0]["value"] = trim($new);$bind[0]["type"] = "s";	
+	public function changeUserMail($id = false, $new = false)  { if(!$new) { return false;}  $bind[0]["value"] = trim($new ?? '');$bind[0]["type"] = "s";	
 		if(!$this->int_opid($id)){ return false; } else { $id = $this->int_opid($id);}
-		if(strlen(trim($new)) > 0) {} else { return false; }
+		if(strlen(trim($new ?? '')) > 0) {} else { return false; }
 		if (!$this->mail_unique) {
 			return $this->mysql->query("UPDATE `".$this->dt_users."` SET user_mail = ? WHERE id = '".$id."'", $bind);	
 		} else { 
 			$r = $this->mysql->query("SELECT * FROM `".$this->dt_users."` WHERE id = '".$id."'");
-			if($rrx = $this->mysql->fetch_array($r)){ if(trim(strtolower($rrx["user_mail"])) == trim(strtolower($new))) {return true;}}
+			if($rrx = $this->mysql->fetch_array($r)){ if(trim(strtolower($rrx["user_mail"]) ?? '') == trim(strtolower($new) ?? '')) {return true;}}
 			if($this->mailExistsActive($new)) {return false;} else {
-				$this->mysql->query("DELETE FROM `".$this->dt_users."` WHERE user_confirmed = 0 AND LOWER(user_mail) = '".$this->mysql->escape(strtolower(trim($new)))."'");
-				$this->mysql->query("UPDATE `".$this->dt_users."` SET user_shadow = NULL WHERE LOWER(user_shadow) = '".$this->mysql->escape(strtolower(trim($new)))."'");
+				$this->mysql->query("DELETE FROM `".$this->dt_users."` WHERE user_confirmed = 0 AND LOWER(user_mail) = '".$this->mysql->escape(strtolower(trim($new ?? '')))."'");
+				$this->mysql->query("UPDATE `".$this->dt_users."` SET user_shadow = NULL WHERE LOWER(user_shadow) = '".$this->mysql->escape(strtolower(trim($new ?? '')))."'");
 				$this->mysql->query("UPDATE `".$this->dt_users."` SET user_mail = ? WHERE id = '".$id."'", $bind);
 				return  true;}
 		}return false;}	
 	## Check if Ref Exists
 	public function ref_exists($ref){ return $this->refExists($ref); }	
-	public function refExists($ref){$bind[0]["value"] = strtolower(trim($ref));$bind[0]["type"] = "s"; $r = $this->mysql->query("SELECT * FROM `".$this->dt_users."` WHERE LOWER(".$this->login_field.") = ?", $bind);if($rrx = $this->mysql->fetch_array($r)){return true;}return false;}	
+	public function refExists($ref){$bind[0]["value"] = strtolower(trim($ref ?? ''));$bind[0]["type"] = "s"; $r = $this->mysql->query("SELECT * FROM `".$this->dt_users."` WHERE LOWER(".$this->login_field.") = ?", $bind);if($rrx = $this->mysql->fetch_array($r)){return true;}return false;}	
 	public function ref_exists_active($ref){ return $this->refExistsActive($ref); }
-	public function refExistsActive($ref) {$bind[0]["value"] = strtolower(trim($ref));$bind[0]["type"] = "s"; $r = $this->mysql->query("SELECT * FROM `".$this->dt_users."` WHERE LOWER(".$this->login_field.") = ? AND user_confirmed = 1", $bind);if($rrx = $this->mysql->fetch_array($r)){return true;}return false;}	
+	public function refExistsActive($ref) {$bind[0]["value"] = strtolower(trim($ref ?? ''));$bind[0]["type"] = "s"; $r = $this->mysql->query("SELECT * FROM `".$this->dt_users."` WHERE LOWER(".$this->login_field.") = ? AND user_confirmed = 1", $bind);if($rrx = $this->mysql->fetch_array($r)){return true;}return false;}	
 	## Check if Username Exists
 	public function username_exists($ref){ return $this->usernameExists($ref); }
-	public function usernameExists($ref){$bind[0]["value"] = strtolower(trim($ref));$bind[0]["type"] = "s"; $r = $this->mysql->query("SELECT * FROM `".$this->dt_users."` WHERE LOWER(user_name) = ?", $bind);if($rrx=$this->mysql->fetch_array($r)){return true;}return false;}	
+	public function usernameExists($ref){$bind[0]["value"] = strtolower(trim($ref ?? ''));$bind[0]["type"] = "s"; $r = $this->mysql->query("SELECT * FROM `".$this->dt_users."` WHERE LOWER(user_name) = ?", $bind);if($rrx=$this->mysql->fetch_array($r)){return true;}return false;}	
 	public function username_exists_active($ref){ return $this->usernameExistsActive($ref); }
-	public function usernameExistsActive($ref){$bind[0]["value"] = strtolower(trim($ref));$bind[0]["type"] = "s"; $r = $this->mysql->query("SELECT * FROM `".$this->dt_users."` WHERE LOWER(user_name) = ? AND user_confirmed = 1", $bind);if($rrx = $this->mysql->fetch_array($r)){return true;}return false;}	
+	public function usernameExistsActive($ref){$bind[0]["value"] = strtolower(trim($ref ?? ''));$bind[0]["type"] = "s"; $r = $this->mysql->query("SELECT * FROM `".$this->dt_users."` WHERE LOWER(user_name) = ? AND user_confirmed = 1", $bind);if($rrx = $this->mysql->fetch_array($r)){return true;}return false;}	
 	## Check if Mail Exists
 	public function mail_exists($ref){ return $this->mailExists($ref); }
-	public function mailExists($ref){$bind[0]["value"] = strtolower(trim($ref));$bind[0]["type"] = "s"; $r = $this->mysql->query("SELECT * FROM `".$this->dt_users."` WHERE LOWER(user_mail) = ?", $bind);if($rrx=$this->mysql->fetch_array($r)){return true;}return false;}	
+	public function mailExists($ref){$bind[0]["value"] = strtolower(trim($ref ?? ''));$bind[0]["type"] = "s"; $r = $this->mysql->query("SELECT * FROM `".$this->dt_users."` WHERE LOWER(user_mail) = ?", $bind);if($rrx=$this->mysql->fetch_array($r)){return true;}return false;}	
 	public function mail_exists_active($ref){ return $this->mailExistsActive($ref); }
-	public function mailExistsActive($ref) {$bind[0]["value"] = strtolower(trim($ref));$bind[0]["type"] = "s"; $r = $this->mysql->query("SELECT * FROM `".$this->dt_users."` WHERE LOWER(user_mail) = ? AND user_confirmed = 1", $bind);if($rrx = $this->mysql->fetch_array($r)){return true;}return false;}	
+	public function mailExistsActive($ref) {$bind[0]["value"] = strtolower(trim($ref ?? ''));$bind[0]["type"] = "s"; $r = $this->mysql->query("SELECT * FROM `".$this->dt_users."` WHERE LOWER(user_mail) = ? AND user_confirmed = 1", $bind);if($rrx = $this->mysql->fetch_array($r)){return true;}return false;}	
 	# Extradata User Array Field Modifications
 	public function get_extra($id = false) {if(!$this->int_opid($id)){ return false; } else { $id = $this->int_opid($id);} if(is_numeric($id)) {$ar = $this->mysql->select("SELECT * FROM `".$this->dt_users."` WHERE id = '".$id."'");if(is_array($ar)) {return unserialize($ar["extradata"]);} return false;} return false;}
 	public function set_extra($id = false, $array = false) { if(!$array) { return false;} if(!$this->int_opid($id)){ return false; } else { $id = $this->int_opid($id);} if(is_numeric($id) AND is_array($array)) {$bind[0]["type"] = "s";$bind[0]["value"] = serialize($array);return $this->mysql->query("UPDATE `".$this->dt_users."` SET extradata = ? WHERE id = '".$id."'", $bind);} return false;}	
@@ -526,7 +526,7 @@ class x_class_user {
 		// Only Logged in Users can Log In as Another User!
 		if($this->user_loggedin != true) { return false; }
 		// Do not allow Login as same user
-		if($this->user_id == trim($id)) { return false; }
+		if($this->user_id == trim($id ?? '')) { return false; }
 		// Already Shadow Logged in as another User?
 		if(is_numeric($_SESSION[$this->sessions."x_users_login_shadow"])) { return false; }
 		// Does the user exist?
@@ -895,7 +895,7 @@ class x_class_user {
 				\/     \/                  \/      \/         */		
 	######################################################################################################################################################
 	# Mail Edit with Confirmation
-	public function mail_edit($id, $newmail, $nointervall = false) { $this->internal_ref_reset(); $bind[0]["type"] = "s"; $bind[0]["value"] = trim(strtolower($newmail));	
+	public function mail_edit($id, $newmail, $nointervall = false) { $this->internal_ref_reset(); $bind[0]["type"] = "s"; $bind[0]["value"] = trim(strtolower($newmail) ?? '');	
 		// Return if user not numeric
 		if(!is_numeric($id)) { $this->mc_request_code = 2;return 2; }				
 		// Proceed
@@ -908,7 +908,7 @@ class x_class_user {
 			// Check if Interval for new Mail Edit is Okay or Deactivated in Function (For Admin)
 			if(!$nointervall) { if(is_numeric($this->wait_activation_min)) {if(isset($f["req_mail_edit"])) {if ($this->check_interval($f["req_mail_edit"], '-'.$this->wait_activation_min.' minutes')) {$this->internal_ref_set($f);$this->mc_request_code = 3;return 3; }}} }
 			// Change the Users Mail
-			if(!$this->changeUserShadowMail($id, trim($newmail))) { $this->mc_request_code = 4; return 4; } // Mail Exists on Once Active User
+			if(!$this->changeUserShadowMail($id, trim($newmail ?? ''))) { $this->mc_request_code = 4; return 4; } // Mail Exists on Once Active User
 			// Log Mail Edits
 			if($this->log_mail_edit) {$this->mysql->query("UPDATE `".$this->dt_keys."` SET is_active = 0 WHERE fk_user = ".$f["id"]." AND key_type = '".$this->key_mail_edit."'");	
 			} else { $this->mysql->query("DELETE FROM `".$this->dt_keys."` WHERE fk_user = ".$f["id"]." AND key_type = '".$this->key_mail_edit."'");};
@@ -947,7 +947,7 @@ class x_class_user {
 				$x = $this->mysql->query("SELECT * FROM `".$this->dt_users."`  WHERE id = \"".$userid."\"");
 				if($xf=$this->mysql->fetch_array($x)) {
 					// Another Account has Changed to this mail or registered
-					if($xf["user_shadow"] == NULL OR trim($xf["user_shadow"]) == "") { $this->internal_ref_set($f);$this->mc_request_code = 4; return 4;  }										
+					if($xf["user_shadow"] == NULL OR trim($xf["user_shadow"] ?? '') == "") { $this->internal_ref_set($f);$this->mc_request_code = 4; return 4;  }										
 
 					// Process Request
 					if(!$this->mail_unique) {
@@ -961,7 +961,7 @@ class x_class_user {
 						$this->mysql->query("UPDATE `".$this->dt_users."` SET user_shadow = NULL WHERE id = '".$userid."'");
 					} else {
 						// Delete Unconfirmed Account if Exists
-						$this->mysql->query("DELETE FROM `".$this->dt_users."` WHERE LOWER(user_mail) = '".$this->mysql->escape(strtolower(trim($xf["user_shadow"])))."' AND user_confirmed = 0");
+						$this->mysql->query("DELETE FROM `".$this->dt_users."` WHERE LOWER(user_mail) = '".$this->mysql->escape(strtolower(trim($xf["user_shadow"] ?? '')))."' AND user_confirmed = 0");
 						
 						// Mail already Existant otherwhise change
 						if(!$this->changeUserMail($f["fk_user"], $xf["user_shadow"])) { $this->internal_ref_set($f);$this->mc_request_code = 6; return 6; }							
@@ -970,7 +970,7 @@ class x_class_user {
 						$this->mysql->query("UPDATE `".$this->dt_users."` SET last_mail_edit = CURRENT_TIMESTAMP() WHERE id = '".$xf["id"]."'");						
 						
 						// Reset Other Mails who have this Mail if not Unique!
-						$this->mysql->query("UPDATE `".$this->dt_users."` SET user_shadow = NULL WHERE LOWER(user_shadow) = '".$this->mysql->escape(strtolower(trim($xf["user_shadow"])))."'");
+						$this->mysql->query("UPDATE `".$this->dt_users."` SET user_shadow = NULL WHERE LOWER(user_shadow) = '".$this->mysql->escape(strtolower(trim($xf["user_shadow"] ?? '')))."'");
 					}
 				}
 				// All Okay
@@ -992,7 +992,7 @@ class x_class_user {
 	public function display_login($spawn_register_button = array("url" => "", "label" => "Register Now"), $spawn_cookie_checkbox = "Stay Logged In?", $spawn_reset_button = array("url" => "", "label" => "Reset Account"), $login_button_label = "Login", $label = array("ref_placeholder" => "Please enter your E-Mail", "ref_label" => "E-Mail", "pass_label" => "Password", "pass_placeholder" => "Please enter your password!"), $captcha = array("url" => "captcha.jpg", "code" => "243fsdfsfds")) {	
 		$this->display_return_code = false;
 		if (isset($_POST["x_class_user_submit_login"])) {
-			if (@$_SESSION["x_class_user_csrf_login"] == @$_POST["x_class_user_csrf"] AND trim(@$_POST["x_class_user_csrf"]) != "" AND isset($_POST["x_class_user_csrf"])) {
+			if (@$_SESSION["x_class_user_csrf_login"] == @$_POST["x_class_user_csrf"] AND trim(@$_POST["x_class_user_csrf"] ?? '') != "" AND isset($_POST["x_class_user_csrf"])) {
 				if(!is_array($captcha) OR (is_array($captcha) AND $captcha["code"] == @$_POST["x_class_user_captcha"] AND is_numeric($captcha["code"]))) {
 					$result = $this->login_request(@$_POST["x_class_user_ref"], @$_POST["x_class_user_pass"], @$_POST["x_class_user_submit_login_stay"]);
 					$this->display_return_code = $result;		

@@ -39,9 +39,9 @@
 		######################################################
 		private function create_table() {
 			return $this->mysql->query("CREATE TABLE IF NOT EXISTS `".$this->table."` (
-												  `id` int(10) NOT NULL AUTO_INCREMENT COMMENT 'Identificator',
-												  `fail` int(10) DEFAULT '1' COMMENT 'Address Failures',
-												  `ip_adr` varchar(256) NOT NULL COMMENT 'Related IP Address',
+												  `id` int(10) NOT NULL AUTO_INCREMENT COMMENT 'Unique ID to Identify',
+												  `fail` int(10) DEFAULT '1' COMMENT 'Address Failures Counter',
+												  `ip_adr` varchar(256) NOT NULL COMMENT 'Related IP Address for Failure Counter',
 												  `creation` datetime DEFAULT CURRENT_TIMESTAMP COMMENT 'Creation Date | Will be Auto Set',
 												  PRIMARY KEY (`id`),
 												  UNIQUE KEY `Index 2` (`ip_adr`) );");}
@@ -50,8 +50,9 @@
 		// Construct
 		######################################################
 		function __construct($mysql, $tablename, $maxvalue = 50000) { 
+			if(!is_numeric($maxvalue)) { $maxvalue = false; }
 			$this->mysql = $mysql; $this->table = $tablename; $this->max  = $maxvalue;
-			$this->ip = @trim(@strtolower(@$_SERVER["REMOTE_ADDR"])); 
+			$this->ip = trim(strtolower(@$_SERVER["REMOTE_ADDR"] ?? '') ?? ''); 
 			if(!$this->mysql->table_exists($tablename)) { $this->create_table(); $this->mysql->free_all();  }
 			$this->int_block_renew();}
 
@@ -114,7 +115,7 @@
 		######################################################	
 		public function ip_counter($ip) {
 			$b[0]["type"]	=	"s";
-			$b[0]["value"]	=	@trim(@strtolower($this->ip)); ;
+			$b[0]["value"]	=	trim(strtolower($this->ip ?? '') ?? ''); ;
 			if(!$ip) { $r = @$this->mysql->select("SELECT * FROM `".$this->table."` WHERE ip_adr = ? AND fail > ".$this->max.";", false, $b); }
 			else { $r = @$this->mysql->select("SELECT * FROM `".$this->table."` WHERE ip_adr = ? AND fail > ".$this->max.";", false, $b); }
 			if(is_array($r)) {	
@@ -129,7 +130,7 @@
 		public function increase($value = 1) { return $this->int_counter_raise($value); } 
 		// Function to Increase and Refresh Counter
 		private function int_counter_raise($value = 1) {
-			if(!is_int($value)) { return false; }
+			if(!is_int($value)) { $value = 1; }
 			$b[0]["type"]	=	"s";
 			$b[0]["value"]	=	$this->ip;
 			$rres = @$this->mysql->select("SELECT * FROM `".$this->table."` WHERE ip_adr = ?;", false, $b); 

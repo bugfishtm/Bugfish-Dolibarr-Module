@@ -48,7 +48,7 @@
 		// Prepare the Query for Search Results
 		while (is_numeric($counter)) {
 			if(@$search_array[$counter] != null) {
-				if(trim(@$search_array[$counter] != "")) {
+				if(trim(@$search_array[$counter] ?? '') != "") {
 					
 					if($counter == 0) {
 						if($bindcounter == 0) {
@@ -93,7 +93,7 @@
 				
 			while (is_numeric($counter)) {
 				if(@$search_array[$counter] != null) {
-					if(trim(@$search_array[$counter] != "")) {
+					if(trim(@$search_array[$counter] ?? '') != "") {
 						foreach($search_fields AS $tmpkey => $tmpvalue) {
 							$rad[0][$score_r[$uniqueref]]["score"] = @$rad[0][$score_r[$uniqueref]][$tmpvalue[0]] + (substr_count(strtolower($score_r[$tmpvalue[0]]), strtolower($search_array[$counter])) * $tmpvalue[1]);
 						}	

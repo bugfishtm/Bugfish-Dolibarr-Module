@@ -43,7 +43,11 @@
 		public $subject	=	"";
 		public function set_content($content, $subject) { $this->content = $this->header.$content.$this->footer; $this->subject = $subject; }		
 		public function set_template($name) { 
-			$ar = $this->mysql->select("SELECT * FROM `".$this->table."` WHERE name = '".$this->mysql->escape($name)."' AND section = '".$this->section."'", false);
+			$bind[0]["value"] 	= $name;
+			$bind[0]["type"] 	= "s";
+			$bind[1]["value"] 	= $this->section;
+			$bind[1]["type"] 	= "s";
+			$ar = $this->mysql->select("SELECT * FROM `".$this->table."` WHERE name = ? AND section = ?", false, $bind);
 			if(is_array($ar)) {
 				$this->subject = $ar["subject"];
 				$this->content = $ar["content"];
@@ -68,8 +72,8 @@
 		// Construct		
 		function __construct($mysql, $table, $section = "") {
 			$this->mysql = $mysql;
-			$this->table = @substr(trim($table), 0, 256);
-			$this->section = @substr(trim($section), 0, 127);		
+			$this->table = @substr(trim($table ?? ''), 0, 256);
+			$this->section = @substr(trim($section ?? ''), 0, 127);		
 			if(!$this->mysql->table_exists($table)) { $this->create_table(); $this->mysql->free_all(); }} 
 					
 		// Substitutions
@@ -109,25 +113,39 @@
 		
 		// Setup new Mail template 
 		public function setup($name, $subject, $content, $description = "", $overwrite = false) {
-			$ar = $this->mysql->select("SELECT * FROM `".$this->table."` WHERE name = '".$this->mysql->escape($name)."' AND section = '".$this->section."'", false);
+			$bind[0]["value"] 	= $name;
+			$bind[0]["type"] 	= "s";
+			$bind[1]["value"] 	= $this->section;
+			$bind[1]["type"] 	= "s";
+			$ar = $this->mysql->select("SELECT * FROM `".$this->table."` WHERE name = ? AND section = ?", false, $bind);
 			if(is_array($ar)) {
 				if($overwrite) { 
-					$bind[0]["value"] = $subject;
-					$bind[0]["type"] = "s";
-					$bind[1]["value"] = $content;
-					$bind[1]["type"] = "s";
-					$bind[2]["value"] = $description;
-					$bind[2]["type"] = "s";
-					$this->mysql->query("UPDATE `".$this->table."` SET name = '".$name."', subject = ?, content = ?, description = ? WHERE name = '".$this->mysql->escape($name)."' AND section = '".$this->section."'", $bind);
+					$bind[0]["value"] 	= $name;
+					$bind[0]["type"] 	= "s";
+					$bind[1]["value"] 	= $subject;
+					$bind[1]["type"] 	= "s";
+					$bind[2]["value"] 	= $content;
+					$bind[2]["type"] 	= "s";
+					$bind[3]["value"] 	= $description;
+					$bind[3]["type"] 	= "s";
+					$bind[4]["value"] 	= $name;
+					$bind[4]["type"] 	= "s";
+					$bind[5]["type"]	=	"s";
+					$bind[5]["value"]	=	$this->section;
+					$this->mysql->query("UPDATE `".$this->table."` SET name = ?, subject = ?, content = ?, description = ? WHERE name = ? AND section = ?", $bind);
 				}
 			} else { 
-				$bind[0]["value"] = $subject;
-				$bind[0]["type"] = "s";
-				$bind[1]["value"] = $content;
-				$bind[1]["type"] = "s";
-				$bind[2]["value"] = $description;
-				$bind[2]["type"] = "s";
-				$this->mysql->query("INSERT IGNORE INTO `".$this->table."` (name, subject, content, description, section) VALUES('".$name."', ?, ?, ?,'".$this->section."');", $bind);
+				$bind[0]["value"] 	= $name;
+				$bind[0]["type"] 	= "s";
+				$bind[1]["value"] 	= $subject;
+				$bind[1]["type"] 	= "s";
+				$bind[2]["value"] 	= $content;
+				$bind[2]["type"] 	= "s";
+				$bind[3]["value"] 	= $description;
+				$bind[3]["type"] 	= "s";
+				$bind[4]["type"]	=	"s";
+				$bind[4]["value"]	=	$this->section;
+				$this->mysql->query("INSERT IGNORE INTO `".$this->table."` (name, subject, content, description, section) VALUES(?, ?, ?, ?, ?);", $bind);
 				return $this->mysql->insert_id;
 			}			
 		}
@@ -135,22 +153,30 @@
 		// Setup new Mail template 
 		public function change($id, $name, $subject, $content, $description = "") {
 			if(!is_numeric($id)) { return false; }
-			$ar = $this->mysql->select("SELECT * FROM `".$this->table."` WHERE id = '".$id."' AND section = '".$this->section."'", false);
+			$bind[0]["value"] = $this->section;
+			$bind[0]["type"] = "s";
+			$ar = $this->mysql->select("SELECT * FROM `".$this->table."` WHERE id = '".$id."' AND section = ?", false, $bind);
 			if(is_array($ar)) {
-				$bind[0]["value"] = $subject;
-				$bind[0]["type"] = "s";
-				$bind[1]["value"] = $content;
-				$bind[1]["type"] = "s";
-				$bind[2]["value"] = $description;
-				$bind[2]["type"] = "s";
-				$this->mysql->query("UPDATE `".$this->table."` SET name = '".$name."', subject = ?, content = ?, description = ? WHERE id = '".$id."' AND section = '".$this->section."'", $bind);
+				$bind[0]["value"]	= $subject;
+				$bind[0]["type"] 	= "s";
+				$bind[1]["value"] 	= $content;
+				$bind[1]["type"] 	= "s";
+				$bind[2]["value"] 	= $description;
+				$bind[2]["type"] 	= "s";
+				$bind[3]["type"]	=	"s";
+				$bind[3]["value"]	=	$name;
+				$bind[4]["type"]	=	"s";
+				$bind[4]["value"]	=	$this->section;
+				$this->mysql->query("UPDATE `".$this->table."` SET subject = ?, content = ?, description = ?, name = ? WHERE id = '".$id."' AND section = ?", $bind);
 			}		
 		}
 		
 		public function name_exists($name) {
 			$bind[0]["value"] = $name;
 			$bind[0]["type"] = "s";
-			$ar = $this->mysql->select("SELECT * FROM `".$this->table."` WHERE name = ? AND section = '".$this->section."'", false, $bind);
+			$bind[1]["type"]	=	"s";
+			$bind[1]["value"]	=	$this->section;
+			$ar = $this->mysql->select("SELECT * FROM `".$this->table."` WHERE name = ? AND section = ?", false, $bind);
 			if(is_array($ar)) {
 				return true;
 			} else { 
@@ -160,7 +186,9 @@
 
 		public function get_name_by_id($id) {
 			if(!is_numeric($id)) { return false; }
-			$ar = $this->mysql->select("SELECT * FROM `".$this->table."` WHERE id = '".$id."' AND section = '".$this->section."'", false);
+			$b[0]["type"]	=	"s";
+			$b[0]["value"]	=	$this->section;
+			$ar = $this->mysql->select("SELECT * FROM `".$this->table."` WHERE id = '".$id."' AND section = ?", false, $b);
 			if(is_array($ar)) {
 				return $ar["name"];
 			} else { 
@@ -170,7 +198,9 @@
 		
 		public function id_exists($id) {
 			if(!is_numeric($id)) { return false; }
-			$ar = $this->mysql->select("SELECT * FROM `".$this->table."` WHERE id = '".$id."' AND section = '".$this->section."'", false);
+			$b[0]["type"]	=	"s";
+			$b[0]["value"]	=	$this->section;
+			$ar = $this->mysql->select("SELECT * FROM `".$this->table."` WHERE id = '".$id."' AND section = ?", false, $b);
 			if(is_array($ar)) {
 				return true;
 			} else { 
@@ -180,12 +210,16 @@
 		
 		public function id_delete($id) {
 			if(!is_numeric($id)) { return false; }
-			return $this->mysql->query("DELETE FROM `".$this->table."` WHERE id = '".$id."' AND section = '".$this->section."'");
+			$b[0]["type"]	=	"s";
+			$b[0]["value"]	=	$this->section;
+			return $this->mysql->query("DELETE FROM `".$this->table."` WHERE id = '".$id."' AND section = ?", $b);
 		}
 		
 		public function get_full($id) {
 			if(!is_numeric($id)) { return false; }
-			$ar = $this->mysql->select("SELECT * FROM `".$this->table."` WHERE id = '".$id."' AND section = '".$this->section."'", false);
+			$b[0]["type"]	=	"s";
+			$b[0]["value"]	=	$this->section;
+			$ar = $this->mysql->select("SELECT * FROM `".$this->table."` WHERE id = '".$id."' AND section = ?", false, $b);
 			if(is_array($ar)) {
 				return $ar;
 			} else { 

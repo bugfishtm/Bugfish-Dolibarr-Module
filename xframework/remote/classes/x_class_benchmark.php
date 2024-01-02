@@ -41,14 +41,16 @@
 			return $this->mysql->select("SELECT * FROM `".$this->mysqltable."`", true);
 		}
 		public function get_array_section($section) {
-			return $this->mysql->select("SELECT * FROM `".$this->mysqltable."` WHERE section = '".$this->mysql->escape($section)."'", true);
+			$b[0]["type"]	=	"s";
+			$b[0]["value"]	=	$section;
+			return $this->mysql->select("SELECT * FROM `".$this->mysqltable."` WHERE section = ?", true, $b);
 		}
 		######################################################
 		// Table Initialization
 		######################################################
 		private function create_table() {
 			return $this->mysql->query("CREATE TABLE IF NOT EXISTS `".$this->mysqltable."` (
-												  `id` int(10) NOT NULL AUTO_INCREMENT COMMENT 'Unique ID',
+												  `id` int(10) NOT NULL AUTO_INCREMENT COMMENT 'Unique ID to Identify',
 												  `full_url` varchar(512) NOT NULL DEFAULT '0' COMMENT 'Related Domain',
 												  `value_time` varchar(64) DEFAULT '0' COMMENT 'Site Loading Time',
 												  `value_memory` varchar(64) DEFAULT '0' COMMENT 'Site Loading Time',
@@ -76,7 +78,7 @@
 			if(strpos($tmpcode, "https://") > -1){$tmpcode = @substr($tmpcode, strpos($tmpcode, "https://"));} 
 			if(strpos($tmpcode, "http://") > -1){$tmpcode = @substr($tmpcode, strpos($tmpcode, "http://"));} 
 			if(strpos($tmpcode, "www.") > -1){$tmpcode = @substr($tmpcode, strpos($tmpcode, "www."));} 
-			return urldecode(trim(@$tmpcode));}	
+			return urldecode(trim(@$tmpcode ?? ''));}	
 			
 		######################################################
 		// Execute Function

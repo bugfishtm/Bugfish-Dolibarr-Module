@@ -100,9 +100,12 @@
 				if($this->logging_settings) { $bind[2]["value"] = serialize($settings); } else { $bind[2]["value"] = "deactivated"; }
 
 				$bind[3]["type"] = "s";
-				$bind[3]["value"] = $url;			
+				$bind[3]["value"] = $url;	
 				
-				$this->mysql->query("INSERT INTO `".$this->logging_table."`(output, request, settings, url, filename, type, section) VALUES(?, ?, ?, ?, 'none', 'request', '".$this->section."');", $bind); 
+				$bind[4]["type"] = "s";
+				$bind[4]["value"] = $this->section;			
+				
+				$this->mysql->query("INSERT INTO `".$this->logging_table."`(output, request, settings, url, filename, type, section) VALUES(?, ?, ?, ?, 'none', 'request', ?);", $bind); 
 			}
 			
 			// Return Output of Request
@@ -165,7 +168,10 @@
 				$bind[4]["type"] = "s";
 				$bind[4]["value"] = $local;	
 				
-				$this->mysql->query("INSERT INTO `".$this->logging_table."`(output, request, settings, url, filename, type, section) VALUES(?, ?, ?, ?, ?, 'request', '".$this->section."');", $bind); 
+				$bind[5]["type"] = "s";
+				$bind[5]["value"] = $this->section;		
+				
+				$this->mysql->query("INSERT INTO `".$this->logging_table."`(output, request, settings, url, filename, type, section) VALUES(?, ?, ?, ?, ?, 'request', ?);", $bind); 
 			}
 			
 			// Return Output of Request
@@ -223,7 +229,10 @@
 				$bind[4]["type"] = "s";
 				$bind[4]["value"] = $local;	
 				
-				$this->mysql->query("INSERT INTO `".$this->logging_table."`(output, request, settings, url, filename, type, section) VALUES(?, ?, ?, ?, ?, 'request', '".$this->section."');", $bind); 
+				$bind[5]["type"] = "s";
+				$bind[5]["value"] = $this->section;		
+				
+				$this->mysql->query("INSERT INTO `".$this->logging_table."`(output, request, settings, url, filename, type, section) VALUES(?, ?, ?, ?, ?, 'request', ?);", $bind); 
 			}
 			
 			// Return Output of Request

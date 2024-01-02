@@ -34,7 +34,7 @@
 		// Table Initialization
 		private function create_table() {
 			return $this->mysql->query("CREATE TABLE IF NOT EXISTS `".$this->table."` (
-												  `id` int(9) NOT NULL AUTO_INCREMENT COMMENT 'Unique ID',
+												  `id` int(9) NOT NULL AUTO_INCREMENT COMMENT 'Unique ID to Identify',
 												  `identificator` varchar(512) NOT NULL COMMENT 'Descriptor for Translation',
 												  `lang` varchar(16) NOT NULL COMMENT 'Value for Constant',
 												  `translation` text COMMENT 'Description for Constant',
@@ -59,10 +59,10 @@
 						$file = file($file_name, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
 						foreach ($file as $array) {
 							if(strpos($array, "=") > 1) { 
-								if(substr(trim($array), 0, 2) == "//" OR substr(trim($array), 0, 1) == "#") {  }
+								if(substr(trim($array ?? ''), 0, 2) == "//" OR substr(trim($array ?? ''), 0, 1) == "#") {  }
 								else { 
-									$newkey = @substr(trim($array), 0, strpos(trim($array), "=")); 
-									$newvalue = @substr(trim($array), strpos(trim($array), "=") + 1); 
+									$newkey = @substr(trim($array ?? ''), 0, strpos(trim($array ?? ''), "=")); 
+									$newvalue = @substr(trim($array ?? ''), strpos(trim($array ?? ''), "=") + 1); 
 									$newval[$newkey] = $newvalue; 
 									$this->array = array_merge($this->array, $newval);
 								}
@@ -76,7 +76,11 @@
 		// Init the Array to Fetch Translations Without SQL Queries for current Loaded Translation
 		private function init() {
 			if($this->filemode) { return false; }
-			$rres = @$this->mysql->select("SELECT identificator, translation FROM `".$this->table."` WHERE lang = '".$this->mysql->escape($this->lang)."' AND section = '".$this->section."'", true);
+			$b[0]["type"]	=	"s";
+			$b[0]["value"]	=	$this->lang;		
+			$b[1]["type"]	=	"s";
+			$b[1]["value"]	=	$this->section;		
+			$rres = @$this->mysql->select("SELECT identificator, translation FROM `".$this->table."` WHERE lang = ? AND section = ?;", true, $b);
 			if(is_array($rres)) {
 				foreach($rres as $key => $value) {
 					$newar = array();
@@ -90,9 +94,21 @@
 		public function delete($key, $lang = false) {
 			if($this->filemode) { return false; }
 			if(!$lang) {
-				return @$this->mysql->query("DELETE FROM `".$this->table."` WHERE lang = '".$this->mysql->escape($this->lang)."' AND section = '".$this->section."' AND identificator = '".$this->mysql->escape($key)."'");
+				$b[0]["type"]	=	"s";
+				$b[0]["value"]	=	$this->lang;		
+				$b[1]["type"]	=	"s";
+				$b[1]["value"]	=	$this->section;		
+				$b[2]["type"]	=	"s";
+				$b[2]["value"]	=	$key;	
+				return @$this->mysql->query("DELETE FROM `".$this->table."` WHERE lang = ? AND section = ? AND identificator = ?;", $b);
 			} else {
-				return @$this->mysql->query("DELETE FROM `".$this->table."` WHERE lang = '".$this->mysql->escape($lang)."' AND section = '".$this->section."' AND identificator = '".$this->mysql->escape($key)."'");
+				$b[0]["type"]	=	"s";
+				$b[0]["value"]	=	$lang;		
+				$b[1]["type"]	=	"s";
+				$b[1]["value"]	=	$this->section;		
+				$b[2]["type"]	=	"s";
+				$b[2]["value"]	=	$key;	
+				return @$this->mysql->query("DELETE FROM `".$this->table."` WHERE lang = ? AND section = ? AND identificator = ?;", $b);
 			}
 		}
 		
@@ -101,12 +117,24 @@
 			if($this->filemode) { return false; }
 			if(!$lang) {
 				$b[0]["type"]	=	"s";
-				$b[0]["value"]	=	$text;					
-				return @$this->mysql->query("INSERT INTO `".$this->table."`(section, lang, identificator, translation) VALUES('".$this->section."', '".$this->mysql->escape($this->lang)."', '".$this->mysql->escape($key)."', ?);", $b);
+				$b[0]["value"]	=	$this->section;		
+				$b[1]["type"]	=	"s";
+				$b[1]["value"]	=	$this->lang;	
+				$b[2]["type"]	=	"s";
+				$b[2]["value"]	=	$key;	
+				$b[3]["type"]	=	"s";
+				$b[3]["value"]	=	$text;					
+				return @$this->mysql->query("INSERT INTO `".$this->table."`(section, lang, identificator, translation) VALUES(?, ?, ?, ?);", $b);
 			} else {
 				$b[0]["type"]	=	"s";
-				$b[0]["value"]	=	$text;					
-				return @$this->mysql->query("INSERT INTO `".$this->table."`(section, lang, identificator, translation) VALUES('".$this->section."', '".$this->mysql->escape($lang)."', '".$this->mysql->escape($key)."', ?);", $b);
+				$b[0]["value"]	=	$this->section;		
+				$b[1]["type"]	=	"s";
+				$b[1]["value"]	=	$lang;	
+				$b[2]["type"]	=	"s";
+				$b[2]["value"]	=	$key;	
+				$b[3]["type"]	=	"s";
+				$b[3]["value"]	=	$text;				
+				return @$this->mysql->query("INSERT INTO `".$this->table."`(section, lang, identificator, translation) VALUES(?, ?, ?, ?);", $b);
 			}
 		}
 

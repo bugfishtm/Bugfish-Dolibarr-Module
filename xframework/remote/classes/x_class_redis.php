@@ -33,7 +33,7 @@
 		
 		public function redis() { if ($this->redis) { return $this->redis; } else { return false; }  }
 		public function ping() { if ($this->redis) { return $this->redis->ping(); } else { return false; } }
-		public function keys($pre = false, $after = "") { if(!$pre) {$pre = $this->pre;}if ($this->redis) { return $this->redis->keys(@$pre."*".$after); } else { return false; } }
+		public function keys($pre = false, $after = "") { if($pre === false) {$pre = $this->pre;}if ($this->redis) { return $this->redis->keys(@$pre."*".$after); } else { return false; } }
 		
 		public function add_string($name, $value) { 
 			if ($this->redis) {

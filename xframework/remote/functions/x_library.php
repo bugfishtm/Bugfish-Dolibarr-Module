@@ -47,16 +47,9 @@
 		}}
 		
 	function x_getRelativeFolderFromURL($url) {
-		$parsed_url = parse_url($url);
-		if (isset($parsed_url['path'])) {
-			$path = trim($parsed_url['path'], '/');
-			$path_parts = explode('/', $path);
-			array_pop($path_parts);
-			$relative_folder = implode('/', $path_parts);
-			return $relative_folder;
-		} else {
-			return "";
-		}}	
+			if(strpos($url, "http://")) { $url = substr($url, 7); }
+			elseif(strpos($url, "https://")) { $url = substr($url, 8); }
+			$url = substr($url, strpos($url, "/")); return $url;}	
 	
 	function x_firstimagetext($text, $all = false) {
 		@preg_match_all('/<img[^>]+>/i', $text, $result11); 
@@ -112,9 +105,9 @@
 		  imagedestroy($thumbnail);
 		  return true;}
 
-	function x_isset($val) {if(trim(@$val) != '' AND strlen(@$val) > 0 ) {return true;} else {return false;}} ## Check if a value is not null and strlen more than 1
-	function x_imgValid($url) {if(!isset($url)) {return false;}else {if(is_string(trim($url)) AND strlen($url) > 3) {return @getimagesize($url);} else {return false;}} }
-	function x_hsc($string) { return htmlspecialchars(@$string); }
+	function x_isset($val) {if(trim(@$val ?? '') != '' AND strlen(@$val) > 0 ) {return true;} else {return false;}} ## Check if a value is not null and strlen more than 1
+	function x_imgValid($url) {if(!isset($url)) {return false;}else {if(is_string(trim($url ?? '')) AND strlen($url) > 3) {return @getimagesize($url);} else {return false;}} }
+	function x_hsc($string) { return htmlspecialchars(@$string ?? ''); }
 	function x_contains_cyrillic($val)  ## Check if a String contains cyrillic chars
 		{$contains_cyrillic = (bool) preg_match('/[\p{Cyrillic}]/u', $val);if ($contains_cyrillic) { return true; } else {return false;}}
 	function x_contains_bad_word($val) { ## Check if String Contains bad Words by Filter
@@ -130,4 +123,4 @@
 	function x_get($val) {if(isset($_GET[$val])) { return @$_GET[$val];} else { return false;}} ## Get a GET value
 	function x_post($val) {if(isset($_POST[$val])) { return @$_POST[$val];} else { return false;}} ## Get a POST value
 	function x_datediff_before($d1, $d2, $length)  ## x_datediff_before($d1, $d2, $length) Check if d1 is difference as length with d2 
-		{if($d1 == false OR $d2 == false) { return false; } {}$interval = @date_diff(@date_create($d1), @date_create($d2));if( @$interval->format('%a') > $length ) { return true;} return false;}
+		{if($d1 == false OR $d2 == false) { return false; } {}$interval = date_diff(date_create($d1), date_create($d2));if( $interval->format('%a') > $length ) { return true;} return false;}
