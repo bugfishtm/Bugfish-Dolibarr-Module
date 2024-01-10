@@ -39,7 +39,7 @@
 		private function create_table() {
 			return $this->mysql->query("CREATE TABLE IF NOT EXISTS `".$this->mysqltable."` (
 											  `id` int(10) NOT NULL AUTO_INCREMENT COMMENT 'Unique ID to Identify',
-											  `full_url` varchar(400) NOT NULL DEFAULT '0' COMMENT 'Related Referer URL',
+											  `full_url` varchar(256) NOT NULL DEFAULT '0' COMMENT 'Related Referer URL',
 											  `site_url` varchar(256) NOT NULL DEFAULT '0' COMMENT 'Related Website URL',
 											  `hits` int(10) NOT NULL DEFAULT '0' COMMENT 'Hitcounter for Referer URL',
 											  `section` varchar(128) NOT NULL DEFAULT '' COMMENT 'Related Multi Site Section',
