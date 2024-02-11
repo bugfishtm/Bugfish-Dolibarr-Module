@@ -22,15 +22,15 @@
     <script src="../assets/js/jquery.scrollto.js"></script>
     <script src="../assets/js/jquery.finder.js"></script><style>.scrolldivy{max-width: 100%;overflow-y:scroll;}</style>
 	<!-- Descriptions -->
-    <title>PHP Referer Class - Bugfish Documentations</title>
-	<meta property="og:title" content="PHP Referer Class - Bugfish Documentations"/>
-	<meta name="description" content="Welcome to the Github Documentation Page of the Bugfish Framework! This is the documentation for x_class_referer! Here you can find the github url to the project and different explanation about the classes and functions! We wish you the best!">
+    <title>PHP Table Class - Bugfish Documentations</title>
+	<meta property="og:title" content="PHP Table Class - Bugfish Documentations"/>
+	<meta name="description" content="Welcome to the Github Documentation Page of the Bugfish Framework! This is the documentation for x_class_table! Here you can find the github url to the project and different explanation about the classes and functions! We wish you the best!">
 <script type="application/ld+json">
 {
   "@context": "http://schema.org",
   "@type": "TechArticle",
-  "headline": "PHP Referer Class",
-  "description": "Welcome to the Github Documentation Page of the Bugfish Framework! This is the documentation for x_class_referer! Here you can find the github url to the project and different explanation about the classes and functions! We wish you the best!",
+  "headline": "PHP Table Class",
+  "description": "Welcome to the Github Documentation Page of the Bugfish Framework! This is the documentation for x_class_table! Here you can find the github url to the project and different explanation about the classes and functions! We wish you the best!",
   "articleSection": "Introduction",
   "datePublished": "2023-11-03",
   "dateModified": "2023-11-03",
@@ -71,7 +71,7 @@
 		    <nav id="docs-nav" class="docs-nav navbar">
 			    <ul class="section-items list-unstyled nav flex-column pb-3">
 				    <li class="nav-item section-title"><a class="nav-link" href="../index.html"><span class="theme-icon-holder me-2"><i class="fas fa-arrow-left"></i></span>Back</a></li>
-				    <li class="nav-item section-title"><a class="nav-link scrollto active" href="#section-1"><span class="theme-icon-holder me-2"><i class="fas fa-map-signs"></i></span>PHP Referer Class</a></li>
+				    <li class="nav-item section-title"><a class="nav-link scrollto active" href="#section-1"><span class="theme-icon-holder me-2"><i class="fas fa-map-signs"></i></span>PHP Table Class</a></li>
 				    <li class="nav-item"><a class="nav-link scrollto" href="#item-1-1">Documentation</a></li>
 				    <li class="nav-item"><a class="nav-link scrollto" href="#item-1-2" target="_blank">Support</a></li>
 				    <li class="nav-item"><a class="nav-link scrollto" href="#item-1-3" target="_blank">License</a></li>
@@ -89,130 +89,153 @@
 		    <div class="container">
 			    <article class="docs-article" id="section-1">
 				    <header class="docs-header">
-					    <h1 class="docs-heading">PHP Referer Class [x_class_referer]<span class="docs-time">Documentations</span></h1>
+					    <h1 class="docs-heading">PHP Table Class [x_class_table]<span class="docs-time">Documentations</span></h1>
 					    <section class="docs-intro">
 						    <p>This is the Documentation for the Bugfish Framework!</p>
 						</section><!--//docs-intro-->
-				    </header>		<br /><hr><br>
-	
+				    </header>		<br /><hr><br />
 			<section class="docs-section" id="item-1-1" style="padding-top: 0px;border-bottom: none;">
 				<h2>Documentation</h2>
-<p style="text-align: left;">The x_class_referer class is designed to manage and control referers in a PHP application. It allows tracking and logging of incoming referer URLs. This class interacts with a MySQL database to store and retrieve referer information. Key features include enabling or disabling referer tracking, preparing URLs for database storage, retrieving saved referers as an array, and executing referer tracking functionality. The class ensures that referer URLs are appropriately processed and stored for analysis.</p>
-
+<p style="text-align: left;">The x_class_table class is a PHP class designed to simplify the management of database tables. It provides a set of functions for creating, editing, and deleting rows within a specified database table. The class also offers the flexibility to configure the structure of the HTML forms used for creating and editing table entries. It includes built-in CSRF protection to enhance security during data manipulation operations. Additionally, the class can generate an HTML table for displaying the contents of the database table, making it a valuable tool for building web applications that involve database interaction.</p>
 
 <div style="max-width: 500px;text-align: left; background: 161616;">
 ⚠️ Does use Session-Cookies<br />
-⚠️ Does use MySQL (x_class_mysqli object)<br />
-⚠️ Tables will be automatically installed<br />
+⚠️ Does need x_class_mysql object<br />
+⚠️ Does need x_class_csrf class available<br />
 <br /></div>
 
-<h3 id="x_class_referer-mastered-">Table Structure</h3><p>Table below is created/used by this class to save referer Informations!</p><div class="scrolldivy">
-
+<h3>Class Functions</h3><p>Below you can see a list of functions and explanations on how to work with this class!</p>
 <table class="table table-bordered table-dark">
-  <tr>
-    <th>Column Name</th>
-    <th>Data Type</th>
-    <th>Constraints</th>
-    <th>Description</th>
-  </tr>
-  <tr>
-    <td>id</td>
-    <td>int(10)</td>
-    <td>NOT NULL, AUTO_INCREMENT</td>
-    <td>Identificator</td>
-  </tr>
-  <tr>
-    <td>full_url</td>
-    <td>varchar(512)</td>
-    <td>NOT NULL, DEFAULT '0'</td>
-    <td>Related Referer</td>
-  </tr>
-  <tr>
-    <td>hits</td>
-    <td>int(10)</td>
-    <td>NOT NULL, DEFAULT '0'</td>
-    <td>Counted Hits</td>
-  </tr>
-  <tr>
-    <td>section</td>
-    <td>varchar(64)</td>
-    <td>NOT NULL, DEFAULT ''</td>
-    <td>Related Section</td>
-  </tr>
-  <tr>
-    <td>creation</td>
-    <td>datetime</td>
-    <td>DEFAULT CURRENT_TIMESTAMP</td>
-    <td>Creation Date (Auto-Set on Insert)</td>
-  </tr>
-  <tr>
-    <td>modification</td>
-    <td>datetime</td>
-    <td>DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP</td>
-    <td>Modification Date (Auto-Set on Change)</td>
-  </tr>
+    <thead>
+        <tr>
+            <th>Function/Class</th>
+            <th>Description</th>
+            <th>Parameters</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>class x_class_table</td>
+            <td>A PHP class for managing tables.</td>
+            <td>
+                <ul>
+                    <li>$mysql (object): The MySQL database connection.</li>
+                    <li>$table_name (string): The name of the table.</li>
+                    <li>$id (string): An optional identifier for the class instance.</li>
+                    <li>$id_field (string): The name of the primary key field (default is "id").</li>
+                </ul>
+            </td>
+        </tr>
+        <tr>
+            <td>__construct</td>
+            <td>Constructor for initializing the class.</td>
+            <td>
+                <ul>
+                    <li>$mysql (object): The MySQL database connection.</li>
+                    <li>$table_name (string): The name of the table.</li>
+                    <li>$id (string): An optional identifier for the class instance.</li>
+                    <li>$id_field (string): The name of the primary key field (default is "id").</li>
+                </ul>
+            </td>
+        </tr>
+        <tr>
+            <td>exec_delete</td>
+            <td>Executes a delete operation on a table row.</td>
+            <td>No parameters are required.</td>
+        </tr>
+        <tr>
+            <td>config_rel_url</td>
+            <td>Configures the relative URL for form actions.</td>
+            <td>
+                <ul>
+                    <li>$rel_url (string): The relative URL to set.</li>
+                </ul>
+            </td>
+        </tr>
+        <tr>
+            <td>config_array</td>
+            <td>Configures the arrays for creation and editing.</td>
+            <td>
+                <ul>
+                    <li>$create (array): Configuration for creating.</li>
+                    <li>$edit (array): Configuration for editing.</li>
+                </ul>
+            </td>
+        </tr>
+        <tr>
+            <td>exec_edit</td>
+            <td>Executes an edit operation on a table row.</td>
+            <td>No parameters are required.</td>
+        </tr>
+        <tr>
+            <td>exec_create</td>
+            <td>Executes a create operation to add a new row to the table.</td>
+            <td>No parameters are required.</td>
+        </tr>
+        <tr>
+            <td>spawn_return</td>
+            <td>Generates a message box to display operation results.</td>
+            <td>
+                <ul>
+                    <li>$deleted (string): Message for deleted item.</li>
+                    <li>$csrf (string): Message for CSRF error.</li>
+                    <li>$edited (string): Message for edited item.</li>
+                    <li>$created (string): Message for created item.</li>
+                </ul>
+            </td>
+        </tr>
+        <tr>
+            <td>spawn_create</td>
+            <td>Generates the form for creating a new item.</td>
+            <td>
+                <ul>
+                    <li>$button_name (string): Label for the create button.</li>
+                    <li>$button_class (string): CSS class for the button.</li>
+                    <li>$add_info  (array): Additional Settings for the table.</li>
+                </ul>
+            </td>
+        </tr>
+        <tr>
+            <td>spawn_edit</td>
+            <td>Generates the form for editing an existing item.</td>
+            <td>
+                <ul>
+                    <li>$button_name (string): Label for the edit button.</li>
+                    <li>$button_class (string): CSS class for the button.</li>
+                    <li>$add_info  (array): Additional Settings for the table.</li>
+                </ul>
+            </td>
+        </tr>
+        <tr>
+            <td>spawn_table</td>
+            <td>Generates the table for listing items in the database.</td>
+            <td>
+                <ul>
+                    <li>$title_array (array): Configuration for table headers.</li>
+                    <li>$value_array (array): Data to display in the table.</li>
+                    <li>$editing (boolean): Enable or disable editing links.</li>
+                    <li>$deleting (boolean): Enable or disable deleting links.</li>
+                    <li>$creating (string): Label for creating a new item link.</li>
+                    <li>$action_column (string): Header label for action column.</li>
+                    <li>$classes (string): Additional CSS classes for the table.</li>
+                    <li>$add_info  (array): Additional Settings for the table.</li>
+                </ul>
+            </td>
+        </tr>
+    </tbody>
 </table>
 
-</div>
-<h3 id="x_class_referer-mastered-">Class Functions</h3><p>Below a list of functions and explanations on how to use them.</p>
-<table class="table table-bordered table-dark">
-<thead>
-<tr>
-<th>Function</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>__construct($x_class_mysqlvar, $table, $refurlnowww)</td>
-<td>Constructor with x_mysql_class object and table name and URL without WWW and HTTP/S</td>
-</tr>
-<tr>
-<td>enabled($bool = true)</td>
-<td>Disable / Enable for this Page</td>
-</tr>
-<tr>
-<td>execute($section = "")</td>
-<td>Execute the Referer Related Functions if not Disabled with enabed = true function! Provide $section Variable for Multi Site of Needed</td>
-</tr>
-<tr>
-<td>get_array()</td>
-<td>Get current Referer URLS saved in Table out in Array!</td>
-</tr>
-</tbody>
-</table>
-<h3 id="x_class_mastered-">Example Implementation</h3><p>Below you can see one example implementation of this class. It does only show a short introduction on how to initialize it.</p>
-<code class="json hljs">
-// Include your database connection code here.<br />
-// For example, you might have something like:<br />
-// $mysql = new mysqli('localhost', 'username', 'password', 'database_name');<br />
-<br />
-// Include the x_class_referer class here.<br />
-// Make sure you include it after setting up the database connection.<br />
-// require_once('x_class_referer.php');<br />
-<br />
-// Instantiate the x_class_referer class.<br />
-// Pass the database connection, table name, and whether to include 'www' in the referrer URL.<br />
-$refererTracker = new x_class_referer($mysql, 'referrer_data', true);<br />
-<br />
-// Enable or disable the tracking as needed.<br />
-// $refererTracker->enabled(true); // Enable tracking<br />
-<br />
-// Execute the tracking when needed, typically on the page where you want to track referrals.<br />
-$refererTracker->execute();<br />
-<br />
-// Retrieve the current saved referers in an array.<br />
-$referers = $refererTracker->get_array();<br />
-<br />
-// Display or process the $referers array as needed.<br />
-foreach ($referers as $referer) {<br />
-    echo "Referer: " . $referer['full_url'] . " - Hits: " . $referer['hits'] . "<br>";<br />
-}<br />
-<br />
-// Don't forget to close your database connection when you're done.<br />
-// $mysql->close();<br />
 
-</code>
+
+
+
+
+
+
+
+
+
+
 
 					</section><hr><section class="docs-section" id="item-1-2" style="border-bottom: none;">
 						<h2 class="section-heading">How to get support?</h2>

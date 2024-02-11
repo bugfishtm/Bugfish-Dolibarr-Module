@@ -22,15 +22,15 @@
     <script src="../assets/js/jquery.scrollto.js"></script>
     <script src="../assets/js/jquery.finder.js"></script><style>.scrolldivy{max-width: 100%;overflow-y:scroll;}</style>
 	<!-- Descriptions -->
-    <title>PHP Table Class - Bugfish Documentations</title>
-	<meta property="og:title" content="PHP Table Class - Bugfish Documentations"/>
-	<meta name="description" content="Welcome to the Github Documentation Page of the Bugfish Framework! This is the documentation for x_class_table! Here you can find the github url to the project and different explanation about the classes and functions! We wish you the best!">
+    <title>PHP User Class - Bugfish Documentations</title>
+	<meta property="og:title" content="PHP User Class - Bugfish Documentations"/>
+	<meta name="description" content="Welcome to the Github Documentation Page of the Bugfish Framework! This is the documentation for x_class_user! Here you can find the github url to the project and different explanation about the classes and functions! We wish you the best!">
 <script type="application/ld+json">
 {
   "@context": "http://schema.org",
   "@type": "TechArticle",
-  "headline": "PHP Table Class",
-  "description": "Welcome to the Github Documentation Page of the Bugfish Framework! This is the documentation for x_class_table! Here you can find the github url to the project and different explanation about the classes and functions! We wish you the best!",
+  "headline": "PHP User Class",
+  "description": "Welcome to the Github Documentation Page of the Bugfish Framework! This is the documentation for x_class_user! Here you can find the github url to the project and different explanation about the classes and functions! We wish you the best!",
   "articleSection": "Introduction",
   "datePublished": "2023-11-03",
   "dateModified": "2023-11-03",
@@ -71,8 +71,12 @@
 		    <nav id="docs-nav" class="docs-nav navbar">
 			    <ul class="section-items list-unstyled nav flex-column pb-3">
 				    <li class="nav-item section-title"><a class="nav-link" href="../index.html"><span class="theme-icon-holder me-2"><i class="fas fa-arrow-left"></i></span>Back</a></li>
-				    <li class="nav-item section-title"><a class="nav-link scrollto active" href="#section-1"><span class="theme-icon-holder me-2"><i class="fas fa-map-signs"></i></span>PHP Table Class</a></li>
+				    <li class="nav-item section-title"><a class="nav-link scrollto active" href="#section-1"><span class="theme-icon-holder me-2"><i class="fas fa-map-signs"></i></span>PHP User Class</a></li>
 				    <li class="nav-item"><a class="nav-link scrollto" href="#item-1-1">Documentation</a></li>
+				    <li class="nav-item"><a class="nav-link scrollto" href="#item-1-1-1">Configuration</a></li>
+				    <li class="nav-item"><a class="nav-link scrollto" href="#item-1-1-2">User Operations</a></li>
+				    <li class="nav-item"><a class="nav-link scrollto" href="#item-1-1-3">Major Operations</a></li>
+				    <li class="nav-item"><a class="nav-link scrollto" href="#item-1-1-4">x_class_user_item</a></li>
 				    <li class="nav-item"><a class="nav-link scrollto" href="#item-1-2" target="_blank">Support</a></li>
 				    <li class="nav-item"><a class="nav-link scrollto" href="#item-1-3" target="_blank">License</a></li>
 					<!-- Impressum and Bugfish Link -->
@@ -89,151 +93,1343 @@
 		    <div class="container">
 			    <article class="docs-article" id="section-1">
 				    <header class="docs-header">
-					    <h1 class="docs-heading">PHP Table Class [x_class_table]<span class="docs-time">Documentations</span></h1>
+					    <h1 class="docs-heading">PHP User Class [x_class_user]<span class="docs-time">Documentations</span></h1>
 					    <section class="docs-intro">
 						    <p>This is the Documentation for the Bugfish Framework!</p>
 						</section><!--//docs-intro-->
 				    </header>		<br /><hr><br />
-			<section class="docs-section" id="item-1-1" style="padding-top: 0px;border-bottom: none;">
+	
+			<section class="docs-section" id="item-1-1" style="padding-top: 0px;border-bottom: none;" >
 				<h2>Documentation</h2>
-<p style="text-align: left;">The x_class_table class is a PHP class designed to simplify the management of database tables. It provides a set of functions for creating, editing, and deleting rows within a specified database table. The class also offers the flexibility to configure the structure of the HTML forms used for creating and editing table entries. It includes built-in CSRF protection to enhance security during data manipulation operations. Additionally, the class can generate an HTML table for displaying the contents of the database table, making it a valuable tool for building web applications that involve database interaction.</p>
+<p style="text-align: left;">The x_class_user PHP class stands as a versatile and comprehensive solution, effortlessly embedding user management into a wide array of web projects. By seamlessly supporting cookies, it ensures smooth and persistent user experiences across visits. This solution boasts user registration and authentication, including secure password hashing. Additionally, it facilitates profile customization with support for user groups and extra fields, providing tailored interactions.
+<br /><br />
+The class further facilitates seamless management of user activities with capabilities such as email-based activation codes for changing email addresses, password recovery through activation codes, and secure login procedures. By leveraging PHP sessions, it ensures consistent user authentication throughout browsing sessions.
+<br /><br />
+To enable the class's functionality, MySQL is required for data storage. Notably, the class is designed with security in mind, offering protection against MySQL injection. However, it's important to note that while it prioritizes security, no solution can guarantee absolute immunity to potential threats.</p>
 
 <div style="max-width: 500px;text-align: left; background: 161616;">
 ⚠️ Does use Session-Cookies<br />
-⚠️ Does need x_class_mysql object<br />
-⚠️ Does need x_class_csrf class available<br />
-<br /></div>
+⚠️ Does use Cookies (if enabled)<br />
+⚠️ Does use MySQL (x_class_mysqli object)<br />
+⚠️ Tables will be automatically installed<br /><br /></div>
+<br />
 
-<h3>Class Functions</h3><p>Below you can see a list of functions and explanations on how to work with this class!</p>
+
+<h3 id="x_class_hitcounter">Table Structure</h3><p>Below you can find a list of tables created by this class, group classes will only get created if they are activated with configuration functions!</p><div class="scrolldivy">
+<h4 id="x_class_hitcounter">Session Table</h4><p>Table to store Sessions and User Tokens!</p>
 <table class="table table-bordered table-dark">
-    <thead>
-        <tr>
-            <th>Function/Class</th>
-            <th>Description</th>
-            <th>Parameters</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td>class x_class_table</td>
-            <td>A PHP class for managing tables.</td>
-            <td>
-                <ul>
-                    <li>$mysql (object): The MySQL database connection.</li>
-                    <li>$table_name (string): The name of the table.</li>
-                    <li>$id (string): An optional identifier for the class instance.</li>
-                    <li>$id_field (string): The name of the primary key field (default is "id").</li>
-                </ul>
-            </td>
-        </tr>
-        <tr>
-            <td>__construct</td>
-            <td>Constructor for initializing the class.</td>
-            <td>
-                <ul>
-                    <li>$mysql (object): The MySQL database connection.</li>
-                    <li>$table_name (string): The name of the table.</li>
-                    <li>$id (string): An optional identifier for the class instance.</li>
-                    <li>$id_field (string): The name of the primary key field (default is "id").</li>
-                </ul>
-            </td>
-        </tr>
-        <tr>
-            <td>exec_delete</td>
-            <td>Executes a delete operation on a table row.</td>
-            <td>No parameters are required.</td>
-        </tr>
-        <tr>
-            <td>config_rel_url</td>
-            <td>Configures the relative URL for form actions.</td>
-            <td>
-                <ul>
-                    <li>$rel_url (string): The relative URL to set.</li>
-                </ul>
-            </td>
-        </tr>
-        <tr>
-            <td>config_array</td>
-            <td>Configures the arrays for creation and editing.</td>
-            <td>
-                <ul>
-                    <li>$create (array): Configuration for creating.</li>
-                    <li>$edit (array): Configuration for editing.</li>
-                </ul>
-            </td>
-        </tr>
-        <tr>
-            <td>exec_edit</td>
-            <td>Executes an edit operation on a table row.</td>
-            <td>No parameters are required.</td>
-        </tr>
-        <tr>
-            <td>exec_create</td>
-            <td>Executes a create operation to add a new row to the table.</td>
-            <td>No parameters are required.</td>
-        </tr>
-        <tr>
-            <td>spawn_return</td>
-            <td>Generates a message box to display operation results.</td>
-            <td>
-                <ul>
-                    <li>$deleted (string): Message for deleted item.</li>
-                    <li>$csrf (string): Message for CSRF error.</li>
-                    <li>$edited (string): Message for edited item.</li>
-                    <li>$created (string): Message for created item.</li>
-                </ul>
-            </td>
-        </tr>
-        <tr>
-            <td>spawn_create</td>
-            <td>Generates the form for creating a new item.</td>
-            <td>
-                <ul>
-                    <li>$button_name (string): Label for the create button.</li>
-                    <li>$button_class (string): CSS class for the button.</li>
-                </ul>
-            </td>
-        </tr>
-        <tr>
-            <td>spawn_edit</td>
-            <td>Generates the form for editing an existing item.</td>
-            <td>
-                <ul>
-                    <li>$button_name (string): Label for the edit button.</li>
-                    <li>$button_class (string): CSS class for the button.</li>
-                </ul>
-            </td>
-        </tr>
-        <tr>
-            <td>spawn_table</td>
-            <td>Generates the table for listing items in the database.</td>
-            <td>
-                <ul>
-                    <li>$title_array (array): Configuration for table headers.</li>
-                    <li>$value_array (array): Data to display in the table.</li>
-                    <li>$editing (boolean): Enable or disable editing links.</li>
-                    <li>$deleting (boolean): Enable or disable deleting links.</li>
-                    <li>$creating (string): Label for creating a new item link.</li>
-                    <li>$action_column (string): Header label for action column.</li>
-                    <li>$classes (string): Additional CSS classes for the table.</li>
-                </ul>
-            </td>
-        </tr>
-    </tbody>
+  <tr>
+    <th>Column Name</th>
+    <th>Data Type</th>
+    <th>Nullable</th>
+    <th>Default Value</th>
+    <th>Comment</th>
+  </tr>
+  <tr>
+    <td>id</td>
+    <td>int(10)</td>
+    <td>No</td>
+    <td>AUTO_INCREMENT</td>
+    <td>Unique Session ID</td>
+  </tr>
+  <tr>
+    <td>fk_user</td>
+    <td>int(10)</td>
+    <td>No</td>
+    <td></td>
+    <td>Related User ID</td>
+  </tr>
+  <tr>
+    <td>key_type</td>
+    <td>tinyint(1)</td>
+    <td>Yes</td>
+    <td>0</td>
+    <td>
+      1 - activate<br>
+      2 - session<br>
+      3 - recover<br>
+      4 - mailchange
+    </td>
+  </tr>
+  <tr>
+    <td>creation</td>
+    <td>datetime</td>
+    <td>Yes</td>
+    <td>CURRENT_TIMESTAMP</td>
+    <td>Creation Date for max Session Days</td>
+  </tr>
+  <tr>
+    <td>modification</td>
+    <td>datetime</td>
+    <td>Yes</td>
+    <td>CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP</td>
+    <td>Modification Date</td>
+  </tr>
+  <tr>
+    <td>refresh_date</td>
+    <td>datetime</td>
+    <td>Yes</td>
+    <td>NULL</td>
+    <td>Last Use Date set by session_restore!</td>
+  </tr>
+  <tr>
+    <td>session_key</td>
+    <td>varchar(128)</td>
+    <td>Yes</td>
+    <td></td>
+    <td>Session Authentication Token and Key!</td>
+  </tr>
+  <tr>
+    <td>is_active</td>
+    <td>tinyint(1)</td>
+    <td>Yes</td>
+    <td>0</td>
+    <td>1 - Active<br>0 - Expired</td>
+  </tr>
+  <tr>
+    <td>request_ip</td>
+    <td>varchar(128)</td>
+    <td>Yes</td>
+    <td>NULL</td>
+    <td>Requested IP if enabled set at creation!</td>
+  </tr>
+  <tr>
+    <td>execute_ip</td>
+    <td>varchar(128)</td>
+    <td>Yes</td>
+    <td>NULL</td>
+    <td>Executed IP if enabled set at Invalidation!</td>
+  </tr>
+  <tr>
+    <td>Primary Key</td>
+    <td colspan="4">(id)</td>
+  </tr>
+</table>
+</div>
+<h4 id="x_class_hitcounter">Users Table</h4><p>Table to store Users and user Settings!</p>
+<div class="scrolldivy">
+<table class="table table-bordered table-dark">
+  <tr>
+    <th>Column Name</th>
+    <th>Data Type</th>
+    <th>Nullable</th>
+    <th>Default Value</th>
+    <th>Comment</th>
+  </tr>
+  <tr>
+    <td>id</td>
+    <td>int</td>
+    <td>No</td>
+    <td>AUTO_INCREMENT</td>
+    <td>Unique ID</td>
+  </tr>
+  <tr>
+    <td>user_name</td>
+    <td>varchar(512)</td>
+    <td>Yes</td>
+    <td>'undefined'</td>
+    <td>Users Name for Login if Ref</td>
+  </tr>
+  <tr>
+    <td>user_initial</td>
+    <td>int(1)</td>
+    <td>Yes</td>
+    <td>0</td>
+    <td>1 if this user is the initial created user</td>
+  </tr>
+  <tr>
+    <td>user_pass</td>
+    <td>varchar(512)</td>
+    <td>Yes</td>
+    <td>NULL</td>
+    <td>Users Pass for Login</td>
+  </tr>
+  <tr>
+    <td>user_mail</td>
+    <td>varchar(512)</td>
+    <td>Yes</td>
+    <td>NULL</td>
+    <td>Users Mail for Login if Ref</td>
+  </tr>
+  <tr>
+    <td>user_shadow</td>
+    <td>varchar(512)</td>
+    <td>Yes</td>
+    <td>NULL</td>
+    <td>Users Store for Mail if Renew</td>
+  </tr>
+  <tr>
+    <td>user_rank</td>
+    <td>int(9)</td>
+    <td>Yes</td>
+    <td>NULL</td>
+    <td>Users Rank</td>
+  </tr>
+  <tr>
+    <td>user_confirmed</td>
+    <td>tinyint(1)</td>
+    <td>Yes</td>
+    <td>0</td>
+    <td>User Activation Status</td>
+  </tr>
+  <tr>
+    <td>req_activation</td>
+    <td>datetime</td>
+    <td>Yes</td>
+    <td>NULL</td>
+    <td>Activation Date Counter for new Requests</td>
+  </tr>
+  <tr>
+    <td>last_activation</td>
+    <td>datetime</td>
+    <td>Yes</td>
+    <td>NULL</td>
+    <td>Activation Date Counter for new Requests</td>
+  </tr>
+  <tr>
+    <td>user_disabled</td>
+    <td>int(1)</td>
+    <td>Yes</td>
+    <td>0</td>
+    <td>1 - User is Disabled</td>
+  </tr>
+  <tr>
+    <td>last_login</td>
+    <td>datetime</td>
+    <td>Yes</td>
+    <td>NULL</td>
+    <td>Last Login Date</td>
+  </tr>
+  <tr>
+    <td>user_blocked</td>
+    <td>tinyint(1)</td>
+    <td>Yes</td>
+    <td>0</td>
+    <td>User Blocked Status</td>
+  </tr>
+  <tr>
+    <td>block_reset</td>
+    <td>int(1)</td>
+    <td>Yes</td>
+    <td>NULL</td>
+    <td>Block Resets for this user</td>
+  </tr>
+  <tr>
+    <td>block_auto</td>
+    <td>int(1)</td>
+    <td>Yes</td>
+    <td>0</td>
+    <td>Has this user been automatically blocked?</td>
+  </tr>
+  <tr>
+    <td>block_activation</td>
+    <td>int(1)</td>
+    <td>Yes</td>
+    <td>NULL</td>
+    <td>Block Activation for this User</td>
+  </tr>
+  <tr>
+    <td>block_mail_edit</td>
+    <td>datetime</td>
+    <td>Yes</td>
+    <td>NULL</td>
+    <td>Block Mail Edits for this User</td>
+  </tr>
+  <tr>
+    <td>fails_in_a_row</td>
+    <td>int(10)</td>
+    <td>Yes</td>
+    <td>1</td>
+    <td>Fail Pass Enters without Success Login</td>
+  </tr>
+  <tr>
+    <td>last_block</td>
+    <td>datetime</td>
+    <td>Yes</td>
+    <td>NULL</td>
+    <td>Block Date for this user</td>
+  </tr>
+  <tr>
+    <td>user_lang</td>
+    <td>varchar(24)</td>
+    <td>Yes</td>
+    <td>NULL</td>
+    <td>User Default Language</td>
+  </tr>
+  <tr>
+    <td>user_color</td>
+    <td>varchar(24)</td>
+    <td>Yes</td>
+    <td>NULL</td>
+    <td>User Default Color</td>
+  </tr>
+  <tr>
+    <td>user_theme</td>
+    <td>varchar(24)</td>
+    <td>Yes</td>
+    <td>NULL</td>
+    <td>User Default Theme</td>
+  </tr>
+  <tr>
+    <td>user_theme_sub</td>
+    <td>varchar(24)</td>
+    <td>Yes</td>
+    <td>NULL</td>
+    <td>User Default Sub Theme</td>
+  </tr>
+  <tr>
+    <td>extradata</td>
+    <td>TEXT</td>
+    <td>Yes</td>
+    <td>NULL</td>
+    <td>Additional Data</td>
+  </tr>
+  <tr>
+    <td>hive_extradata</td>
+    <td>TEXT</td>
+    <td>Yes</td>
+    <td>NULL</td>
+    <td>Additional Data for HIVE System</td>
+  </tr>
+  <tr>
+    <td>req_reset</td>
+    <td>datetime</td>
+    <td>Yes</td>
+    <td>NULL</td>
+    <td>Reset Date Counter for new Requests</td>
+  </tr>
+  <tr>
+    <td>last_reset</td>
+    <td>datetime</td>
+    <td>Yes</td>
+    <td>NULL</td>
+    <td>Reset Date Counter for new Requests</td>
+  </tr>
+  <tr>
+    <td>req_mail_edit</td>
+    <td>datetime</td>
+    <td>Yes</td>
+    <td>NULL</td>
+    <td>Last Mail Change Request Date</td>
+  </tr>
+  <tr>
+    <td>last_mail_edit</td>
+    <td>datetime</td>
+    <td>Yes</td>
+    <td>NULL</td>
+    <td>Last Mail Change Request Date</td>
+  </tr>
+  <tr>
+    <td>last_activity</td>
+    <td>datetime</td>
+    <td>Yes</td>
+    <td>NULL</td>
+    <td>Last Activity on Site of User</td>
+  </tr>
+  <tr>
+    <td>created_date</td>
+    <td>datetime</td>
+    <td>Yes</td>
+    <td>CURRENT_TIMESTAMP</td>
+    <td>Creation Date</td>
+  </tr>
+  <tr>
+    <td>modify_date</td>
+    <td>datetime</td>
+    <td>Yes</td>
+    <td>CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP</td>
+    <td>Modification Date</td>
+  </tr>
+  <tr>
+    <td>Primary Key</td>
+    <td colspan="4">(id)</td>
+  </tr>
 </table>
 
 
 
+</div>
+<h3 id="x_class_hitcounter">Group Tables</h3><p>One Group table for the groups themselves, the other for relations between groups and users!</p>
+<div class="scrolldivy">
+<table  class="table table-bordered table-dark">
+  <tr>
+    <th>Column Name</th>
+    <th>Data Type</th>
+    <th>Nullable</th>
+    <th>Default Value</th>
+    <th>Comment</th>
+  </tr>
+  <tr>
+    <td>id</td>
+    <td>int(10)</td>
+    <td>No</td>
+    <td>AUTO_INCREMENT</td>
+    <td>Unique Group ID</td>
+  </tr>
+  <tr>
+    <td>group_name</td>
+    <td>varchar(255)</td>
+    <td>No</td>
+    <td></td>
+    <td>Group Name</td>
+  </tr>
+  <tr>
+    <td>group_description</td>
+    <td>TEXT</td>
+    <td>Yes</td>
+    <td>NULL</td>
+    <td>Group Description</td>
+  </tr>
+  <tr>
+    <td>creation</td>
+    <td>datetime</td>
+    <td>Yes</td>
+    <td>CURRENT_TIMESTAMP</td>
+    <td>Creation Date</td>
+  </tr>
+  <tr>
+    <td>modification</td>
+    <td>datetime</td>
+    <td>Yes</td>
+    <td>CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP</td>
+    <td>Modification Date</td>
+  </tr>
+  <tr>
+    <td>Primary Key</td>
+    <td colspan="4">(id)</td>
+  </tr>
+</table>
+
+<table  class="table table-bordered table-dark">
+  <tr>
+    <th>Column Name</th>
+    <th>Data Type</th>
+    <th>Nullable</th>
+    <th>Default Value</th>
+    <th>Comment</th>
+  </tr>
+  <tr>
+    <td>id</td>
+    <td>int(10)</td>
+    <td>No</td>
+    <td>AUTO_INCREMENT</td>
+    <td>Unique Link ID</td>
+  </tr>
+  <tr>
+    <td>fk_user</td>
+    <td>int(10)</td>
+    <td>No</td>
+    <td></td>
+    <td>Related User ID</td>
+  </tr>
+  <tr>
+    <td>fk_group</td>
+    <td>int(10)</td>
+    <td>No</td>
+    <td></td>
+    <td>Related Group ID</td>
+  </tr>
+  <tr>
+    <td>creation</td>
+    <td>datetime</td>
+    <td>Yes</td>
+    <td>CURRENT_TIMESTAMP</td>
+    <td>Creation Date</td>
+  </tr>
+  <tr>
+    <td>Primary Key</td>
+    <td colspan="4">(id)</td>
+  </tr>
+  <tr>
+    <td>Unique Constraint</td>
+    <td colspan="4">UNIQUE (`fk_user`,`fk_group`)</td>
+  </tr>
+</table>
+
+
+</div>
+
+
+<h3 id="x_class_hitcounter">Extrafield Tables</h3><p>Table Structure for Extrafields!</p>
+
+<div class="scrolldivy">
+<table  class="table table-bordered table-dark">
+  <tr>
+    <th>Column Name</th>
+    <th>Data Type</th>
+    <th>Nullable</th>
+    <th>Default Value</th>
+    <th>Comment</th>
+  </tr>
+  <tr>
+    <td>id</td>
+    <td>int(10)</td>
+    <td>No</td>
+    <td>AUTO_INCREMENT</td>
+    <td>Unique Group ID</td>
+  </tr>
+  <tr>
+    <td>fk_user</td>
+    <td>int(10)</td>
+    <td>No</td>
+    <td></td>
+    <td>Related User ID</td>
+  </tr>
+  <tr>
+    <td>...</td>
+    <td>...</td>
+    <td>...</td>
+    <td>...</td>
+    <td>Set your own extrafields with functions!</td>
+  </tr>
+  <tr>
+    <td>creation</td>
+    <td>datetime</td>
+    <td>Yes</td>
+    <td>CURRENT_TIMESTAMP</td>
+    <td>Creation Date</td>
+  </tr>
+  <tr>
+    <td>modification</td>
+    <td>datetime</td>
+    <td>Yes</td>
+    <td>CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP</td>
+    <td>Modification Date</td>
+  </tr>
+  <tr>
+    <td>Primary Key</td>
+    <td colspan="4">(id)</td>
+  </tr>
+</table>
+
+</div>
+
+<div class="internal_show" id="show_p">
+	<h3>User Related Parameters</h3>
+	This parameters are only set if a user if logged in!
+	<table class="table table-bordered table-dark">
+		<thead>
+			<tr>
+				<th>Parameter Name</th>
+				<th>Description</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>&nbsp;user_name<br>name<br></td>
+				<td>&nbsp;If user is logged in, this contains the user_name as set in database<br></td>
+			</tr>
+			<tr>
+				<td>&nbsp;user_mail<br>mail<br></td>
+				<td>&nbsp;If user is logged in, this contains the user_mail as set in database <br></td>
+			</tr>
+			<tr>
+				<td>&nbsp;theme<br>user_theme<br></td>
+				<td>&nbsp;If user is logged in, this contains the user_theme as set in database <br></td>
+			</tr>
+			<tr>
+				<td>&nbsp;lang<br>user_lang<br></td>
+				<td>&nbsp;If user is logged in, this contains the user_lang as set in database <br></td>
+			</tr>
+			<tr>
+				<td>&nbsp;loggedIn<br>loggedin<br>user_loggedin<br>user_loggedIn<br></td>
+				<td>&nbsp;If user is logged in, this is true, otherwhise false <br></td>
+			</tr>
+			<tr>
+				<td>&nbsp;user()</td>
+				<td>Array with all Fields from Database with Users in it.<br>(Not with data from extrafield or group table)<br></td>
+			</tr>
+			<tr>
+				<td>&nbsp;user_id<br>id<br></td>
+				<td>&nbsp;If user is logged in, this contains the user_id as set in database <br></td>
+			</tr>
+			<tr>
+				<td>&nbsp;user_rank<br>rank<br></td>
+				<td>&nbsp;If user is logged in, this contains the user_rank as set in database <br></td>
+			</tr>
+		</tbody>
+	</table>
+	<h3>Reference Functions Return Vars</h3>
+	This variables are set if main operation functions like login/recover/mail change are triggers, to get datas like the user mail or id to quickly send mails to him!
+	<table class="table table-bordered table-dark">
+	<thead>
+	<tr>
+	<th>Reference Return Variables</th>
+	<th>Description</th>
+	</tr>
+	</thead>
+	<tbody>
+	<tr>
+	<td>$mail_ref_user</td>
+	<td>Contains references relating involved user id after major operation has been triggered.</td>
+	</tr>
+	<tr>
+	<td>$mail_ref_token</td>
+	<td>Contains references relating involved user token for activation after major operation has been triggered and serves one.</td>
+	</tr>
+	<tr>
+	<td>$mail_ref_receiver</td>
+	<td>Contains references relating involved user mail after major operation has been triggered.</td>
+	</tr>
+	<tr>
+	<td>$ref</td>
+	<td>Contains references relating involved user after major operation has been triggered.</td>
+	</tr>
+	</tbody>
+	</table>	
+	<h3>Operation Functions Return Vars</h3>
+	This vars will be set after a major function (mail change, recover, login) has been triggered and will be have the same content as the result the related function returns.
+	<table class="table table-bordered table-dark">
+	<thead>
+	<tr>
+	<th>Reference Return Variables (outdated)</th>
+	<th>Description</th>
+	</tr>
+	</thead>
+	<tbody>
+	<tr>
+	<td>$login_request_code</td>
+	<td>Return Code out of Login Functions (same like result it gives back)</td>
+	</tr>
+	<tr>
+	<td>$rec_request_code</td>
+	<td>Return Code out of Recover Functions (same like result it gives back)</td>
+	</tr>
+	<tr>
+	<td>$act_request_code</td>
+	<td>Return Code out of Activation Functions (same like result it gives back)</td>
+	</tr>
+	<tr>
+	<td>$mc_request_code</td>
+	<td>Return Code out of Mail Change Functions (same like result it gives back)</td>
+	</tr>
+	</tbody>
+	</table>
+</div>
+
+
+</section><hr><section class="docs-section" id="item-1-1-1" style="border-bottom: none;">
+<div class="internal_show" id="show_c">
+	<h3>Constructing Functions</h3>
+	<table class="table table-bordered table-dark">
+	<thead>
+	<tr>
+	<th>Constructor Function</th>
+	<th>Description</th>
+	</tr>
+	</thead>
+	<tbody>
+	<tr>
+	<td>__construct($mysqlcon, $table_users, $table_sessions, $preecokie = &quot;x<em>users</em>&quot;, $initial_ref = false, $initial_pass = false, $initial_rank = false)</td>
+	<td>Construct with x_class_mysql object and Table names (will be auto-generated) Tables are for Users, Sessions. If wanted initial username(ref) and Password can be added! Will only be added on re-install of sql table (auto generated). To an inital User to be created all variables needs to be filled!<br /><br />
+	$mysqlcon -> x_class_mysql object<br />
+	$table_users -> Table Name for the Users Table to be generated<br />
+	$table_sessions -> Table Name for the Sessions table to be generated<br />
+	$preecokie -> Precookie for Multi Login (Multi Instance Functionality)<br />
+	$initial_ref -> If Inital Setup, First Admin Username/Usermail to be added to Database<br />
+	$initial_pass -> Initial User Password<br />
+	$initial_rank -> Initial User Rank<br /></td>
+	</tr>
+	</tbody>
+	</table>
+	<h3>Configuration Functions</h3>
+	Run this functions before init() to adjust login class settings for your site!<br /><br />
+	<table class="table table-bordered table-dark">
+	<thead>
+	<tr>
+	<th>General Login Class Config Function</th>
+	<th>Description</th>
+	</tr>
+	</thead>
+	<tbody>
+	<tr>
+	<td>multi_login($bool = false)</td>
+	<td>Allow Multi Login? If this is "false" users will be logged out in the first session if they log in at another location. If this is set to "true" users can login multiple times in different browsers.</td>
+	</tr>
+	<tr>
+	<td>login_recover_drop($bool = false)</td>
+	<td>Deactivate Password Reset Token on Successfull Login. If this is "true" - Reset tokens which may have been created will be disabled if the user is logged in or does loggin successfully.</td>
+	</tr>
+	<tr>
+	<td>login_field_manual($string)</td>
+	<td>Choose Custom Login Field which should be unique! This can be "user_name" "user_mail" or the reference like a userid you have set for this user. You do not need to setup this, this can be ignored if you do not need it.</td>
+	</tr>
+	<tr>
+	<td>login_field_user()</td>
+	<td>User is for Login Primary(Unique). If you set this to true, the primary login for users will be the user_name.</td>
+	</tr>
+	<tr>
+	<td>login_field_mail()</td>
+	<td>Mail is for Login Primary(Unique) If you set this to true, the primary login for users will be the user_mail.</td>
+	</tr>
+	<tr>
+	<td>mail_unique($bool = false)</td>
+	<td>Mails are unique if this is set to true. If you set this to false mails are not unique. May gets overwritten if user_mail is the default login option, than its forced unique!</td>
+	</tr>
+	<tr>
+	<td>user_unique($bool = false)</td>
+	<td>User Names are unique if this is set to true. If you set this to false User Names are not unique. May gets overwritten if User Names is the default login option, than its forced unique!</td>
+	</tr></tbody>
+	<thead>
+	<tr>
+	<th>Config: Log Functions</th>
+	<th>Description</th>
+	</tr>
+	</thead>
+	<tbody>
+	<tr>
+	<td>log_ip($bool=false)</td>
+	<td>Log IPs in Database for Sessions? True = Yes / False = No</td>
+	</tr>
+	<tr>
+	<td>log_activation($bool=false)</td>
+	<td>Log Activation Session Table? If this is set to false - used keys will be deleted. If this is true, they will be preserved.</td>
+	</tr>
+	<tr>
+	<td>log_session($bool=false)</td>
+	<td>Log Session Session Table If this is set to false - used keys will be deleted. If this is true, they will be preserved.</td>
+	</tr>
+	<tr>
+	<td>log_recover($bool=false)</td>
+	<td>Log Recover in Session Table If this is set to false - used keys will be deleted. If this is true, they will be preserved.</td>
+	</tr>
+	<tr>
+	<td>log_mail_edit($bool=false)</td>
+	<td>Log Mail Edits in Session Table If this is set to false - used keys will be deleted. If this is true, they will be preserved.</td>
+	</tr></tbody>
+	<thead>
+	<tr>
+	<th>Config: Operation Delay Interval Functions</th>
+	<th>Description</th>
+	</tr>
+	</thead>
+	<tbody>
+	<tr>
+	<td>wait_activation_min($int = 6)</td>
+	<td>Activate Request Interval Minutes - The time the users need to wait between Activation Operations to start another Operation (against flooding)</td>
+	</tr>
+	<tr>
+	<td>wait_recover_min($int = 6)</td>
+	<td>Recover Request Interval Minutes - The time the users need to wait between Recover Operations to start another Operation (against flooding)</td>
+	</tr>
+	<tr>
+	<td>wait_mail_edit_min($int = 6)</td>
+	<td>Mail Edit Request Interval Minutes - The time the users need to wait between Mail Change by User with Activation Operations to start another Operation (against flooding)</td>
+	</tr>
+	</tbody>
+	<thead>
+	<tr>
+	<th>Config: Token Expire Functions</th>
+	<th>Description</th>
+	</tr>
+	</thead>
+	<tbody>
+	<tr>
+	<td>min_activation($int = 6)</td>
+	<td>Activate Token Expire Minutes - The time Activation Keys doe expire in after.</td>
+	</tr>
+	<tr>
+	<td>min_recover($int = 6)</td>
+	<td>Recover Token Expire Minutes  - The time Recover Keys doe expire in after. </td>
+	</tr>
+	<tr>
+	<td>min_mail_edit($int = 6)</td>
+	<td>Mail Edit Token Expire Minutes - The time Mail Change Activation Keys doe expire in after. </td>
+	</tr></tbody>
+	<thead>
+	<tr>
+	<th>Config: Autoblock Functions</th>
+	<th>Description</th>
+	</tr>
+	</thead>
+	<tbody>
+	<tr>
+	<td>autoblock($int = false)</td>
+	<td>Activate Auto Block of User after X failed Logins with wrong password, false for deactivation of this function.</td>
+	</tr>
+	</tbody>
+	<thead>
+	<tr>
+	<th>Config: Session Functions</th>
+	<th>Description</th>
+	</tr>
+	</thead>
+	<tbody>
+	<tr>
+	<td>sessions_days($int = 7)</td>
+	<td>Session Valid for X Days. This defines how long sessions are max valid in days</td>
+	</tr>
+	</tbody>
+	<thead>
+	<tr>
+	<th>Config: Cookie Functions</th>
+	<th>Description</th>
+	</tr>
+	</thead>
+	<tbody>
+	<tr>
+	<td>cookies_use($bool = true)</td>
+	<td>Allow Use of Cookies - if this is set to yes, cookies are activated and a "remember me" login function can work with cookies. See login_request function for cookie parameter. If this is set to false - no cookies will than be used.</td>
+	</tr>
+	<tr>
+	<td>cookies_days($int = 7)</td>
+	<td>Cookies valid for X Days. This defines how long sessions are max valid in days if not refreshed.</td>
+	</tr>
+	</tbody>
+	<thead>
+	<tr>
+	<th>Token Config Functions</th>
+	<th>Description</th>
+	</tr>
+	</thead>
+	<tbody>
+	<tr>
+	<td>token_charset($charset = &quot;0123456789&quot;)</td>
+	<td>Change Token Charset</td>
+	</tr>
+	<tr>
+	<td>token_length($length = 24)</td>
+	<td>Change Token Length - Change the default Length of generated Tokens</td>
+	</tr>
+	<tr>
+	<td>session_length($length = 24)</td>
+	<td>Change Session Length - Change the Length for generated Session tokens</td>
+	</tr>
+	<tr>
+	<td>session_charset($charset = &quot;0123456789&quot;)</td>
+	<td>Change Session Charset - Change the Charset for generated Tokens</td>
+	</tr>
+	</tbody>
+	</table><br />
+	<h3>User Table Change Functions</h3>
+	<table class="table table-bordered table-dark">
+	<thead>
+	<tr>
+	<th>User Extrafield Functions</th>
+	<th>Description</th>
+	</tr>
+	</thead>
+	<tbody>
+	<tr>
+	<td>user_add_field($addstring)</td>
+	<td>Add a Field to Users Table (Column with Column Add String after "ADD COLUMN IF NOT EXISTS ***"</td>
+	</tr>
+	<tr>
+	<td>user_del_field($fieldname)</td>
+	<td>Delete a Field from Users Table (CAUTION that does delete data!)</td>
+	</tr>
+	</tbody>
+	</table>
+<h3>Usergroup Functions</h3>
+	<table class="table table-bordered table-dark">
+	<thead>
+	<tr>
+	<th>Group Functions</th>
+	<th>Description</th>
+	</tr>
+	</thead>
+	<tbody> 
+	<tr>
+	<td>groups($table_group, $table_group_link)</td>
+	<td>Enable Usergroups Functionality, Provide name of Group and Relations Table, they will be generated and installed by this class.</td>
+	</tr>
+	<tr>
+	<td>group_add($name, $description = "")</td>
+	<td>Create a Group with Name and Description (optional)</td>
+	</tr>
+	<tr>
+	<td>group_del($id)</td>
+	<td>Delete a Group with ID</td>
+	</tr>
+	<tr>
+	<td>group_users($groupid)</td>
+	<td>Get all Users for a Group in an Array which represents all the relations Table fields (Multi Array)</td>
+	</tr>
+	<tr>
+	<td>user_groups($userid)</td>
+	<td>Get all Groups for a User in an array which represents the user group fields of every group in a multi array.</td>
+	</tr>
+	<tr>
+	<td>group_adduser($groupid, $userid)</td>
+	<td>Add a user to a group with User and Group ID</td>
+	</tr>
+	<tr>
+	<td>group_deluser($groupid, $userid)</td>
+	<td>Delete a User from a Group with User and Group ID</td>
+	</tr>
+	<tr>
+	<td>groups_del_field($fieldname)</td>
+	<td>Delete a Group Table Field Name providing the column name.</td>
+	</tr>
+	<tr>
+	<td>groups_add_field($fieldstring)</td>
+	<td>Add a Field to Group Table (Column with Column Add String after "ADD COLUMN IF NOT EXISTS ***"</td>
+	</tr>
+	</tbody>
+	</table>
+<h3>Password Filtering Functions</h3>
+	<table class="table table-bordered table-dark">
+	<thead>
+	<tr>
+	<th>Password Filter Function</th>
+	<th>Description</th>
+	</tr>
+	</thead>
+	<tbody>
+	<tr>
+	<td>passfilter($signs = 6, $capitals = 0, $small = 0, $special = 0, $number = 0)</td>
+	<td>Setup Password Filter Check Variable, the parameters represent the required minimum of needed characters, for example numbers, special chars and capital letters.</td>
+	</tr>
+	<tr>
+	<td>passfilter_check($passclear)</td>
+	<td>Check String is confirming the passfilters set rules on passfilter()</td>
+	</tr>
+	</tbody>
+	</table>	
+	<h3>Password Functions</h3><table class="table table-bordered table-dark">
+	<thead>
+	<tr>
+	<th>Password Functions</th>
+	<th>Description</th>
+	</tr>
+	</thead>
+	<tbody>
+	<tr>
+	<td>password_gen($len = 12, $comb = &quot;abcde12345&quot;)</td>
+	<td>Generate a Key with Charset[Comb String] and Length, you can use this anywhere you want if you need to generate a password or another random string!</td>
+	</tr>
+	<tr>
+	<td>password_crypt($var, $hash = PASSWORD_BCRYPT)</td>
+	<td>Crypt a Cleartext Password - Crypt a Cleartext password to Hashed password. You do not need to do this if you work with this frameworks functions. In case this is needed, this framework will do it by itself. All passwords are default Bcrypt hashed!</td>
+	</tr>
+	<tr>
+	<td>password_check($cleartext, $crypted)</td>
+	<td>Check Crypted Password Validation - provide the crypted hashed password and a cleartext password and validity will be checked using this classes conforming bcrypt method, in which passwords are saved in the database.</td></tr>
+	</tbody>
+	</table>	
+	<h3>Extrafield Functions</h3><table class="table table-bordered table-dark">
+	<thead>
+	<tr>
+	<th>Extrafield Functions</th>
+	<th>Description</th>
+	</tr>
+	</thead>
+	<tbody>
+	<tr>
+	<td>extrafields($table_ext)</td>
+	<td>Activate Extrafield Functionality by providing a table name, which will be generated and installed automatically.</td>
+	</tr>
+	<tr>
+	<td>extrafield_del_field($fieldname)</td>
+	<td>Delete a Extrafield Table Field Name providing the column name.</td>
+	</tr>
+	<tr>
+	<td>extrafield_add_field($fieldstring)</td>
+	<td>Add a Field to Extrafield Table (Column with Column Add String after "ADD COLUMN IF NOT EXISTS ***"</td>
+	</tr>
+	<tr>
+	<td>extrafield_get($id)</td>
+	<td>Get Extrafield Array for a user</td>
+	</tr>
+	</tbody>
+	</table>
+</div>
+<div class="internal_show" id="show_v">
+	<h3>Check Token Validation Time Left Functions</h3>
+	<table class="table table-bordered table-dark">
+	<thead>
+	<tr>
+	<th>Get Expire Time for Request Functions in Seconds (Interval)</th>
+	<th>Description</th>
+	</tr>
+	</thead>
+	<tbody>
+	<tr>
+	<td>activation_request_time($user)</td>
+	<td>Get Time till next Request Possible with user id</td>
+	</tr>
+	<tr>
+	<td>recover_request_time($user)</td>
+	<td>Get Time till next Request Possible with user id</td>
+	</tr>
+	<tr>
+	<td>mail_edit_request_time($user)</td>
+	<td>Get Time till next Request Possible with user id</td>
+	</tr>
+	</tbody>
+	</table>
+	<h3>Check Token Valid Functions</h3>
+	<table class="table table-bordered table-dark">
+	<thead>
+	<tr>
+	<th>Check Token Validation Functions</th>
+	<th>Description</th>
+	</tr>
+	</thead>
+	<tbody>
+	<tr>
+	<td>activation_token_valid($user, $token)</td>
+	<td>Check if Act Token Valid by providing the related user id and the token</td>
+	</tr>
+	<tr>
+	<td>recover_token_valid($user, $token)</td>
+	<td>Check if Recover Token Valid by providing the related user id and the token</td>
+	</tr>
+	<tr>
+	<td>mail_edit_token_valid($user, $token)</td>
+	<td>Check if Mail Edit Token Valid by providing the related user id and the token</td>
+	</tr>
+	<tr>
+	<td>session_token_valid($user, $token)</td>
+	<td>Check if Session Token Valid by providing the related user id and the token</td>
+	</tr>
+	</tbody>
+	</table>
+</div>
+</section><hr><section class="docs-section" id="item-1-1-2" style="border-bottom: none;">
+<div class="internal_show" id="show_u">
+<h3>User Operation Functions</h3>
+		If you do not provide an ID here, the actual logged in executing user will be changed or handled as id. In case the id is optional this will be the handling for that kind of execution or trigger of that  functions listed below.<br /><br />
+		<table class="table table-bordered table-dark">
+		<thead>
+	<tr>
+	<th>User Operation Functions</th>
+	<th>Description</th>
+	</tr>
+	</thead>
+	<tbody>
+	<tr>
+	<td>get($id = false)</td>
+	<td>Get User informations from Table in Array</td>
+	</tr>
+	<tr>
+	<td>exists($id = false)</td>
+	<td>Check if user with id exists</td>
+	</tr>
+	<tr>
+	<td>delete($id = false)</td>
+	<td>Delete User</td>
+	</tr>
+	<tr>
+	<td>disable_user_session($id = false)</td>
+	<td>Disable a Users Session</td>
+	</tr>
+	<tr>
+	<td>delete_user_session($id = false)</td>
+	<td>Delete a Users Session</td>
+	</tr>
+	<tr>
+	<td>logout_all()</td>
+	<td>Logout all Users</td>
+	</tr>
+	<tr>
+	<td>confirmed_user($id = false)</td>
+	<td>Check User Confirmation State, if the user account is confirmed this will give back "true"</td>
+	</tr>
+	<tr>
+	<td>addUser($nameref, $mail, $password = false, $rank = false, $activated = false) <br />add_user</td>
+	<td>Add a New User to the database.<br /><br /> If Mail is unique, this does delete never used, registered accounts with that mail as Shadow Mails on Users with that mail. If $activated is true the user wont need any additional activation. You can define the users rank, password, mail and may the user reference, which can represnt the mail for the new created user.<br /></td>
+	</tr>
+	</table><h3>Block Functions</h3>
+	<table class="table table-bordered table-dark">
+	<thead>
+	<tr>
+	<th>User Block Functions</th>
+	<th>Description</th>
+	</tr>
+	</thead>
+	<tbody>
+	<tr>
+	<td>blocked_user($id = false)</td>
+	<td>Is User Blocked? True if Yes, False if no.</td>
+	</tr>
+	<tr>
+	<td>block_user($id = false)</td>
+	<td>Block a User</td>
+	</tr>
+	<tr>
+	<td>unblock_user($id = false)</td>
+	<td>Unblock a User</td>
+	</tr>
+	</tbody>
+	</table><h3>Enable/Disable Functions</h3>
+	<table class="table table-bordered table-dark">
+	<thead>
+	<tr>
+	<th>User Disable Functions</th>
+	<th>Description</th>
+	</tr>
+	</thead>
+	<tbody>
+	<tr>
+	<td>disabled_user($id = false)</td>
+	<td>Is User Disabled? True if Yes, False if no.</td>
+	</tr>
+	<tr>
+	<td>disable_user($id = false)</td>
+	<td>Disable a User</td>
+	</tr>
+	<tr>
+	<td>enable_user($id = false)</td>
+	<td>Enable a User</td>
+	</tr>
+	</tbody>
+	</table>
+	<h3>Change User Functions</h3>
+	<table class="table table-bordered table-dark">
+	<thead>
+	<tr>
+	<th>User Change Functions</th>
+	<th>Description</th>
+	</tr>
+	</thead>
+	<tbody>
+	<tr>
+	<td>change_pass($id = false, $new = false)<br />change_password<br />changeUserPass</td>
+	<td>Change User Pass</td>
+	</tr>
+	<tr>
+	<td>change_rank($id = false, $new = false)</td>
+	<td>Change User Rank</td>
+	</tr>
+	<tr>
+	<td>changeUserName($id = false, $new)<br />change_name</td>
+	<td>Change User Name</td>
+	</tr>
+	<tr>
+	<td>changeUserShadowMail($id = false, $new)<br />change_shadow</td>
+	<td>Change a Users Shadow Mail (This is the Mail which is not activated Yet but he user registered new and awaits activation)</td>
+	</tr>
+	<tr>
+	<td>changeUserMail($id = false, $new)<br />change_mail</td>
+	<td>Change a Users Mail<br /><br />AIf Mail is unique, this does delete never used, registered accounts with that mail as Shadow Mails on Users with that mail!</td>
+	</tr>
+	</table><h3>Duplicate Check Functions</h3>
+	<table class="table table-bordered table-dark">
+	<thead>
+	<tr>
+	<th>Reference Existance Checks</th>
+	<th>Description</th>
+	</tr>
+	</thead>
+	<tbody>
+	<tr>
+	<td>refExists($ref)<br />ref_exists</td>
+	<td>Check if ref Exists</td>
+	</tr>
+	<tr>
+	<td>refExistsActive($ref)<br />ref_exists_active</td>
+	<td>Check if Ref Exists confirmed User</td>
+	</tr>
+	<tr>
+	<td>usernameExists($ref)<br />username_exists</td>
+	<td>Check if username exists</td>
+	</tr>
+	<tr>
+	<td>usernameExistsActive($ref)<br />username_exists_active</td>
+	<td>Check if Username Exists confirmed User</td>
+	</tr>
+	<tr>
+	<td>mailExists($ref)<br />mail_exists</td>
+	<td>Check if Mail Exists</td>
+	</tr>
+	<tr>
+	<td>mailExistsActive($ref)<br />mail_exists_active</td>
+	<td>Check if Mail Exists Confirmed User</td>
+	</tr>
+	</tbody>
+	</table><h3>Extra Data Functions</h3>
+	<table class="table table-bordered table-dark">
+	<thead>
+	<tr>
+	<th>Extra Data Functions</th>
+	<th>Description</th>
+	</tr>
+	</thead>
+	<tbody>
+	<tr>
+	<td>get_extra($id= false)</td>
+	<td>Get extradata as array from user (You can store your own data for user here in an array if needed, there is an extradata field in users table)</td>
+	</tr>
+	<tr>
+	<td>set_extra($id= false, $array)</td>
+	<td>Set extra data from array for user (You can store your own data for user here in an array if needed, there is an extradata field in users table)</td>
+	</tr>
+	</tbody>
+	</table>
+<h3>Login As Functions</h3>
+	<table class="table table-bordered table-dark">
+	<thead>
+	<tr>
+	<th>Login As Functions</th>
+	<th>Description</th>
+	</tr>
+	</thead>
+	<tbody>
+	<tr>
+	<td>login_as($id)</td>
+	<td>Login as User with ID (needs to be logged in when this function is executed, multi login with user logged in at same time normally is possible!</td>
+	</tr>
+	<tr>
+	<td>login_as_return()</td>
+	<td>Return to normal State after login_as() function has been successfully executed</td>
+	</tr>
+	<tr>
+	<td>login_as_is()</td>
+	<td>True if current user is masked logged in as another user with login_as() function. False if current user is normally logged in!</td>
+	</tr>
+	</tbody>
+	</table>
+</div>
+</section><hr ><section class="docs-section" id="item-1-1-3" style="border-bottom: none;">
+	<h3>Primary Functions</h3>
+
+	<table class="table table-bordered table-dark">
+	<thead>
+	<tr>
+	<th>Primary Functions</th>
+	<th>Description</th>
+	</tr>
+	</thead>
+	<tbody>
+	<tr>
+	<td>logout()</td>
+	<td>Logout the Current Logged In User</td>
+	</tr>
+	<tr>
+	<td>init()</td>
+	<td>Init the Login with all Configs (Should run once after Configuration has been changed with adjustment functions. This will create all needed session and restore the login if already logged in. Without this function executed after the configuration, nothing will work!</td>
+	</tr>
 
 
 
+	<tr>
+	<td>login_request($ref, $pass, $cookies= false)</td>
+	<td>Request Login with Reference, Pass and Want stay online? (cookies) <br />
+		Return Code: 1 - Login Successfull <br /> 
+		Return Code: 2 -Ref does not exist <br /> 
+		Return Code: 3 - Wrong Password <br /> 
+		Return Code: 4 - User Blocked <br /> 
+		Return Code: 5 - User not confirmed <br /> 
+		Return Code: 6- Pass Wrong and User Auto-Blocked after X tries (if activated)<br />
+		Return Code: 7- User is Disabled</td>
+	</tr>
 
+	</tbody>
+	</table>
 
+	<h3>Activation Functions</h3>
+	<table class="table table-bordered table-dark">
+	<thead>
+	<tr>
+	<th>Activation Functions</th>
+	<th>Description</th>
+	</tr>
+	</thead>
+	<tbody>
+	<tr>
+	<td>activation_request_id($id)</td>
+	<td>Activation Requests without Interval Limits with User ID
+	<p>Administrator can Request Activation for Users without Interval Checks<br />Request Activation for Account with ID (fills Ref for example Mail Sending) <br /> 1 - Successfull <br /> 2 - Ref Not Found<br /> 3 - Already Active User ID</p>
+	</td>
+	</tr>
+	</tbody>
+	<tbody>
+	<tr>
+	<td>activation_request($ref)</td>
+	<td> Request Activation for Account with Ref from User  (fills Ref for example Mail Sending) <br /> 
+		1 - Successfull <br /> 
+		2 - Ref Not Found <br /> 
+		3 - Interval not Reached between new Activation Requests <br /> 
+		4 - Already Active User ID <br /> 
+		5 - Activation for this user is blocked<br /> 
+		6 - User is Disabled</td>
+	</tr>
+	</tbody>
+	<tbody>
+	<tr>
+	<td>activation_confirm($userid, $token, $newpass = false)</td>
+	<td> Activate with Userid and Valid Token     <br /> 1 - Successfull Created<br /> 2 - Reference not Found<br /> 3 - Token Invalid<br /> 4 - Activation Blocked for this user </td>
+	</tr>
+	</tbody>
+	</table>
+	<h3>Account Recover Functions</h3>
+	<table class="table table-bordered table-dark">
+	<thead>
+	<tr>
+	<th>Reset Functions</th>
+	<th>Description</th>
+	</tr>
+	</thead>
+	<tbody>
+	<tr>
+	<td>recover_request_id($id)</td>
+	<td>Recover Request for Account ID (fills Ref for example Mail Sending) <br /> 1 - Successfull Created <br /> 2 - Reference not Found</td>
+	</tr>
+	<tr>
+	<td>recover_request($ref)</td>
+	<td>Recover Request for User by Ref (fills Ref for example Mail Sending) <br /> 
+		1 - Successfull <br /> 
+		2 - Reference not found <br /> 
+		3 - Interval not Reached <br /> 
+		4 - User Blocked for Resets <br />
+		5 - User is Disabled <br /></td>
+	</tr>
+	<tr>
+	<td>recover_confirm($userid, $token, $newpass)</td>
+	<td>Confirm Recover with new Password, Token and UseriD (fills Ref for example Mail Sending) <br /> 1 - Successfull <br /> 2 - Reference not found <br /> 3 - Token Error <br /> 4 - User Blocked for Resets</td>
+	</tr>
+	</tbody>
+	</table>
+	<hr>
+	<h3>Mail change with Confirmation Functions</h3>
+	<table class="table table-bordered table-dark">
+	<thead>
+	<tr>
+	<th>Mail Edit Functions</th>
+	<th>Description</th>
+	</tr>
+	</thead>
+	<tbody>
+	<tr>
+	<td>mail_edit($id, $newmail, $nointervall = false)</td>
+	<td>Create New Shadow Mail <br /> 
+		1 - Success <br /> 
+		2 - Reference Not Found <br /> 
+		3 - Interval for new Request not Reached <br /> 
+		4 - Mail Exists <br /> 
+		5 - User Blocked for Mail Change <br />
+		6 - User is Disabled<br /></td>
+	</tr>
+	<tr>
+	<td>mail_edit_confirm($userid, $token, $run = true)</td>
+	<td>Confirm Mail Edit <br /> 1 - Success <br /> 2 - Reference Not Found <br /> 3 - Token Expired <br /> 4 - Mail Exists Shadow Removed in Meantime <br /> 5 - User Blocked for Mail Change <br /> 6 - Change User Mail Function Error / Mail Exists or is already for User</td>
+	</tr>
+	</tbody>
+	</table>
 
-
-
-
-
+<div class="internal_show" id="show_d">
+	<h3>Templates for Login and Execution Forms</h3>
+	Functions below can spare you the work to build own login html elements!<br /><br />
+	<div class="scrolldivy">
+	<table class="table table-bordered table-dark">
+	<thead>
+	<tr>
+	<th>Display Function (optional)</th>
+	<th>Description</th>
+	</tr>
+	</thead>
+	<tbody>
+	<tr>
+	<td>display_return_code</td>
+	<td>Contains Return Code for Display Form Functions. See the Function which is refered to in below instructions!</td>
+	</tr>
+	<tr>
+	<td>display_login($spawn_register_button = array("url" => "", "label" => "Register Now"), $spawn_cookie_checkbox = "Stay Logged In?", $spawn_reset_button = array("url" => "", "label" => "Reset Account"), $login_button_label = "Login", $label = array("ref_placeholder" => "Please enter your E-Mail", "ref_label" => "E-Mail", "pass_label" => "Password", "pass_placeholder" => "Please enter your password!"), $captcha = array("url" => "captcha.jpg", "code" => "243fsdfsfds"))</td>
+	<td>Display Login Template, returns in display_return_code the output of login_request()...<br />This function will spawn a fully functional login page. As this is not widely used, this function is not explained here in detail. You can make your own login area and use this class to handle all necesary things yourself. This class will take a lot of user management related work in backend away from you.</td>
+	</tr>
+	</tbody>
+	</table></div>
 					</section><hr><section class="docs-section" id="item-1-2" style="border-bottom: none;">
 						<h2 class="section-heading">How to get support?</h2>
 						<p>There are different ways to get support for our products. You can write comments in our specific websites section for the related product, but the best way it to write in our forum, as we are getting notifications about that! So if you need any help, sign in at our forum and we will do what we can to serve you. If you do not want to register at our forum, you are invited to write us for support at requests@bugfish.eu.</p>

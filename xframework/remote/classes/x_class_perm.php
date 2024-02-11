@@ -39,7 +39,7 @@
 										  `creation` datetime DEFAULT CURRENT_TIMESTAMP COMMENT 'Creation',
 										  `modification` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT 'Modification | Auto - Set',
 										  PRIMARY KEY (`id`),
-										  UNIQUE KEY `Index 2` (`ref`,`section`) );");}
+										  UNIQUE KEY `x_class_perm` (`ref`,`section`) );");}
 		
 		// Constructor
 		function __construct($mysql, $tablename, $section = "") {

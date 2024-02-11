@@ -65,7 +65,7 @@
 												  `creation` datetime DEFAULT CURRENT_TIMESTAMP COMMENT 'Creation',
 												  `modification` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT 'Modification',
 												  PRIMARY KEY (`id`),
-												  UNIQUE KEY `UNIQUE` (`full_url`, `section`) USING BTREE ) ;	");	}
+												  UNIQUE KEY `x_class_hitcounter` (`full_url`, `section`) USING BTREE ) ;	");	}
 		
 		######################################################
 		// Constructor

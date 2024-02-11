@@ -46,7 +46,7 @@
 											  `creation` datetime DEFAULT CURRENT_TIMESTAMP COMMENT 'Creation Date - Auto Set',
 											  `modification` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT 'Modification Date | Auto - Set',
 											  PRIMARY KEY (`id`),
-											  UNIQUE KEY `UNIQUE` (`full_url`, `section`, `site_url`) USING BTREE );");		
+											  UNIQUE KEY `x_class_referer` (`full_url`, `section`, `site_url`) USING BTREE );");		
 		}
 		
 		######################################################
@@ -93,7 +93,7 @@
 					$query = "SELECT * FROM `".$this->mysqltable."` WHERE full_url = ? AND site_url = ? AND section = ?;";
 					$sresult = @$this->mysql->select($query, false, $b);
 					if (!is_array($sresult)) { 
-						$query = @$this->mysql->query("INSERT INTO `".$this->mysqltable."` (full_url, site_url, section, hits) VALUES (?, ?, 1)", $b);
+						$query = @$this->mysql->query("INSERT INTO `".$this->mysqltable."` (full_url, site_url, section, hits) VALUES (?, ?, ?, 1)", $b);
 					} else {
 						$query = @$this->mysql->update("UPDATE `".$this->mysqltable."` SET hits = hits + 1 WHERE full_url = ? AND site_url = ? AND section = ?;", $b);
 					}				

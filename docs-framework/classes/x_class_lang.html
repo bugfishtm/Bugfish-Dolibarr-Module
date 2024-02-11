@@ -22,15 +22,15 @@
     <script src="../assets/js/jquery.scrollto.js"></script>
     <script src="../assets/js/jquery.finder.js"></script><style>.scrolldivy{max-width: 100%;overflow-y:scroll;}</style>
 	<!-- Descriptions -->
-    <title>PHP File Class - Bugfish Documentations</title>
-	<meta property="og:title" content="PHP File Class - Bugfish Documentations"/>
-	<meta name="description" content="Welcome to the Github Documentation Page of the Bugfish Framework! This is the documentation for x_class_file! Here you can find the github url to the project and different explanation about the classes and functions! We wish you the best!">
+    <title>PHP Lang Class - Bugfish Documentations</title>
+	<meta property="og:title" content="PHP Lang Class - Bugfish Documentations"/>
+	<meta name="description" content="Welcome to the Github Documentation Page of the Bugfish Framework! This is the documentation for x_class_lang! Here you can find the github url to the project and different explanation about the classes and functions! We wish you the best!">
 <script type="application/ld+json">
 {
   "@context": "http://schema.org",
   "@type": "TechArticle",
-  "headline": "PHP File Class",
-  "description": "Welcome to the Github Documentation Page of the Bugfish Framework! This is the documentation for x_class_file! Here you can find the github url to the project and different explanation about the classes and functions! We wish you the best!",
+  "headline": "PHP Lang Class",
+  "description": "Welcome to the Github Documentation Page of the Bugfish Framework! This is the documentation for x_class_lang! Here you can find the github url to the project and different explanation about the classes and functions! We wish you the best!",
   "articleSection": "Introduction",
   "datePublished": "2023-11-03",
   "dateModified": "2023-11-03",
@@ -71,7 +71,7 @@
 		    <nav id="docs-nav" class="docs-nav navbar">
 			    <ul class="section-items list-unstyled nav flex-column pb-3">
 				    <li class="nav-item section-title"><a class="nav-link" href="../index.html"><span class="theme-icon-holder me-2"><i class="fas fa-arrow-left"></i></span>Back</a></li>
-				    <li class="nav-item section-title"><a class="nav-link scrollto active" href="#section-1"><span class="theme-icon-holder me-2"><i class="fas fa-map-signs"></i></span>PHP File Class</a></li>
+				    <li class="nav-item section-title"><a class="nav-link scrollto active" href="#section-1"><span class="theme-icon-holder me-2"><i class="fas fa-map-signs"></i></span>PHP Lang Class</a></li>
 				    <li class="nav-item"><a class="nav-link scrollto" href="#item-1-1">Documentation</a></li>
 				    <li class="nav-item"><a class="nav-link scrollto" href="#item-1-2" target="_blank">Support</a></li>
 				    <li class="nav-item"><a class="nav-link scrollto" href="#item-1-3" target="_blank">License</a></li>
@@ -89,29 +89,157 @@
 		    <div class="container">
 			    <article class="docs-article" id="section-1">
 				    <header class="docs-header">
-					    <h1 class="docs-heading">PHP File Class [x_class_file]<span class="docs-time">Documentations</span></h1>
+					    <h1 class="docs-heading">PHP Lang Class [x_class_lang]<span class="docs-time">Documentations</span></h1>
 					    <section class="docs-intro">
 						    <p>This is the Documentation for the Bugfish Framework!</p>
 						</section><!--//docs-intro-->
-				    </header>		<br /><hr>
+				    </header>		<br /><hr><br>
 	
-			<section class="docs-section" id="item-1-1" style="padding-top: 0px;border-bottom: none;">
-				<br /><h2>Documentation</h2>
+			<section class="docs-section" id="item-1-1" style="padding-top: 0px; border-bottom: none;">
+				<h2>Documentation</h2>
+<p style="text-align: left;">The x_class_lang class handles multilingual translation and localization. It provides methods for managing translations both through a MySQL database and a file-based approach. The class can initialize translation arrays, delete translation keys, add new translations, and perform translations using the loaded data. It simplifies the process of translating content for different languages and sections within an application.</p>
+
+<div style="max-width: 700px;text-align: left; background: 161616;">
+
+⚠️ Does use MySQL (x_class_mysqli object) (if not using language file)<br />
+⚠️ Tables will be automatically installed<br />
+<br /></div>
+<h3 id="x_class_var">Table Structure</h3><p>Below explanations about the SQL Table which will be created for this class to store translations, if no language files are used!</p><div class="scrolldivy">
+<table class="table table-bordered table-dark">
+  <tr>
+    <th>Column Name</th>
+    <th>Data Type</th>
+    <th>Constraints</th>
+    <th>Description</th>
+  </tr>
+  <tr>
+    <td>id</td>
+    <td>int(9)</td>
+    <td>NOT NULL, AUTO_INCREMENT</td>
+    <td>Unique ID</td>
+  </tr>
+  <tr>
+    <td>identificator</td>
+    <td>varchar(512)</td>
+    <td>NOT NULL</td>
+    <td>Descriptor for Translation</td>
+  </tr>
+  <tr>
+    <td>lang</td>
+    <td>varchar(16)</td>
+    <td>NOT NULL</td>
+    <td>Value for Constant</td>
+  </tr>
+  <tr>
+    <td>translation</td>
+    <td>text</td>
+    <td></td>
+    <td>Description for Constant</td>
+  </tr>
+  <tr>
+    <td>section</td>
+    <td>varchar(128)</td>
+    <td>DEFAULT ''</td>
+    <td>Section for Constant (For Multi Site)</td>
+  </tr>
+  <tr>
+    <td>creation</td>
+    <td>datetime</td>
+    <td>DEFAULT CURRENT_TIMESTAMP</td>
+    <td>Creation Date of Entry (Auto-Set on Insert)</td>
+  </tr>
+  <tr>
+    <td>modification</td>
+    <td>datetime</td>
+    <td>DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP</td>
+    <td>Modification Date of Entry (Auto-Update on Change)</td>
+  </tr>
+  <tr>
+    <td  colspan="4">UNIQUE KEY `x_class_lang` (`identificator`,`lang`,`section`) USING BTREE</td>
+  </tr>
+</table>
+
+</div>
+<h3 id="x_class_var">Class Functions</h3><p>Below a list of functions and explanations on how to use them.</p><div class="scrolldivy">
+<table class="table table-bordered table-dark">
+<thead>
+<tr>
+<th>Function</th>
+<th>Parameters</th>
+<th>Result</th>
+<th>Explanation</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>create_table()</td>
+<td>None</td>
+<td>Executes SQL to create a table</td>
+<td>Creates a MySQL table for storing translations if it doesn&#39;t already exist.</td>
+<td>php $x_class_lang-&gt;create_table();</td>
+</tr>
+<tr>
+<td>__construct()</td>
+<td>$mysql, $table, $lang, $section, $file_name</td>
+<td>Initializes class properties</td>
+<td>Constructor for the class. It initializes properties like database connection, table name, language, section, and file mode. If the MySQL object is provided, it checks if the table exists and creates it if not. If a file name is provided, it reads translations from a file.</td>
+<td>php $x_class_lang = new x_class_lang($mysql, $table, $lang, $section, $file_name);</td>
+</tr>
+<tr>
+<td>init()</td>
+<td>None</td>
+<td>Initializes translation array</td>
+<td>Initializes the translation array by fetching translations from the database. It is called automatically in the constructor.</td>
+<td>Automatically called in constructor</td>
+</tr>
+<tr>
+<td>delete($key, $lang)</td>
+<td>$key (string), $lang (optional string)</td>
+<td>Deletes a translation entry</td>
+<td>Deletes a translation entry for a specific key and language from the database. If $lang is not provided, it deletes the entry for the current language and section.</td>
+<td>php $x_class_lang-&gt;delete(&#39;example_key&#39;, &#39;en&#39;);</td>
+</tr>
+<tr>
+<td>add($key, $text, $lang)</td>
+<td>$key (string), $text (string), $lang (optional string)</td>
+<td>Adds a new translation entry</td>
+<td>Adds a new translation entry to the database. If $lang is not provided, it adds it for the current language and section.</td>
+<td>php $x_class_lang-&gt;add(&#39;new_key&#39;, &#39;New Text&#39;, &#39;fr&#39;);</td>
+</tr>
+<tr>
+<td>translate($key)</td>
+<td>$key (string)</td>
+<td>Translates a key</td>
+<td>Translates a given key. If the key exists in the translation array, it returns the translation; otherwise, it returns the key itself.</td>
+<td>php $x_class_lang-&gt;translate(&#39;example_key&#39;);</td>
+</tr>
+</tbody>
+</table></div>
+
+<h3 id="x_class_mastered-">Example Language File</h3><p>Example Implementation using a file to store translations!</p>
+<code class="json hljs">
+// Language file example<br />
+# Language file example<br />
+example_key=This is an example translation<br />
+another_key=Another translation<br />
+</code>
+<br />
+<h3 id="x_class_mastered-">Example DB Implementation</h3><p>Example Implementation using a database to store translations!</p>
+<code class="json hljs">
+$mysql = new MySQLConnection(); // Replace with your database connection<br />
+$table = 'translations';<br />
+$lang = 'en';<br />
+$section = 'general';<br />
+<br />
+$x_class_lang = new x_class_lang($mysql, $table, $lang, $section);<br />
+<br />
+// Usage example<br />
+$translation = $x_class_lang->translate('example_key');<br />
+echo $translation; // Output: This is an example translation<br />
 
 
-
-
-<div class="callout-block callout-block-info">
-                            <div class="content">
-                                <h4 class="callout-title">
-	                                <span class="callout-icon-holder me-1">
-		                                <svg class="svg-inline--fa fa-circle-info" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="circle-info" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" data-fa-i2svg=""><path fill="currentColor" d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM216 336h24V272H216c-13.3 0-24-10.7-24-24s10.7-24 24-24h48c13.3 0 24 10.7 24 24v88h8c13.3 0 24 10.7 24 24s-10.7 24-24 24H216c-13.3 0-24-10.7-24-24s10.7-24 24-24zm40-208a32 32 0 1 1 0 64 32 32 0 1 1 0-64z"></path></svg><!-- <i class="fas fa-info-circle"></i> Font Awesome fontawesome.com -->
-		                            </span><!--//icon-holder-->
-	                                INFORMATION
-	                            </h4>
-                                <p>This class is not yet documented and will be available in v2.8 of the public framework release!<br />Come back later to see if this class has been finished and distributed...</p>
-                            </div><!--//content-->
-                        </div>
+</code>
 
 					</section><hr><section class="docs-section" id="item-1-2" style="border-bottom: none;">
 						<h2 class="section-heading">How to get support?</h2>
@@ -122,7 +250,7 @@
 					<hr><section class="docs-section" id="item-1-3" style="border-bottom: none;">
 						<h2 class="section-heading">License Informations</h2>
 						<h4>License Informations of this Class</h4>
-	<p><div id="license-text" dir="ltr">
+		<p><div id="license-text" dir="ltr">
 <h3 style="text-align: center;">GNU GENERAL PUBLIC LICENSE</h3>
 <p style="text-align: center;">Version 3, 29 June 2007</p>
 

@@ -64,8 +64,8 @@
 		return false;}
 		
 	function x_inCLI() {
-		$sapi_type = php_sapi_name();
-		if (substr($sapi_type, 0, 3) == 'cgi') { return true;
+		$sapi_type = php_sapi_name(); 
+		if (substr($sapi_type, 0, 3) == 'cgi' || substr($sapi_type, 0, 3) == 'cli') { return true;
 		} else { return false; }}
 
 	function x_rmdir($dir) {

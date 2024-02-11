@@ -22,15 +22,15 @@
     <script src="../assets/js/jquery.scrollto.js"></script>
     <script src="../assets/js/jquery.finder.js"></script><style>.scrolldivy{max-width: 100%;overflow-y:scroll;}</style>
 	<!-- Descriptions -->
-    <title>PHP Perm Class - Bugfish Documentations</title>
-	<meta property="og:title" content="PHP Perm Class - Bugfish Documentations"/>
-	<meta name="description" content="Welcome to the Github Documentation Page of the Bugfish Framework! This is the documentation for x_class_perm! Here you can find the github url to the project and different explanation about the classes and functions! We wish you the best!">
+    <title>PHP Mail Template Class - Bugfish Documentations</title>
+	<meta property="og:title" content="PHP Mail Template Class - Bugfish Documentations"/>
+	<meta name="description" content="Welcome to the Github Documentation Page of the Bugfish Framework! This is the documentation for x_class_mail_template! Here you can find the github url to the project and different explanation about the classes and functions! We wish you the best!">
 <script type="application/ld+json">
 {
   "@context": "http://schema.org",
   "@type": "TechArticle",
-  "headline": "PHP Perm Class",
-  "description": "Welcome to the Github Documentation Page of the Bugfish Framework! This is the documentation for x_class_perm! Here you can find the github url to the project and different explanation about the classes and functions! We wish you the best!",
+  "headline": "PHP Mail Template Class",
+  "description": "Welcome to the Github Documentation Page of the Bugfish Framework! This is the documentation for x_class_mail_template! Here you can find the github url to the project and different explanation about the classes and functions! We wish you the best!",
   "articleSection": "Introduction",
   "datePublished": "2023-11-03",
   "dateModified": "2023-11-03",
@@ -71,9 +71,8 @@
 		    <nav id="docs-nav" class="docs-nav navbar">
 			    <ul class="section-items list-unstyled nav flex-column pb-3">
 				    <li class="nav-item section-title"><a class="nav-link" href="../index.html"><span class="theme-icon-holder me-2"><i class="fas fa-arrow-left"></i></span>Back</a></li>
-				    <li class="nav-item section-title"><a class="nav-link scrollto active" href="#section-1"><span class="theme-icon-holder me-2"><i class="fas fa-map-signs"></i></span>PHP Perm Class</a></li>
-				    <li class="nav-item"><a class="nav-link scrollto" href="#item-1-1">x_class_perm</a></li>
-				    <li class="nav-item"><a class="nav-link scrollto" href="#item-1-1-1">x_class_perm_item</a></li>
+				    <li class="nav-item section-title"><a class="nav-link scrollto active" href="#section-1"><span class="theme-icon-holder me-2"><i class="fas fa-map-signs"></i></span>PHP Mail Template Class</a></li>
+				    <li class="nav-item"><a class="nav-link scrollto" href="#item-1-1">Documentation</a></li>
 				    <li class="nav-item"><a class="nav-link scrollto" href="#item-1-2" target="_blank">Support</a></li>
 				    <li class="nav-item"><a class="nav-link scrollto" href="#item-1-3" target="_blank">License</a></li>
 					<!-- Impressum and Bugfish Link -->
@@ -90,7 +89,7 @@
 		    <div class="container">
 			    <article class="docs-article" id="section-1">
 				    <header class="docs-header">
-					    <h1 class="docs-heading">PHP Perm Class [x_class_perm]<span class="docs-time">Documentations</span></h1>
+					    <h1 class="docs-heading">PHP Mail Template Class <small>[x_class_mail_template]</small><span class="docs-time">Documentations</span></h1>
 					    <section class="docs-intro">
 						    <p>This is the Documentation for the Bugfish Framework!</p>
 						</section><!--//docs-intro-->
@@ -98,18 +97,14 @@
 	
 			<section class="docs-section" id="item-1-1" style="padding-top: 0px;border-bottom: none;">
 				<h2>Documentation</h2>
-<p style="text-align: left;">The x_class_perm class is a simple permission control class that allows you to manage permissions associated with different references (or users) and sections. It interacts with a MySQL database to store permission data. The class provides methods for adding, checking, and removing permissions for specific references.
-<br /><br />
-The x_class_perm_item class is used in conjunction with the x_class_perm class to represent individual reference-based permission items. It allows you to manipulate permissions associated with a specific reference more conveniently.
-<br /><br />
-These classes offer a straightforward way to manage and check permissions in your application by storing and querying permission data from a database.</p>
+<p style="text-align: left;"> The provided PHP class, x_class_mail_template, manages email templates and their substitutions using a MySQL database. It allows for setting headers, footers, content, and subjects of email templates, along with substitution capabilities. This class simplifies the process of generating dynamic emails from templates. </p>
 
 <div style="max-width: 500px;text-align: left; background: 161616;">
 ⚠️ Does use MySQL (x_class_mysqli object)<br />
 ⚠️ Tables will be automatically installed<br />
 <br /></div>
+<h3 id="x_class_hitcounter">Table Structure</h3><p>Below explanations about this classes table structure to save templates!</p><div class="scrolldivy">
 
-<h3 id="x_class_hitcounter">Table Structure</h3><p>Below explanations about the table which is used to save permission relations!</p><div class="scrolldivy">
 <table class="table table-bordered table-dark">
   <tr>
     <th>Column Name</th>
@@ -124,16 +119,28 @@ These classes offer a straightforward way to manage and check permissions in you
     <td>Identificator</td>
   </tr>
   <tr>
-    <td>ref</td>
-    <td>int(10)</td>
+    <td>name</td>
+    <td>varchar(256)</td>
     <td>NOT NULL</td>
-    <td>Related Reference</td>
+    <td>Template Identifier</td>
+  </tr>
+  <tr>
+    <td>subject</td>
+    <td>text</td>
+    <td>NULL</td>
+    <td>Template Subject</td>
+  </tr>
+  <tr>
+    <td>description</td>
+    <td>text</td>
+    <td>NULL</td>
+    <td>Template Description</td>
   </tr>
   <tr>
     <td>content</td>
     <td>text</td>
-    <td>NOT NULL</td>
-    <td>Permission Array</td>
+    <td>DEFAULT NULL</td>
+    <td>Template Content</td>
   </tr>
   <tr>
     <td>section</td>
@@ -153,187 +160,149 @@ These classes offer a straightforward way to manage and check permissions in you
     <td>DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP</td>
     <td>Modification (Auto-Set on Change)</td>
   </tr>
-</table>
-
-
+  <tr>
+    <td colspan="4">UNIQUE KEY `x_class_mail_template` (`name`, `section`)</td>
+  </tr>
+</table> 
 
 </div>
-<h3 id="x_class_perm-mastered-">Class Functions</h3><p>Below a list of functions and explanations on how to use them.</p>
-<table  class="table table-bordered table-dark">
-<thead>
-<tr>
-<th>Construct Function</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>__construct($mysql, $tablename, $section = &quot;&quot;)</td>
-<td>Constructor with x_class_mysql object and Tablename, Section for Multisite use if optional!</td>
-</tr>
-</tbody>
-<thead>
-<tr>
-<th>Config Functions</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>section($section)</td>
-<td>Optional: Change Current Section in Table for Perms</td>
-</tr>
-</tbody>
-<thead>
-<tr>
-<th>Perm Functions</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>get_perm($ref)<br />getPerm($ref)</td>
-<td>Get Perms array for Ref</td>
-</tr>
-<tr>
-<td>has_perm($ref, $name) <br /> hasPerm($ref, $name)</td>
-<td>Check if Ref has Perm Name</td>
-</tr>
-<tr>
-<td>add_perm($ref, $name) <br /> addPerm($ref, $name)</td>
-<td>Add new Perm to Ref</td>
-</tr>
-<tr>
-<td>check_perm($ref, $array, $or = false) <br />checkPerm($ref, $array, $or = false)</td>
-<td>Check for Multiple Perms OR/AND</td>
-</tr>
-<tr>
-<td>remove_perm($ref, $permname) <br />removePerm($ref, $permname)</td>
-<td>Remove Single Perm from a User</td>
-</tr>
-<tr>
-<td>removePerms($ref)<br />remove_perms($ref)<br />clear_perms($ref)</td>
-<td>Remove all Perms from a User</td>
-</tr>
-<tr>
-<td>delete_ref($ref)</td>
-<td>Flush a Ref from the Perms Table</td>
-</tr>
-<tr>
-<td>item($ref)</td>
-<td>Get Item Permission Object for Red (see Below)</td>
-</tr>
-</tbody>
-</table>
-</section><hr><section class="docs-section" id="item-1-1-1" style="border-bottom: none;">
-<h2 id="x_class_perm_item_anchor">x_class_perm_item </h2>
-This object can <span class="hljs-keyword">not</span> be created <span class="hljs-keyword">by</span> itself.  
-It needs <span class="hljs-keyword">to</span> be obtained <span class="hljs-keyword">by</span> getting <span class="hljs-keyword">it</span> <span class="hljs-keyword">from</span> <span class="hljs-keyword">the</span> x_class_perm function:
-<span class="hljs-built_in">item</span>($<span class="hljs-keyword">ref</span>) [See <span class="hljs-keyword">above</span> <span class="hljs-built_in">class</span> description]
-
-
-<div style="max-width: 500px;text-align: left; background: 161616;">
-⚠️ Does use MySQL (x_class_mysqli object)<br />
-⚠️ Tables will be automatically installed<br /><br /></div>
-<h3 id="x_class_perm-mastered-">Class Functions</h3><p>Below a list of functions and explanations on how to use them.</p>
-
+<h3 id="x_class_mail_template-mastered-">Class Functions</h3><p>Below a list of functions and explanations on how to use them.</p>
 <table class="table table-bordered table-dark">
 <thead>
 <tr>
-<th>Function</th>
+<th>Construct Functions</th>
 <th>Description</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>refresh()</td>
-<td>Refresh the Item with Database Table Permissions</td>
-</tr>
-<tr>
-<td>has_perm($permname)</td>
-<td>Check if this item has a Permission Name Granted</td>
-</tr>
-<tr>
-<td>add_perm($permname)</td>
-<td>Add a Permission with Name to Ref</td>
-</tr>
-<tr>
-<td>check_perm($array, $or = false)</td>
-<td>This PHP function named check_perm compares two arrays: $current_perm (an array of permissions) and $array (an array of permissions to check). It determines whether any or all of the permissions in $array exist in $current_perm. The function returns true if all permissions in $array exist in $current_perm when $or is set to false, and it returns true if at least one permission in $array exists in $current_perm when $or is set to true. If the input arrays are not valid or the conditions are not met, the function returns false.</td>
-</tr>
-<tr>
-<td>remove_perm($permname)</td>
-<td>Remove a Single perm with Name from Ref</td>
-</tr>
-<tr>
-<td>remove_perms()</td>
-<td>Remove all Permissions from this Ref</td>
-</tr>
-<tr>
-<td>delete_ref()</td>
-<td>Delete this Ref completely from Permission Table</td>
+<td>__construct($mysql, $table, $section = &quot;&quot;)</td>
+<td>Construct with x_class_mysql object, Table Name for Templates and Section name for Multi Site Use</td>
 </tr>
 </tbody>
-</table><br />
+<thead>
+<tr>
+<th>Substitution Functions</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>reset_substitution()</td>
+<td>Reset Substitution Array</td>
+</tr>
+<tr>
+<td>add_substitution($name, $replace)</td>
+<td>Add Substitution to Array</td>
+</tr>
+<tr>
+<td>do_substitute($text)</td>
+<td>Enter Text and get back Substitutet</td>
+</tr>
+</tbody>
+<thead>
+<tr>
+<th>Template Functions</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>set_template($name)</td>
+<td>Set Template to Content from DB (overwrites set_content)</td>
+</tr>
+<tr>
+<td>set_content($content, $subject)</td>
+<td>Set Mail content (Overwrites set_template)</td>
+</tr>
+<tr>
+<td>set_header($footer)</td>
+<td>Set Mail Header</td>
+</tr>
+<tr>
+<td>set_footer($footer)</td>
+<td>Set Mail Footer</td>
+</tr>
+<tr>
+<td>get_subject($substitute = false)</td>
+<td>Get a Template Subject</td>
+</tr>
+<tr>
+<td>get_content($substitute = false)</td>
+<td>Get a Template Content</td>
+</tr>
+<tr>
+<td>setup($name, $subject, $content, $description = "", $overwrite = false)</td>
+<td>Setup a new Template</td>
+</tr>
+<tr>
+<td>change($id, $name, $subject, $content, $description = "")</td>
+<td>Change a Template</td>
+</tr>
+<tr>
+<td>name_exists($name)</td>
+<td>Check if Template Name Exists</td>
+</tr>
+<tr>
+<td>get_name_by_id($id)</td>
+<td>Get Template Name by ID</td>
+</tr>
+<tr>
+<td>id_exists($id)</td>
+<td>Check if ID Exists</td>
+</tr>
+<tr>
+<td>id_delete($id)</td>
+<td>Delete an ID</td>
+</tr>
+<tr>
+<td>get_full($id)</td>
+<td>Get full array out of Database for ID</td>
+</tr>
+</tbody>
+</table>
 <h3 id="x_class_mastered-">Example Implementation</h3><p>Below you can see one example implementation of this class. It does only show a short introduction on how to initialize it.</p>
-<code class="json hljs">
-// Include your database connection code here<br />
+<code class="json hljs" readonly>
+// Include the necessary code to connect to your MySQL database and define the $mysql object.<br />
 <br />
-// Assuming you have a MySQLi or PDO database connection object named $db<br />
-require_once('x_class_perm.php');<br />
+// Include the x_class_mail_template class definition.<br />
+// Make sure you've already included or autoloaded the x_class_mail_template class.<br />
 <br />
-// Create an instance of the x_class_perm class<br />
-$permissions = new x_class_perm($db, 'permissions_table', 'example_section');<br />
+// Assuming you have a MySQL connection in the $mysql variable.<br />
 <br />
-// Example usage of the x_class_perm class<br />
+// Initialize the x_class_mail_template object.<br />
+$template = new x_class_mail_template($mysql, 'email_templates', 'general');<br />
 <br />
-// Add permission to a reference<br />
-$permissions->add_perm(1, 'read');<br />
-$permissions->add_perm(1, 'write');<br />
+// Set the header and footer for the email template.<br />
+$template->set_header("<html><head><title>Email Header</title></head><body>");<br />
+$template->set_footer("</body></html>");<br />
 <br />
-// Check if a reference has a specific permission<br />
-if ($permissions->has_perm(1, 'read')) {<br />
-    echo "User has read permission.";<br />
-} else {<br />
-    echo "User does not have read permission.";<br />
-}<br />
+// Set the email content and subject.<br />
+$content = "<p>Hello, {{name}}!</p>";<br />
+$subject = "Welcome to our website, {{name}}!";<br />
+$template->set_content($content, $subject);<br />
 <br />
-// Check if a reference has multiple permissions at once<br />
-$permissionsArray = ['read', 'write'];<br />
-if ($permissions->check_perm(1, $permissionsArray, false)) {<br />
-    echo "User has all specified permissions.";<br />
-} else {<br />
-    echo "User does not have all specified permissions.";<br />
-}<br />
+// Define substitutions.<br />
+$name = "John Doe";<br />
+$template->add_substitution("{{name}}", $name);<br />
 <br />
-// Get permissions for a reference<br />
-$userPermissions = $permissions->get_perm(1);<br />
-print_r($userPermissions);<br />
+// Optionally, you can retrieve the subject and content with substitutions.<br />
+$subjectWithSubstitutions = $template->get_subject(true);<br />
+$contentWithSubstitutions = $template->get_content(true);<br />
 <br />
-// Remove a permission from a reference<br />
-$permissions->remove_perm(1, 'read');<br />
+// Now, you can use $subjectWithSubstitutions and $contentWithSubstitutions to send an email using your preferred email-sending method.<br />
 <br />
-// Example usage of the x_class_perm_item class<br />
+// Example of sending an email (using PHP's built-in mail function):<br />
+$to = 'john@example.com';<br />
+$headers = 'Content-type: text/html; charset=UTF-8';<br />
+mail($to, $subjectWithSubstitutions, $contentWithSubstitutions, $headers);<br />
 <br />
-// Create an instance of the x_class_perm_item class for a specific reference<br />
-$permItem = $permissions->item(1);<br />
+// Optionally, you can also store this template in the database for future use.<br />
+$template->setup('welcome_template', $subject, $content, true);<br />
 <br />
-// Add a permission to the reference using the x_class_perm_item instance<br />
-$permItem->add_perm('delete');<br />
-<br />
-// Check if the reference has a specific permission using the x_class_perm_item instance<br />
-if ($permItem->has_perm('delete')) {<br />
-    echo "User has delete permission.";<br />
-} else {<br />
-    echo "User does not have delete permission.";<br />
-}<br />
-<br />
-// Remove a permission from the reference using the x_class_perm_item instance<br />
-$permItem->remove_perm('delete');<br />
-<br />
-// Refresh permissions for the reference using the x_class_perm_item instance<br />
-$permItem->refresh();<br />
+// Close the MySQL connection or perform other necessary cleanup.<br />
 </code>
+
 					</section><hr><section class="docs-section" id="item-1-2" style="border-bottom: none;">
 						<h2 class="section-heading">How to get support?</h2>
 						<p>There are different ways to get support for our products. You can write comments in our specific websites section for the related product, but the best way it to write in our forum, as we are getting notifications about that! So if you need any help, sign in at our forum and we will do what we can to serve you. If you do not want to register at our forum, you are invited to write us for support at requests@bugfish.eu.</p>

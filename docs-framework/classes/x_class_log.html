@@ -22,15 +22,15 @@
     <script src="../assets/js/jquery.scrollto.js"></script>
     <script src="../assets/js/jquery.finder.js"></script><style>.scrolldivy{max-width: 100%;overflow-y:scroll;}</style>
 	<!-- Descriptions -->
-    <title>PHP Mail Template Class - Bugfish Documentations</title>
-	<meta property="og:title" content="PHP Mail Template Class - Bugfish Documentations"/>
-	<meta name="description" content="Welcome to the Github Documentation Page of the Bugfish Framework! This is the documentation for x_class_mail_template! Here you can find the github url to the project and different explanation about the classes and functions! We wish you the best!">
+    <title>PHP Log Class - Bugfish Documentations</title>
+	<meta property="og:title" content="PHP Log Class - Bugfish Documentations"/>
+	<meta name="description" content="Welcome to the Github Documentation Page of the Bugfish Framework! This is the documentation for x_class_log! Here you can find the github url to the project and different explanation about the classes and functions! We wish you the best!">
 <script type="application/ld+json">
 {
   "@context": "http://schema.org",
   "@type": "TechArticle",
-  "headline": "PHP Mail Template Class",
-  "description": "Welcome to the Github Documentation Page of the Bugfish Framework! This is the documentation for x_class_mail_template! Here you can find the github url to the project and different explanation about the classes and functions! We wish you the best!",
+  "headline": "PHP Log Class",
+  "description": "Welcome to the Github Documentation Page of the Bugfish Framework! This is the documentation for x_class_log! Here you can find the github url to the project and different explanation about the classes and functions! We wish you the best!",
   "articleSection": "Introduction",
   "datePublished": "2023-11-03",
   "dateModified": "2023-11-03",
@@ -71,7 +71,7 @@
 		    <nav id="docs-nav" class="docs-nav navbar">
 			    <ul class="section-items list-unstyled nav flex-column pb-3">
 				    <li class="nav-item section-title"><a class="nav-link" href="../index.html"><span class="theme-icon-holder me-2"><i class="fas fa-arrow-left"></i></span>Back</a></li>
-				    <li class="nav-item section-title"><a class="nav-link scrollto active" href="#section-1"><span class="theme-icon-holder me-2"><i class="fas fa-map-signs"></i></span>PHP Mail Template Class</a></li>
+				    <li class="nav-item section-title"><a class="nav-link scrollto active" href="#section-1"><span class="theme-icon-holder me-2"><i class="fas fa-map-signs"></i></span>PHP Log Class</a></li>
 				    <li class="nav-item"><a class="nav-link scrollto" href="#item-1-1">Documentation</a></li>
 				    <li class="nav-item"><a class="nav-link scrollto" href="#item-1-2" target="_blank">Support</a></li>
 				    <li class="nav-item"><a class="nav-link scrollto" href="#item-1-3" target="_blank">License</a></li>
@@ -89,7 +89,7 @@
 		    <div class="container">
 			    <article class="docs-article" id="section-1">
 				    <header class="docs-header">
-					    <h1 class="docs-heading">PHP Mail Template Class <small>[x_class_mail_template]</small><span class="docs-time">Documentations</span></h1>
+					    <h1 class="docs-heading">PHP Log Class [x_class_log]<span class="docs-time">Documentations</span></h1>
 					    <section class="docs-intro">
 						    <p>This is the Documentation for the Bugfish Framework!</p>
 						</section><!--//docs-intro-->
@@ -97,15 +97,15 @@
 	
 			<section class="docs-section" id="item-1-1" style="padding-top: 0px;border-bottom: none;">
 				<h2>Documentation</h2>
-<p style="text-align: left;"> The provided PHP class, x_class_mail_template, manages email templates and their substitutions using a MySQL database. It allows for setting headers, footers, content, and subjects of email templates, along with substitution capabilities. This class simplifies the process of generating dynamic emails from templates. </p>
+<p style="text-align: left;">The x_class_log class is designed to manage logging and recording various types of messages, notifications, warnings, and errors to a MySQL database. It offers an organized way to keep track of system events, errors, and important information. The class interacts with the provided MySQL connection and table to store log entries.</p>
 
 <div style="max-width: 500px;text-align: left; background: 161616;">
 ⚠️ Does use MySQL (x_class_mysqli object)<br />
 ⚠️ Tables will be automatically installed<br />
 <br /></div>
-<h3 id="x_class_hitcounter">Table Structure</h3><p>Below explanations about this classes table structure to save templates!</p><div class="scrolldivy">
+<h3 id="x_class_hitcounter">Table Structure</h3><p>Table for this class to store logging activities.</p><div class="scrolldivy">
 
-<table class="table table-bordered table-dark">
+<table  class="table table-bordered table-dark">
   <tr>
     <th>Column Name</th>
     <th>Data Type</th>
@@ -119,185 +119,178 @@
     <td>Identificator</td>
   </tr>
   <tr>
-    <td>name</td>
-    <td>varchar(256)</td>
-    <td>NOT NULL</td>
-    <td>Template Identifier</td>
+    <td>type</td>
+    <td>int(10)</td>
+    <td>DEFAULT '0'</td>
+    <td>0 - Unspecified, 1 - Error, 2 - Warning, 3 - Notification</td>
   </tr>
   <tr>
-    <td>subject</td>
+    <td>message</td>
     <td>text</td>
-    <td>NULL</td>
-    <td>Template Subject</td>
-  </tr>
-  <tr>
-    <td>description</td>
-    <td>text</td>
-    <td>NULL</td>
-    <td>Template Description</td>
-  </tr>
-  <tr>
-    <td>content</td>
-    <td>text</td>
-    <td>DEFAULT NULL</td>
-    <td>Template Content</td>
+    <td></td>
+    <td>Logged Text</td>
   </tr>
   <tr>
     <td>section</td>
-    <td>varchar(128)</td>
-    <td>DEFAULT NULL</td>
-    <td>Related Section</td>
+    <td>VARCHAR(128)</td>
+    <td>NULL</td>
+    <td>Logged Category</td>
   </tr>
   <tr>
     <td>creation</td>
     <td>datetime</td>
     <td>DEFAULT CURRENT_TIMESTAMP</td>
-    <td>Creation</td>
-  </tr>
-  <tr>
-    <td>modification</td>
-    <td>datetime</td>
-    <td>DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP</td>
-    <td>Modification (Auto-Set on Change)</td>
+    <td>Creation Date (Auto-Set on Insert)</td>
   </tr>
 </table>
 
+
 </div>
-<h3 id="x_class_mail_template-mastered-">Class Functions</h3><p>Below a list of functions and explanations on how to use them.</p>
-<table class="table table-bordered table-dark">
+<h3 id="x_class_log-mastered-">Class Functions</h3><p>Below a list of functions and explanations on how to use them.</p>
+<table  class="table table-bordered table-dark">
 <thead>
 <tr>
-<th>Construct Functions</th>
+<th>Constructor Function</th>
 <th>Description</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>__construct($mysql, $table, $section = &quot;&quot;)</td>
-<td>Construct with x_class_mysql object, Table Name for Templates and Section name for Multi Site Use</td>
+<td>__construct($x_class_mysql, $tablename, $section = &quot;&quot;)</td>
+<td>Construct with an x_class_mysql object! Tablename for Table Name which should be created and Section is optional for multi sites!</td>
 </tr>
 </tbody>
 <thead>
 <tr>
-<th>Substitution Functions</th>
+<th>Misc Functions</th>
 <th>Description</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>reset_substitution()</td>
-<td>Reset Substitution Array</td>
+<td>get_array()</td>
+<td>Get complete Array out of Log Table with Log Entries</td>
 </tr>
 <tr>
-<td>add_substitution($name, $replace)</td>
-<td>Add Substitution to Array</td>
+<td>list_get($limit = 50)</td>
+<td>Get Log list as Array</td>
 </tr>
 <tr>
-<td>do_substitute($text)</td>
-<td>Enter Text and get back Substitutet</td>
+<td>list_flush_section()</td>
+<td>Mass Delete Entries from Log Table for the current Classes Section and set Auto Increment Counter Back to lowest Possible</td>
+</tr>
+<tr>
+<td>list_flush()</td>
+<td>Mass Delete Entries from Log Table and setAuto Increment Counter to 1</td>
 </tr>
 </tbody>
 <thead>
 <tr>
-<th>Template Functions</th>
+<th>Message to Log Functions</th>
 <th>Description</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>set_template($name)</td>
-<td>Set Template to Content from DB (overwrites set_content)</td>
+<td>message($message, $type = 3)</td>
+<td>Write an Message to Log with own Type Number</td>
 </tr>
 <tr>
-<td>set_content($content, $subject)</td>
-<td>Set Mail content (Overwrites set_template)</td>
+<td>post($message, $type = 3)</td>
+<td>Alias</td>
 </tr>
 <tr>
-<td>set_header($footer)</td>
-<td>Set Mail Header</td>
+<td>send($message, $type = 3)</td>
+<td>Alias</td>
 </tr>
 <tr>
-<td>set_footer($footer)</td>
-<td>Set Mail Footer</td>
+<td>write($message, $type = 3)</td>
+<td>Alias</td>
+</tr>
+</tbody>
+<thead>
+<tr>
+<th>Notify Functions</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>notify($message)</td>
+<td>Write an Type 3 Message to Log</td>
 </tr>
 <tr>
-<td>get_subject($substitute = false)</td>
-<td>Get a Template Subject</td>
+<td>info($message)</td>
+<td>Alias</td>
+</tr>
+</tbody>
+<thead>
+<tr>
+<th>Warn Functions</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>warning($message)</td>
+<td>Write an Type 2 Message to Log</td>
 </tr>
 <tr>
-<td>get_content($substitute = false)</td>
-<td>Get a Template Content</td>
+<td>warn($message)</td>
+<td>Alias</td>
+</tr>
+</tbody>
+<thead>
+<tr>
+<th>Error Functions</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>error($message)</td>
+<td>Write an Type 1 Message to Log</td>
 </tr>
 <tr>
-<td>setup($name, $subject, $content, $description = "", $overwrite = false)</td>
-<td>Setup a new Template</td>
+<td>failure($message)</td>
+<td>Alias</td>
 </tr>
 <tr>
-<td>change($id, $name, $subject, $content, $description = "")</td>
-<td>Change a Template</td>
+<td>err($message)</td>
+<td>Alias</td>
 </tr>
 <tr>
-<td>name_exists($name)</td>
-<td>Check if Template Name Exists</td>
-</tr>
-<tr>
-<td>get_name_by_id($id)</td>
-<td>Get Template Name by ID</td>
-</tr>
-<tr>
-<td>id_exists($id)</td>
-<td>Check if ID Exists</td>
-</tr>
-<tr>
-<td>id_delete($id)</td>
-<td>Delete an ID</td>
-</tr>
-<tr>
-<td>get_full($id)</td>
-<td>Get full array out of Database for ID</td>
+<td>fail($message)</td>
+<td>Alias</td>
 </tr>
 </tbody>
 </table>
 <h3 id="x_class_mastered-">Example Implementation</h3><p>Below you can see one example implementation of this class. It does only show a short introduction on how to initialize it.</p>
-<code class="json hljs" readonly>
-// Include the necessary code to connect to your MySQL database and define the $mysql object.<br />
-<br />
-// Include the x_class_mail_template class definition.<br />
-// Make sure you've already included or autoloaded the x_class_mail_template class.<br />
-<br />
-// Assuming you have a MySQL connection in the $mysql variable.<br />
-<br />
-// Initialize the x_class_mail_template object.<br />
-$template = new x_class_mail_template($mysql, 'email_templates', 'general');<br />
-<br />
-// Set the header and footer for the email template.<br />
-$template->set_header("<html><head><title>Email Header</title></head><body>");<br />
-$template->set_footer("</body></html>");<br />
-<br />
-// Set the email content and subject.<br />
-$content = "<p>Hello, {{name}}!</p>";<br />
-$subject = "Welcome to our website, {{name}}!";<br />
-$template->set_content($content, $subject);<br />
-<br />
-// Define substitutions.<br />
-$name = "John Doe";<br />
-$template->add_substitution("{{name}}", $name);<br />
-<br />
-// Optionally, you can retrieve the subject and content with substitutions.<br />
-$subjectWithSubstitutions = $template->get_subject(true);<br />
-$contentWithSubstitutions = $template->get_content(true);<br />
-<br />
-// Now, you can use $subjectWithSubstitutions and $contentWithSubstitutions to send an email using your preferred email-sending method.<br />
-<br />
-// Example of sending an email (using PHP's built-in mail function):<br />
-$to = 'john@example.com';<br />
-$headers = 'Content-type: text/html; charset=UTF-8';<br />
-mail($to, $subjectWithSubstitutions, $contentWithSubstitutions, $headers);<br />
-<br />
-// Optionally, you can also store this template in the database for future use.<br />
-$template->setup('welcome_template', $subject, $content, true);<br />
-<br />
-// Close the MySQL connection or perform other necessary cleanup.<br />
+<code class="json hljs">
+// Assuming you have a MySQL database connection already established<br/>
+$mysql = new mysqli('localhost', 'username', 'password', 'database_name');<br/>
+<br/>
+// Include the x_class_log class definition here<br/>
+<br/>
+// Create an instance of the x_class_log class<br/>
+$log = new x_class_log($mysql, 'log_table', 'example_section');<br/>
+<br/>
+// Log some messages<br/>
+$log->error('This is an error message');<br/>
+$log->warning('This is a warning message');<br/>
+$log->notify('This is a notification');<br/>
+<br/>
+// Retrieve and display the log entries for the 'example_section'<br/>
+$logEntries = $log->list_get(10); // Get the last 10 log entries<br/>
+foreach ($logEntries as $entry) {<br/>
+    echo 'Type: ' . $entry['type'] . '-';<br/>
+    echo 'Message: ' . $entry['message'] . '-';<br/>
+    echo 'Creation Date: ' . $entry['creation'] . '-';<br/>
+}<br/>
+<br/>
+// Clear the log entries for the 'example_section'<br/>
+$log->list_flush_section();<br/>
+
 </code>
 
 					</section><hr><section class="docs-section" id="item-1-2" style="border-bottom: none;">

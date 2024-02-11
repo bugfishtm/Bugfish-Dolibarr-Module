@@ -22,15 +22,15 @@
     <script src="../assets/js/jquery.scrollto.js"></script>
     <script src="../assets/js/jquery.finder.js"></script><style>.scrolldivy{max-width: 100%;overflow-y:scroll;}</style>
 	<!-- Descriptions -->
-    <title>PHP Hitcounter Class - Bugfish Documentations</title>
-	<meta property="og:title" content="PHP Hitcounter Class - Bugfish Documentations"/>
-	<meta name="description" content="Welcome to the Github Documentation Page of the Bugfish Framework! This is the documentation for x_class_hitcounter! Here you can find the github url to the project and different explanation about the classes and functions! We wish you the best!">
+    <title>PHP Referer Class - Bugfish Documentations</title>
+	<meta property="og:title" content="PHP Referer Class - Bugfish Documentations"/>
+	<meta name="description" content="Welcome to the Github Documentation Page of the Bugfish Framework! This is the documentation for x_class_referer! Here you can find the github url to the project and different explanation about the classes and functions! We wish you the best!">
 <script type="application/ld+json">
 {
   "@context": "http://schema.org",
   "@type": "TechArticle",
-  "headline": "PHP Hitcounter Class",
-  "description": "Welcome to the Github Documentation Page of the Bugfish Framework! This is the documentation for x_class_hitcounter! Here you can find the github url to the project and different explanation about the classes and functions! We wish you the best!",
+  "headline": "PHP Referer Class",
+  "description": "Welcome to the Github Documentation Page of the Bugfish Framework! This is the documentation for x_class_referer! Here you can find the github url to the project and different explanation about the classes and functions! We wish you the best!",
   "articleSection": "Introduction",
   "datePublished": "2023-11-03",
   "dateModified": "2023-11-03",
@@ -71,7 +71,7 @@
 		    <nav id="docs-nav" class="docs-nav navbar">
 			    <ul class="section-items list-unstyled nav flex-column pb-3">
 				    <li class="nav-item section-title"><a class="nav-link" href="../index.html"><span class="theme-icon-holder me-2"><i class="fas fa-arrow-left"></i></span>Back</a></li>
-				    <li class="nav-item section-title"><a class="nav-link scrollto active" href="#section-1"><span class="theme-icon-holder me-2"><i class="fas fa-map-signs"></i></span>PHP Hitcounter Class</a></li>
+				    <li class="nav-item section-title"><a class="nav-link scrollto active" href="#section-1"><span class="theme-icon-holder me-2"><i class="fas fa-map-signs"></i></span>PHP Referer Class</a></li>
 				    <li class="nav-item"><a class="nav-link scrollto" href="#item-1-1">Documentation</a></li>
 				    <li class="nav-item"><a class="nav-link scrollto" href="#item-1-2" target="_blank">Support</a></li>
 				    <li class="nav-item"><a class="nav-link scrollto" href="#item-1-3" target="_blank">License</a></li>
@@ -89,25 +89,24 @@
 		    <div class="container">
 			    <article class="docs-article" id="section-1">
 				    <header class="docs-header">
-					    <h1 class="docs-heading">PHP Hitcounter Class [x_class_hitcounter]<span class="docs-time">Documentations</span></h1>
+					    <h1 class="docs-heading">PHP Referer Class [x_class_referer]<span class="docs-time">Documentations</span></h1>
 					    <section class="docs-intro">
 						    <p>This is the Documentation for the Bugfish Framework!</p>
 						</section><!--//docs-intro-->
-				    </header>		<br /><hr>
+				    </header>		<br /><hr><br>
 	
 			<section class="docs-section" id="item-1-1" style="padding-top: 0px;border-bottom: none;">
-				<br /><h2>Documentation</h2>
-<p style="text-align: left;">The x_class_hitcounter class is designed to manage a hit counter for tracking the number of hits and visits to specific URLs. It interacts with a MySQL database to store and retrieve hit counter data. Key features of the class include the ability to count arrivals and switches, refresh counters, prepare URLs for storage, and execute hit counting. The class also offers options for enabling or disabling hit counting and clearing GET parameters from URLs before storage. It maintains counters for arrivals, switches, and the summarized total of hits and visits for a given URL. The class uses PHP sessions to manage the state of visited URLs and store hit counter data in the MySQL database.</p>
+				<h2>Documentation</h2>
+<p style="text-align: left;">The x_class_referer class is designed to manage and control referers in a PHP application. It allows tracking and logging of incoming referer URLs. This class interacts with a MySQL database to store and retrieve referer information. Key features include enabling or disabling referer tracking, preparing URLs for database storage, retrieving saved referers as an array, and executing referer tracking functionality. The class ensures that referer URLs are appropriately processed and stored for analysis.</p>
 
 
 <div style="max-width: 500px;text-align: left; background: 161616;">
+⚠️ Does use Session-Cookies<br />
 ⚠️ Does use MySQL (x_class_mysqli object)<br />
 ⚠️ Tables will be automatically installed<br />
-⚠️ Does use Session-Cookies<br />
 <br /></div>
 
-
-<h3 id="x_class_hitcounter">Table Structure</h3><p>Table below will be created to save visits if necessary!</p><div class="scrolldivy">
+<h3 id="x_class_referer-mastered-">Table Structure</h3><p>Table below is created/used by this class to save referer Informations!</p><div class="scrolldivy">
 
 <table class="table table-bordered table-dark">
   <tr>
@@ -120,25 +119,25 @@
     <td>id</td>
     <td>int(10)</td>
     <td>NOT NULL, AUTO_INCREMENT</td>
-    <td>Unique ID</td>
+    <td>Identificator</td>
   </tr>
   <tr>
     <td>full_url</td>
     <td>varchar(512)</td>
     <td>NOT NULL, DEFAULT '0'</td>
-    <td>Related Domain</td>
+    <td>Related Referer</td>
   </tr>
   <tr>
-    <td>switches</td>
-    <td>int(10)</td>
-    <td>DEFAULT '0'</td>
-    <td>Changes to this Site</td>
+    <td>site_url</td>
+    <td>varchar(512)</td>
+    <td>NOT NULL, DEFAULT '0'</td>
+    <td>Site URL Referer came on</td>
   </tr>
   <tr>
-    <td>arrivals</td>
+    <td>hits</td>
     <td>int(10)</td>
     <td>NOT NULL, DEFAULT '0'</td>
-    <td>Arrivals at this Site</td>
+    <td>Counted Hits</td>
   </tr>
   <tr>
     <td>section</td>
@@ -147,127 +146,83 @@
     <td>Related Section</td>
   </tr>
   <tr>
-    <td>summarized</td>
-    <td>int(10)</td>
-    <td>NOT NULL, DEFAULT '0'</td>
-    <td>All Hits for this URL</td>
-  </tr>
-  <tr>
     <td>creation</td>
     <td>datetime</td>
     <td>DEFAULT CURRENT_TIMESTAMP</td>
-    <td>Creation</td>
+    <td>Creation Date (Auto-Set on Insert)</td>
   </tr>
   <tr>
     <td>modification</td>
     <td>datetime</td>
     <td>DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP</td>
-    <td>Modification</td>
+    <td>Modification Date (Auto-Set on Change)</td>
+  </tr>
+  <tr>
+    <td colspan="4">UNIQUE KEY `x_class_referer` (`full_url`, `section`, `site_url`) USING BTREE</td>
   </tr>
 </table>
 
-
 </div>
-<h3 id="x_class_hitcounter">Class Functions</h3><p>Below a list of functions and explanations on how to use them.</p>
+<h3 id="x_class_referer-mastered-">Class Functions</h3><p>Below a list of functions and explanations on how to use them.</p>
 <table class="table table-bordered table-dark">
 <thead>
 <tr>
-<th>Construct Function</th>
+<th>Function</th>
 <th>Description</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>__construct($x_class_mysql, $table, $precookie = &quot;&quot;, $section == "" )</td>
-<td>Create the Class and Create Table if not Exists with x_class_mysql object and Precookie String is optional! Optional Section for Multi Site</td>
-</tr>
-</tbody>
-<thead>
-<tr>
-<th>Execute Function</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>execute()</td>
-<td>Executes the Counting Function for a Site if not Disabled by Config Function</td>
-</tr>
-</tbody>
-<thead>
-<tr>
-<th>Public Variables and List Function</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>switches</td>
-<td>Current Switch Value</td>
+<td>__construct($x_class_mysqlvar, $table, $refurlnowww)</td>
+<td>Constructor with x_mysql_class object and table name and URL without WWW and HTTP/S</td>
 </tr>
 <tr>
-<td>arrivals</td>
-<td>Current Arrive Value</td>
+<td>enabled($bool = true)</td>
+<td>Disable / Enable for this Page</td>
 </tr>
 <tr>
-<td>summarized</td>
-<td>Current Hits (Both Sum) Value</td>
+<td>execute($section = "")</td>
+<td>Execute the Referer Related Functions if not Disabled with enabed = true function! Provide $section Variable for Multi Site of Needed</td>
 </tr>
 <tr>
 <td>get_array()</td>
-<td>Get current list of websites registered (views) in array</td>
-</tr>
-</tbody>
-<thead>
-<tr>
-<th>Config Function</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>enabled($bool = true)</td>
-<td>Disable or Enable the Hits Check for this Page</td>
-</tr>
-<tr>
-<td>clearget($bool = true)</td>
-<td>Clear Get Varibales in Logged URL</td>
+<td>Get current Referer URLS saved in Table out in Array!</td>
 </tr>
 </tbody>
 </table>
 <h3 id="x_class_mastered-">Example Implementation</h3><p>Below you can see one example implementation of this class. It does only show a short introduction on how to initialize it.</p>
 <code class="json hljs">
-// Include the necessary files and set up your database connection here.<br />
+// Include your database connection code here.<br />
+// For example, you might have something like:<br />
+// $mysql = new mysqli('localhost', 'username', 'password', 'database_name');<br />
 <br />
-// Create an instance of the x_class_hitcounter class.<br />
-$hitCounter = new x_class_hitcounter($your_db_connection, 'hit_counter_table', 'precookie_');<br />
+// Include the x_class_referer class here.<br />
+// Make sure you include it after setting up the database connection.<br />
+// require_once('x_class_referer.php');<br />
 <br />
-// You can disable hit counting if needed (e.g., for certain pages).<br />
-// $hitCounter->enabled(false);<br />
+// Instantiate the x_class_referer class.<br />
+// Pass the database connection, table name, and whether to include 'www' in the referrer URL.<br />
+$refererTracker = new x_class_referer($mysql, 'referrer_data', true);<br />
 <br />
-// You can also enable or disable cleaning of the URL query string.<br />
-// $hitCounter->clearget(true);<br />
+// Enable or disable the tracking as needed.<br />
+// $refererTracker->enabled(true); // Enable tracking<br />
 <br />
-// Execute the hit counter to track the current page view.<br />
-$hitCounter->execute();<br />
+// Execute the tracking when needed, typically on the page where you want to track referrals.<br />
+$refererTracker->execute();<br />
 <br />
-// Retrieve the hit counts for the current page.<br />
-$switches = $hitCounter->switches;<br />
-$arrivals = $hitCounter->arrivals;<br />
-$summarized = $hitCounter->summarized;<br />
+// Retrieve the current saved referers in an array.<br />
+$referers = $refererTracker->get_array();<br />
 <br />
-// Display the hit counts on your web page.<br />
-echo "Switches: $switches<br>";<br />
-echo "Arrivals: $arrivals<br>";<br />
-echo "Summarized: $summarized<br>";<br />
+// Display or process the $referers array as needed.<br />
+foreach ($referers as $referer) {<br />
+    echo "Referer: " . $referer['full_url'] . " - Hits: " . $referer['hits'] . "<br>";<br />
+}<br />
 <br />
-// Optionally, you can get an array of all saved referers.<br />
-// $referers = $hitCounter->get_array();<br />
-// print_r($referers);<br />
-<br />
-// Close your database connection if necessary<br />
+// Don't forget to close your database connection when you're done.<br />
+// $mysql->close();<br />
 
 </code>
+
 					</section><hr><section class="docs-section" id="item-1-2" style="border-bottom: none;">
 						<h2 class="section-heading">How to get support?</h2>
 						<p>There are different ways to get support for our products. You can write comments in our specific websites section for the related product, but the best way it to write in our forum, as we are getting notifications about that! So if you need any help, sign in at our forum and we will do what we can to serve you. If you do not want to register at our forum, you are invited to write us for support at requests@bugfish.eu.</p>
@@ -277,7 +232,7 @@ echo "Summarized: $summarized<br>";<br />
 					<hr><section class="docs-section" id="item-1-3" style="border-bottom: none;">
 						<h2 class="section-heading">License Informations</h2>
 						<h4>License Informations of this Class</h4>
-	<p><div id="license-text" dir="ltr">
+		<p><div id="license-text" dir="ltr">
 <h3 style="text-align: center;">GNU GENERAL PUBLIC LICENSE</h3>
 <p style="text-align: center;">Version 3, 29 June 2007</p>
 

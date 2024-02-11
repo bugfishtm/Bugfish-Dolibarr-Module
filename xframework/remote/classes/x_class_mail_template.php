@@ -67,7 +67,7 @@
 								  `creation` datetime DEFAULT CURRENT_TIMESTAMP COMMENT 'Creation',
 								  `modification` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT 'Modification | Auto - Set',
 								  PRIMARY KEY (`id`),
-								  UNIQUE KEY `Unique` (`name`, `section`));");}
+								  UNIQUE KEY `x_class_mail_template` (`name`, `section`));");}
 
 		// Construct		
 		function __construct($mysql, $table, $section = "") {

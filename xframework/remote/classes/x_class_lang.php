@@ -42,7 +42,7 @@
 												  `creation` datetime DEFAULT CURRENT_TIMESTAMP COMMENT 'Creation Date of Entry | Will be Auto-Set',
 												  `modification` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT 'Modification Date of Entry with Auto-Update on Change',
 												  PRIMARY KEY (`id`),
-												  UNIQUE KEY `Unique` (`identificator`,`lang`,`section`) USING BTREE);");}
+												  UNIQUE KEY `x_class_lang` (`identificator`,`lang`,`section`) USING BTREE);");}
 												  
 		// Construct the Class		
 		private $filemode = false;

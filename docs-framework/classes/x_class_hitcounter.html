@@ -22,15 +22,15 @@
     <script src="../assets/js/jquery.scrollto.js"></script>
     <script src="../assets/js/jquery.finder.js"></script><style>.scrolldivy{max-width: 100%;overflow-y:scroll;}</style>
 	<!-- Descriptions -->
-    <title>PHP API Class - Bugfish Documentations</title>
-	<meta property="og:title" content="PHP API Class - Bugfish Documentations"/>
-	<meta name="description" content="Welcome to the Github Documentation Page of the Bugfish Framework! This is the documentation for x_class_api! Here you can find the github url to the project and different explanation about the classes and functions! We wish you the best!">
+    <title>PHP Hitcounter Class - Bugfish Documentations</title>
+	<meta property="og:title" content="PHP Hitcounter Class - Bugfish Documentations"/>
+	<meta name="description" content="Welcome to the Github Documentation Page of the Bugfish Framework! This is the documentation for x_class_hitcounter! Here you can find the github url to the project and different explanation about the classes and functions! We wish you the best!">
 <script type="application/ld+json">
 {
   "@context": "http://schema.org",
   "@type": "TechArticle",
-  "headline": "PHP API Class",
-  "description": "Welcome to the Github Documentation Page of the Bugfish Framework! This is the documentation for x_class_api! Here you can find the github url to the project and different explanation about the classes and functions! We wish you the best!",
+  "headline": "PHP Hitcounter Class",
+  "description": "Welcome to the Github Documentation Page of the Bugfish Framework! This is the documentation for x_class_hitcounter! Here you can find the github url to the project and different explanation about the classes and functions! We wish you the best!",
   "articleSection": "Introduction",
   "datePublished": "2023-11-03",
   "dateModified": "2023-11-03",
@@ -71,7 +71,7 @@
 		    <nav id="docs-nav" class="docs-nav navbar">
 			    <ul class="section-items list-unstyled nav flex-column pb-3">
 				    <li class="nav-item section-title"><a class="nav-link" href="../index.html"><span class="theme-icon-holder me-2"><i class="fas fa-arrow-left"></i></span>Back</a></li>
-				    <li class="nav-item section-title"><a class="nav-link scrollto active" href="#section-1"><span class="theme-icon-holder me-2"><i class="fas fa-map-signs"></i></span>PHP API Class</a></li>
+				    <li class="nav-item section-title"><a class="nav-link scrollto active" href="#section-1"><span class="theme-icon-holder me-2"><i class="fas fa-map-signs"></i></span>PHP Hitcounter Class</a></li>
 				    <li class="nav-item"><a class="nav-link scrollto" href="#item-1-1">Documentation</a></li>
 				    <li class="nav-item"><a class="nav-link scrollto" href="#item-1-2" target="_blank">Support</a></li>
 				    <li class="nav-item"><a class="nav-link scrollto" href="#item-1-3" target="_blank">License</a></li>
@@ -89,24 +89,26 @@
 		    <div class="container">
 			    <article class="docs-article" id="section-1">
 				    <header class="docs-header">
-					    <h1 class="docs-heading">PHP API Class [x_class_api]<span class="docs-time">Documentations</span></h1>
+					    <h1 class="docs-heading">PHP Hitcounter Class [x_class_hitcounter]<span class="docs-time">Documentations</span></h1>
 					    <section class="docs-intro">
 						    <p>This is the Documentation for the Bugfish Framework!</p>
 						</section><!--//docs-intro-->
-				    </header>		<br /><hr><br />
+				    </header>		<br /><hr>
 	
 			<section class="docs-section" id="item-1-1" style="padding-top: 0px;border-bottom: none;">
-				<h2>Documentation</h2>
+				<br /><h2>Documentation</h2>
+<p style="text-align: left;">The x_class_hitcounter class is designed to manage a hit counter for tracking the number of hits and visits to specific URLs. It interacts with a MySQL database to store and retrieve hit counter data. Key features of the class include the ability to count arrivals and switches, refresh counters, prepare URLs for storage, and execute hit counting. The class also offers options for enabling or disabling hit counting and clearing GET parameters from URLs before storage. It maintains counters for arrivals, switches, and the summarized total of hits and visits for a given URL. The class uses PHP sessions to manage the state of visited URLs and store hit counter data in the MySQL database.</p>
 
-<p style="text-align: left;">The x_class_api is a PHP class designed for handling API requests and managing API tokens. It facilitates making API requests with customizable parameters and payloads. The class also provides functionalities to manage API tokens, including generating, adding, deleting, and checking the validity of incoming and outgoing tokens. The class helps simplify API interactions and token management within PHP applications.</p>
+
 <div style="max-width: 500px;text-align: left; background: 161616;">
-⚠️ Does use MySQL (x_class_mysqli object) (for Tokens)<br />
+⚠️ Does use MySQL (x_class_mysqli object)<br />
 ⚠️ Tables will be automatically installed<br />
-⚠️ PHP Module CURL Needed<br />
+⚠️ Does use Session-Cookies<br />
 <br /></div>
-<h3 id="x_class_api">Table Structure</h3>
-<p>Below some informations about the Table created by this class! This class will be automatically created by providing the x_class_mysql object. Tokens for API Functionalities will be stored in here.</p>
-<div class="scrolldivy">
+
+
+<h3 id="x_class_hitcounter">Table Structure</h3><p>Table below will be created to save visits if necessary!</p><div class="scrolldivy">
+
 <table class="table table-bordered table-dark">
   <tr>
     <th>Column Name</th>
@@ -116,51 +118,60 @@
   </tr>
   <tr>
     <td>id</td>
-    <td>int(9)</td>
+    <td>int(10)</td>
     <td>NOT NULL, AUTO_INCREMENT</td>
-    <td>Unique ID of the entry</td>
+    <td>Unique ID</td>
   </tr>
   <tr>
-    <td>direction</td>
-    <td>varchar(12)</td>
-    <td>NOT NULL</td>
-    <td>Token Type, a string with max length of 12</td>
-  </tr>
-  <tr>
-    <td>api_token</td>
+    <td>full_url</td>
     <td>varchar(512)</td>
-    <td>NOT NULL</td>
-    <td>Token for API Requests, max length of 512</td>
+    <td>NOT NULL, DEFAULT '0'</td>
+    <td>Related Domain</td>
+  </tr>
+  <tr>
+    <td>switches</td>
+    <td>int(10)</td>
+    <td>DEFAULT '0'</td>
+    <td>Changes to this Site</td>
+  </tr>
+  <tr>
+    <td>arrivals</td>
+    <td>int(10)</td>
+    <td>NOT NULL, DEFAULT '0'</td>
+    <td>Arrivals at this Site</td>
   </tr>
   <tr>
     <td>section</td>
-    <td>varchar(16)</td>
-    <td>NOT NULL</td>
-    <td>Value for Constant, max length of 16</td>
+    <td>varchar(64)</td>
+    <td>NOT NULL, DEFAULT ''</td>
+    <td>Related Section</td>
   </tr>
   <tr>
-    <td>last_use</td>
-    <td>datetime</td>
-    <td>NULL</td>
-    <td>Last Use Date in Check</td>
+    <td>summarized</td>
+    <td>int(10)</td>
+    <td>NOT NULL, DEFAULT '0'</td>
+    <td>All Hits for this URL</td>
   </tr>
   <tr>
     <td>creation</td>
     <td>datetime</td>
     <td>DEFAULT CURRENT_TIMESTAMP</td>
-    <td>Creation Date of Entry (Auto-Set on Insert)</td>
+    <td>Creation</td>
   </tr>
   <tr>
     <td>modification</td>
     <td>datetime</td>
-    <td>DEFAULT CURRENT_TIMESTAMP ON UPDATE</td>
-    <td>Modification Date of Entry (Auto-Update on Change)</td>
+    <td>DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP</td>
+    <td>Modification</td>
   </tr>
-</table>
-</div>
+  <tr>
+    <td colspan="4">UNIQUE KEY `x_class_hitcounter` (`full_url`, `section`) USING BTREE</td>
+  </tr>
+</table> 
 
-<h3 id="x_class_api">Class Functions</h3><p>Below a list of functions and explanations on how to use them.</p>
-<div class="scrolldivy">
+
+</div>
+<h3 id="x_class_hitcounter">Class Functions</h3><p>Below a list of functions and explanations on how to use them.</p>
 <table class="table table-bordered table-dark">
 <thead>
 <tr>
@@ -170,84 +181,96 @@
 </thead>
 <tbody>
 <tr>
-<td><code>__construct($mysql, $table, $section = "undefined")</code></td>
-<td>Construct the Class with x_class_mysql_object, Set a Section / Area for the Object and API Requests in Functions which will be used if there is none provided.</td>
-</tr>
-<tr>
-<td><code>request($url, $payload, $section = false, $token = false)</code></td>
-<td>Make a Request to an URL where this class can respond. If you do not provide a section, the constructor section will be used. Payload can be array, string or numeric and will be send as "data" key if not array. If this is an array it wil be send with all infos serialized. If you get incoming request, you will get the serialized data as output. Token is optional. If token is false, an pre configured token with related section added with token_add_outgoing() will be used. On the remote Server you can get Payload data with $_POST["data"]</td>
-</tr>
-<tr>
-<td><code>token_add_incoming($token, $section = false)</code></td>
-<td>Add Token for Incoming Transmissions, If section is false than constructor section will be used!</td>
-</tr>
-<tr>
-<td><code>token_add_outgoing($token, $section = false)</code></td>
-<td>Add Token for Outgoing Transmissions, If section is false than constructor section will be used!</td>
-</tr>
-<tr>
-<td><code>token_generate_incoming($section = false, <br />$len = 32, $comb = 'abcdefghi jklmnopqrstuvwxyzABCDEFGHIJKLM NOPQRSTUVWXYZ1234567890')</code></td>
-<td>Generate Token for Incoming Transmissions, If section is false than constructor section will be used! You can choose some token generation configs, which is optional. You will get the generated token back in return.</td>
-</tr>
-<tr>
-<td><code>token_delete_incoming($token, $section = false)</code></td>
-<td>Delete Token for Incoming Transmissions, If section is false than constructor section will be used!</td>
-</tr>
-<tr>
-<td><code>token_delete_outgoing($token, $section = false)</code></td>
-<td>Delete Token for Outgoing Transmissions, If section is false than constructor section will be used!</td>
-</tr>
-<tr>
-<td><code>token_check_incoming($token, $section = false)</code><br />use like: token_check_incoming($_POST["token"], $_POST["section"])</td>
-<td>Check Incoming Transmission Token for Secure Validation, If section is false than constructor section will be used!</td>
+<td>__construct($x_class_mysql, $table, $precookie = &quot;&quot;, $section == "" )</td>
+<td>Create the Class and Create Table if not Exists with x_class_mysql object and Precookie String is optional! Optional Section for Multi Site</td>
 </tr>
 </tbody>
-</table>	</diV>			
-				
-				
+<thead>
+<tr>
+<th>Execute Function</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>execute()</td>
+<td>Executes the Counting Function for a Site if not Disabled by Config Function</td>
+</tr>
+</tbody>
+<thead>
+<tr>
+<th>Public Variables and List Function</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>switches</td>
+<td>Current Switch Value</td>
+</tr>
+<tr>
+<td>arrivals</td>
+<td>Current Arrive Value</td>
+</tr>
+<tr>
+<td>summarized</td>
+<td>Current Hits (Both Sum) Value</td>
+</tr>
+<tr>
+<td>get_array()</td>
+<td>Get current list of websites registered (views) in array</td>
+</tr>
+</tbody>
+<thead>
+<tr>
+<th>Config Function</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>enabled($bool = true)</td>
+<td>Disable or Enable the Hits Check for this Page</td>
+</tr>
+<tr>
+<td>clearget($bool = true)</td>
+<td>Clear Get Varibales in Logged URL</td>
+</tr>
+</tbody>
+</table>
 <h3 id="x_class_mastered-">Example Implementation</h3><p>Below you can see one example implementation of this class. It does only show a short introduction on how to initialize it.</p>
-<code class="php hljs">
-// Include your MySQL database connection code here.<br />
+<code class="json hljs">
+// Include the necessary files and set up your database connection here.<br />
+<br />
+// Create an instance of the x_class_hitcounter class.<br />
+$hitCounter = new x_class_hitcounter($your_db_connection, 'hit_counter_table', 'precookie_');<br />
+<br />
+// You can disable hit counting if needed (e.g., for certain pages).<br />
+// $hitCounter->enabled(false);<br />
+<br />
+// You can also enable or disable cleaning of the URL query string.<br />
+// $hitCounter->clearget(true);<br />
+<br />
+// Execute the hit counter to track the current page view.<br />
+$hitCounter->execute();<br />
+<br />
+// Retrieve the hit counts for the current page.<br />
+$switches = $hitCounter->switches;<br />
+$arrivals = $hitCounter->arrivals;<br />
+$summarized = $hitCounter->summarized;<br />
+<br />
+// Display the hit counts on your web page.<br />
+echo "Switches: $switches<br>";<br />
+echo "Arrivals: $arrivals<br>";<br />
+echo "Summarized: $summarized<br>";<br />
+<br />
+// Optionally, you can get an array of all saved referers.<br />
+// $referers = $hitCounter->get_array();<br />
+// print_r($referers);<br />
+<br />
+// Close your database connection if necessary<br />
 
-// Include the x_class_api class definition here.<br />
-
-// Create a MySQL database connection (replace with your actual database connection code).<br />
-$mysqli = new mysqli("localhost", "username", "password", "database");<br />
-<br />
-if ($mysqli->connect_errno) {<br />
-    die("Failed to connect to MySQL: " . $mysqli->connect_error);<br />
-}<br />
-<br />
-// Define the table name and optional section.<br />
-$tableName = "api_tokens";<br />
-$section = "default";<br />
-<br />
-// Create an instance of the x_class_api class.<br />
-$api = new x_class_api($mysqli, $tableName, $section);<br />
-<br />
-// Example: Adding an incoming API token.<br />
-$incomingToken = "your_incoming_token";<br />
-$api->token_add_incoming($incomingToken);<br />
-<br />
-// Example: Making an API request with a URL and payload.<br />
-$apiUrl = "https://api.example.com";<br />
-$apiPayload = array("key" => "value");<br />
-$response = $api->request($apiUrl, $apiPayload);<br />
-<br />
-// Example: Checking if an incoming API token is valid.<br />
-$isValid = $api->token_check_incoming($incomingToken);<br />
-<br />
-if ($isValid) {<br />
-    echo "The incoming API token is valid.";<br />
-} else {<br />
-    echo "The incoming API token is not valid.";<br />
-}<br />
-<br />
-// Close the database connection (recommended).<br />
-$mysqli->close();<br />
-</code>				
-				
-				
+</code>
 					</section><hr><section class="docs-section" id="item-1-2" style="border-bottom: none;">
 						<h2 class="section-heading">How to get support?</h2>
 						<p>There are different ways to get support for our products. You can write comments in our specific websites section for the related product, but the best way it to write in our forum, as we are getting notifications about that! So if you need any help, sign in at our forum and we will do what we can to serve you. If you do not want to register at our forum, you are invited to write us for support at requests@bugfish.eu.</p>
@@ -257,7 +280,7 @@ $mysqli->close();<br />
 					<hr><section class="docs-section" id="item-1-3" style="border-bottom: none;">
 						<h2 class="section-heading">License Informations</h2>
 						<h4>License Informations of this Class</h4>
-		<p><div id="license-text" dir="ltr">
+	<p><div id="license-text" dir="ltr">
 <h3 style="text-align: center;">GNU GENERAL PUBLIC LICENSE</h3>
 <p style="text-align: center;">Version 3, 29 June 2007</p>
 

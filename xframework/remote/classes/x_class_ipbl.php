@@ -44,7 +44,7 @@
 												  `ip_adr` varchar(256) NOT NULL COMMENT 'Related IP Address for Failure Counter',
 												  `creation` datetime DEFAULT CURRENT_TIMESTAMP COMMENT 'Creation Date | Will be Auto Set',
 												  PRIMARY KEY (`id`),
-												  UNIQUE KEY `Index 2` (`ip_adr`) );");}
+												  UNIQUE KEY `x_class_ipbl` (`ip_adr`) );");}
 		
 		######################################################
 		// Construct

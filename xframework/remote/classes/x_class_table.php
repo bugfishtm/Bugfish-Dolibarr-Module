@@ -146,11 +146,18 @@
 		}	
 
 		// Spawn Creating Area
-		public function spawn_create($button_name = "Create Item", $button_class = "") {
+		public function spawn_create($button_name = "Create Item", $button_class = "", $add_info = array()) {
 			if(@is_array($this->create_array)) {
 				echo "<div class='x_class_table_box_create' id='x_class_table_create_id_".$this->id."'>";
 					echo "<form method='post' action='".$this->rel_url."'><input type='hidden' name='x_class_table_exec_csrf".$this->id."' value='".$this->csrfobj->get()."'>"; 
 						foreach($this->create_array as $key => $value) { if(isset($value["field_title"])) { echo "<b>".$value["field_title"]."</b><br />"; } if(isset($value["field_descr"])) { echo $value["field_descr"]."<br />"; }?>
+								<?php 
+									if($value["field_label"]) {
+										echo '<span class="x_class_table_label">';
+										echo $value["field_label"]; 
+										echo '</span>'; 
+									}
+								?>
 							<!-- Int -->
 							<?php if($value["field_type"] == "int") { ?> <input class="<?php echo $value["field_classes"]; ?>" placeholder="<?php echo $value["field_ph"]; ?>"  type="number" value="" name="x_class_table_post_<?php echo $this->id."_".$value["field_name"]; ?>"><br /><?php } ?>				
 							<!-- String -->
@@ -180,13 +187,21 @@
 		}
 		
 		// Spawn Editing Area
-		public function spawn_edit($button_name = "Edit Item", $button_class = "") {
+		public function spawn_edit($button_name = "Edit Item", $button_class = "", $add_info = array()) {
 			if(@is_array($this->edit_array) AND is_numeric(@$_POST["x_class_table_exec_edit".$this->id])) {
 				echo "<div class='x_class_table_box_edit' id='x_class_table_edit_id_".$this->id."'>";
 					echo "<form method='post' action='".$this->rel_url."'><input type='hidden' name='x_class_table_exec_csrf".$this->id."' value='".$this->csrfobj->get()."'>"; 
 						//if(is_numeric(@$_GET["x_class_table_edit".$this->id])) {
 							$current = $this->mysql->select("SELECT * FROM `".$this->table."` WHERE `".$this->idf."` = '".$_POST["x_class_table_exec_edit".$this->id]."'", false);
 							foreach($this->edit_array as $key => $value) { if(isset($value["field_title"])) { echo "<b>".$value["field_title"]."</b><br />"; } if(isset($value["field_descr"])) { echo $value["field_descr"]."<br />"; }?>
+								<?php 
+									if($value["field_label"]) {
+										echo '<span class="x_class_table_label">';
+										echo $value["field_label"]; 
+										echo '</span>'; 
+									}
+								?>
+								
 								<!-- Int -->
 								<?php if($value["field_type"] == "int") { ?> <input class="<?php echo $value["field_classes"]; ?>" placeholder="<?php echo $value["field_ph"]; ?>"  type="number" value="<?php echo htmlentities(@$current[$value["field_name"]] ?? ''); ?>" name="x_class_table_post_<?php echo $this->id."_".$value["field_name"]; ?>"><br /><?php } ?>				
 								<!-- String -->
@@ -230,7 +245,7 @@
 		}
 		
 		// Spawn table Area
-		public function spawn_table($title_array, $value_array, $editing = false, $deleting = false, $creating = false, $action_column = "Action", $classes = "") {
+		public function spawn_table($title_array, $value_array, $editing = false, $deleting = false, $creating = false, $action_column = "Action", $classes = "", $add_info = array()) {
 			echo "<div class='x_class_table_box_table' id='x_class_table_id_".$this->id."'>";
 				if($creating) { echo "<a href='".$this->rel_url."'>".$creating."</a><br /><br />";}
 				echo '<table id=\'x_class_table_id_tbl_'.$this->id.'\' class="x_class_table_listing '.$classes.'">';

@@ -33,6 +33,7 @@
 		private $pre    = false;
 		private $target = false;
 		private $module = false;
+		private $section = false;
 		
 		// Default Message Variables
 		private $sys_name	=	"System"; 

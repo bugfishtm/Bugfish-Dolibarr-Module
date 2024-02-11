@@ -40,7 +40,7 @@
 												  `creation` datetime DEFAULT CURRENT_TIMESTAMP COMMENT 'Creation Date of Entry | Will be Auto-Set',
 												  `modification` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT 'Modification Date of Entry with Auto-Update on Change',
 												  PRIMARY KEY (`id`),
-												  UNIQUE KEY `Unique` (`direction`,`api_token`,`section`) USING BTREE);");}
+												  UNIQUE KEY `x_class_api` (`direction`,`api_token`,`section`) USING BTREE);");}
 	
 		// Constructor Functions
 		function __construct($mysql, $table, $section = "") {
