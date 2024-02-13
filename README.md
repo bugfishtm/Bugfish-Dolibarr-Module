@@ -16,6 +16,8 @@ For detailed explanations of every function and class within this project, pleas
 
 The "Bugfish Framework" is seamlessly integrated and readily available for use in Dolibarr module development. This framework enhances the functionality of the Dolibarr Module, adding advanced features such as trigger and object logging, JavaScript error tracking, MySQL error logging, and an extensive changelog system for different internal areas. It allows developers to intercept triggers and view detailed information, making it an invaluable tool for development and debugging.
 
+**Eventually the integrated Bugfish Framework (v.2.75) may not be the newest anymore. You can find informations on how to update the Bugfish Framework inside that module manually at the FRAMEWORK_UPDATE.md file inside that repository!**
+
 ## Extension Functions (dolibarr_functions.php)
 
 All extension functions found in the `dolibarr_functions.php` file are already included in this Dolibarr Module. If you wish to use these functions independently of the module, you can include the `dolibarr_functions.php` file. The documentation, accessible through the provided link, offers in-depth information about these functions and their functionalities.
