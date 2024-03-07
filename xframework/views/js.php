@@ -48,8 +48,8 @@
 		for($i = 0; $i < count($array); $i++) {
 			foreach($array[$i] as $key => $value) {
 				if($key == "userid") {$array[$i]["userid"] = m_login_name_from_id($db, $array[$i]["userid"]);}
-				if($key == "urlstring") {$array[$i]["urlstring"] = htmlspecialchars($value);}
-				if($key == "errormsg")  {$array[$i]["errormsg"] = htmlspecialchars($value);}
+				if($key == "urlstring") {$array[$i]["urlstring"] = htmlspecialchars($value ?? '');}
+				if($key == "errormsg")  {$array[$i]["errormsg"] = htmlspecialchars($value ?? '');}
 			}
 		}
 	} echo "<h2>Demo of m_table_complex!</h2>";

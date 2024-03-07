@@ -29,7 +29,7 @@
 		
 	// Add a Button Able to Execute a Simple SQL Function
 	function m_button_sql($db, $name, $url, $query, $get, $msgerr = "Fehler!", $msgok = "Erfolgreich!", $break = false, $style = ""){
-		if(strpos(trim($url), "?") > 2) { $xurl = trim($url)."&".$get."=x"; } else {$xurl = trim($url)."?".$get."=x";}
+		if(strpos(trim($url ?? ''), "?") > 2) { $xurl = trim($url ?? '')."&".$get."=x"; } else {$xurl = trim($url ?? '')."?".$get."=x";}
 		print "<a href='".$xurl."' class='butAction' style='".$style."'>".$name."</a>";if($break) {echo "<br />";}
 		if(@$_GET[$get] == "x") {
 			if($db->query($query)) { setEventMessage($msgok, "mesgs"); } else { setEventMessage($msgerr, "mesgs"); } 
@@ -74,7 +74,7 @@
 				print '<tr class="liste_titre">';$tcount	=	0;
 				foreach( $array[0] as $key => $value ){
 					$tmp_placeholder = $titlelist[$tcount];$tcount = $tcount + 1;
-					$tmp_value = @htmlspecialchars($_POST['mtc_'.$key]);
+					$tmp_value = @htmlspecialchars($_POST['mtc_'.$key] ?? '');
 					print '<th><input type="text" name="mtc_'.$key.'" value="'.@$tmp_value.'" placeholder="'.$tmp_placeholder.'">';
 						if(!empty($tmp_value)) { echo '<br />Active Search:<br /><font size="-1">'.$tmp_value.'</font>'; }
 						print '</th>';					
@@ -93,7 +93,7 @@
 			foreach( $array as $key => $value ){
 					$search_relevant	=	true;
 					foreach( $array[$key] as $key1 => $value1 ){
-						if(isset($_POST["mtc_".$key1]) AND @trim($_POST["mtc_".$key1]) != "") {if(strpos($value1, $_POST["mtc_".$key1]) <= -1) {$search_relevant	=	false;}}}							
+						if(isset($_POST["mtc_".$key1]) AND @trim($_POST["mtc_".$key1] ?? '') != "") {if(strpos($value1, $_POST["mtc_".$key1]) <= -1) {$search_relevant	=	false;}}}							
 				if($search_relevant) {
 					print '<tr class="oddeven">';
 					$t_r_count	=	0;
@@ -112,7 +112,7 @@
 	// Get a Single Array with $array["fieldname"] = $value back.
 	function m_db_row($db, $query){ $sql_res = $db->query($query); if ($sql_res) { if ($db->num_rows($sql_res) > 0) { $tmpnow = get_object_vars($db->fetch_object($sql_res));  $row = $tmpnow; return $row; } else { return false; }} else { return false; }}		
 	// Insert into a Database with array ["fieldname"] = $value;
-	function m_db_row_insert($db, $table, $array, $filter = true){ if(!is_array($array)) {return false;} $build_first	=	""; $build_second	=	""; $firstrun = true; foreach( $array as $key => $value ){ if(!$firstrun) {$build_first .= ", ";} if(!$firstrun) {$build_second .= ", ";} $build_first .= $key; $valuex = $value; if($filter) {$valuex = str_replace("\\", "\\\\", htmlspecialchars($valuex));} else {$valuex = str_replace("\\", "\\\\", $valuex);} $valuex = str_replace("'", "\\'", $valuex); $build_second .= "'".$valuex."'"; $firstrun = false;} $db->query('INSERT INTO '.$table.'('.$build_first.') VALUES('.$build_second.');');}
+	function m_db_row_insert($db, $table, $array, $filter = true){ if(!is_array($array)) {return false;} $build_first	=	""; $build_second	=	""; $firstrun = true; foreach( $array as $key => $value ){ if(!$firstrun) {$build_first .= ", ";} if(!$firstrun) {$build_second .= ", ";} $build_first .= $key; $valuex = $value; if($filter) {$valuex = str_replace("\\", "\\\\", htmlspecialchars($valuex ?? ''));} else {$valuex = str_replace("\\", "\\\\", $valuex);} $valuex = str_replace("'", "\\'", $valuex); $build_second .= "'".$valuex."'"; $firstrun = false;} $db->query('INSERT INTO '.$table.'('.$build_first.') VALUES('.$build_second.');');}
 	/* Get Array by provising a finished result */
 	function m_db_rowsbycleanresult($db, $sql_res){ if ($sql_res) { if ($db->num_rows($sql_res) > 0) { $count = $db->num_rows($sql_res); $row = array(); for ($i=0; $i<$count; $i++){$tmpnow = get_object_vars($db->fetch_object($sql_res)); $row[$i] = $tmpnow;} return $row; } else { return false; }} else { return false; }}
 
@@ -156,19 +156,19 @@
 			if( GETPOST('sortfield', 'alpha') ) { 
 				$this->conf_sort_field = GETPOST("sortfield", 'alpha'); 
 			} else { $this->conf_sort_field = $default_sort_field; }
-			if(trim(@$this->conf_sort_field) == "" OR !@$this->conf_sort_field) { $this->conf_sort_field = $default_sort_field; }
+			if(trim(@$this->conf_sort_field ?? '') == "" OR !@$this->conf_sort_field) { $this->conf_sort_field = $default_sort_field; }
 			$_GET["sortfield"] = $this->conf_sort_field; 
 			$_POST["sortfield"] = $this->conf_sort_field;		
 		
 			// Sort Order Preperations
 			$this->conf_sort_order 		= GETPOST("sortorder", 'alpha') ? GETPOST('sortorder', 'alpha') : $default_sort_order; 
-			if(trim(@$this->conf_sort_order) != "asc" AND trim(@$this->conf_sort_order) != "desc") {$this->conf_sort_order = "desc";}
+			if(trim(@$this->conf_sort_order ?? '') != "asc" AND trim(@$this->conf_sort_order ?? '') != "desc") {$this->conf_sort_order = "desc";}
 			$_GET["sortorder"] = $this->conf_sort_order; $_POST["sortorder"] = $this->conf_sort_order;			
 			  
 			// Limit Preperations
 			$this->conf_limit = GETPOST('limit', 'int') ? GETPOST('limit', 'int') : $default_limit;	
-			if(trim(@$this->conf_limit) == "" OR !@$this->conf_limit) {$this->conf_limit = $default_limit;}
-			if(is_numeric(trim(@$_POST["limit"]))) {$this->conf_limit = trim($_POST["limit"]);}
+			if(trim(@$this->conf_limit ?? '') == "" OR !@$this->conf_limit) {$this->conf_limit = $default_limit;}
+			if(is_numeric(trim(@$_POST["limit"] ?? ''))) {$this->conf_limit = trim($_POST["limit"] ?? '');}
 			$_GET["limit"] = $this->conf_limit; $_POST["limit"] = $this->conf_limit;	
 			
 			// Extend Query with Search Variables from top if there are some // Add Params
@@ -179,12 +179,12 @@
 			foreach($this->column_array as $key => $value) {
 				if(!$value["orderexec"]) {}
 				elseif($value["fieldname"] == $this->conf_sort_field) { $orderstring = $value["orderexec"]; }
-				if((is_string($_POST["mct_".$this->table_id.$value["fieldname"]]) OR is_numeric($_POST["mct_".$this->table_id.$value["fieldname"]])) AND trim(@$_POST["mct_".$this->table_id.$value["fieldname"]]) != "") {
+				if((is_string($_POST["mct_".$this->table_id.$value["fieldname"]]) OR is_numeric($_POST["mct_".$this->table_id.$value["fieldname"]])) AND trim(@$_POST["mct_".$this->table_id.$value["fieldname"]] ?? '') != "") {
 					if(!$value["sqlexec"]) { $query .= " AND `".$value["fieldname"]."` LIKE \"%".$this->db->escape(urldecode($_POST["mct_".$this->table_id.$value["fieldname"]]))."%\" "; }
 					else { $query .= " AND ".$value["sqlexec"]." LIKE \"%".$this->db->escape(urldecode($_POST["mct_".$this->table_id.$value["fieldname"]]))."%\" "; }
 					$_POST["mct_".$this->table_id.$value["fieldname"]] = urldecode($_POST["mct_".$this->table_id.$value["fieldname"]]);
 					$_GET["mct_".$this->table_id.$value["fieldname"]] = urldecode($_POST["mct_".$this->table_id.$value["fieldname"]]);
-				} elseif((is_string($_GET["mct_".$this->table_id.$value["fieldname"]]) OR is_numeric($_GET["mct_".$this->table_id.$value["fieldname"]])) AND trim(@$_GET["mct_".$this->table_id.$value["fieldname"]]) != "" AND @$_POST["direct"] != "true") {
+				} elseif((is_string($_GET["mct_".$this->table_id.$value["fieldname"]]) OR is_numeric($_GET["mct_".$this->table_id.$value["fieldname"]])) AND trim(@$_GET["mct_".$this->table_id.$value["fieldname"]] ?? '') != "" AND @$_POST["direct"] != "true") {
 					if(!$value["sqlexec"]) { $query .= " AND `".$value["fieldname"]."` LIKE \"%".$this->db->escape(urldecode($_GET["mct_".$this->table_id.$value["fieldname"]]))."%\" ";}
 					else { $query .= " AND ".$value["sqlexec"]." LIKE \"%".$this->db->escape(urldecode($_GET["mct_".$this->table_id.$value["fieldname"]]))."%\" "; }
 					$_POST["mct_".$this->table_id.$value["fieldname"]] = urldecode($_GET["mct_".$this->table_id.$value["fieldname"]]);
@@ -279,13 +279,13 @@
 				foreach( $this->column_array as $keyc => $valuec ){							
 					if($valuec["search"] == 1) {
 						$tmp_placeholder = $valuec["viewname"];
-						$tmp_value = @htmlspecialchars($_POST['mct_'.$this->table_id.$valuec["fieldname"]]);
+						$tmp_value = @htmlspecialchars($_POST['mct_'.$this->table_id.$valuec["fieldname"]] ?? '');
 						print '<th style="'.$valuec["style"].'"><input type="text" name="mct_'.$this->table_id.$valuec["fieldname"].'" value=\''.@$tmp_value.'\' placeholder="'.$tmp_placeholder.'">';
 					} else {
 						print '<th style="'.$valuec["style"].'"><input type="text" name="mct_'.$this->table_id.$valuec["fieldname"].'" value=\''.@$tmp_value.'\' placeholder="'.$tmp_placeholder.'" readonly style="background: lightgrey;">';
 					}
 					if(is_string($_POST['mct_'.$this->table_id.$valuec["fieldname"]]) AND $_POST['mct_'.$this->table_id.$valuec["fieldname"]] != "") {
-						echo '<br /><font size="-2"><b>Suche:</b> '.htmlspecialchars($_POST['mct_'.$this->table_id.$valuec["fieldname"]]).'</font>';
+						echo '<br /><font size="-2"><b>Suche:</b> '.htmlspecialchars($_POST['mct_'.$this->table_id.$valuec["fieldname"]] ?? '').'</font>';
 					}
 					echo '</th>';
 				}
@@ -326,7 +326,7 @@
 	}		
 
 	// Check if a Var is Set
-	function m_isset($var){if(!empty($var) AND $var != NULL AND trim($var) != "") {return true;}return false;}
+	function m_isset($var){if(!empty($var) AND $var != NULL AND trim($var ?? '') != "") {return true;}return false;}
 	// Get the current rowID of logged in User, if error than false
 	function m_login_id($db){ $result = m_db_row($db, 'SELECT * FROM ' . MAIN_DB_PREFIX . 'user WHERE login = "' . @$_SESSION["dol_login"] . '"'); if(!$result) {return false;}return $result["rowid"];}	
 	// Get the current name of User by UserID, if error than false

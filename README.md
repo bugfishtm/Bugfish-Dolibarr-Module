@@ -1,7 +1,7 @@
 ![Bugfish](https://img.shields.io/badge/Bugfish-Framework-orange)
 ![Status](https://img.shields.io/badge/Status-Finished-green)
 ![License](https://img.shields.io/badge/License-GPLv3-black)
-![Version](https://img.shields.io/badge/Version-2.81-white)
+![Version](https://img.shields.io/badge/Version-2.90-white)
 
 # Bugfish Dolibarr Module
 
@@ -11,16 +11,18 @@ Documentation: [Comprehensive Documentation](https://bugfishtm.github.io/Bugfish
 For detailed explanations of every function and class within this project, please refer to the full documentation available on [bugfish-github.de](https://bugfishtm.github.io/Bugfish-Dolibarr-Module/), which comprehensively covers all aspects of this Dolibarr Framework.
 
 ![Bugfish Framework Banner](./_images/bugfish-framework-banner.jpg)
+This module integrates the Bugfish Framework into dolibarr. You can find the Bugfish-Framework Documentation here or inside this repository in the framework-docs folder!
 
+Framework Documentation: [Comprehensive Documentation](https://bugfishtm.github.io/bugfish-framework/)
 ## Bugfish Framework Integration
 
 The "Bugfish Framework" is seamlessly integrated and readily available for use in Dolibarr module development. This framework enhances the functionality of the Dolibarr Module, adding advanced features such as trigger and object logging, JavaScript error tracking, MySQL error logging, and an extensive changelog system for different internal areas. It allows developers to intercept triggers and view detailed information, making it an invaluable tool for development and debugging.
 
 **Eventually the integrated Bugfish Framework (v.2.75) may not be the newest anymore. You can find informations on how to update the Bugfish Framework inside that module manually at the FRAMEWORK_UPDATE.md file inside that repository!**
 
-## Extension Functions (dolibarr_functions.php)
+## Extension Functions
 
-All extension functions found in the `dolibarr_functions.php` file are already included in this Dolibarr Module. If you wish to use these functions independently of the module, you can include the `dolibarr_functions.php` file. The documentation, accessible through the provided link, offers in-depth information about these functions and their functionalities.
+All extension functions found in the `m_library.php` file in the dolibarr-functions module are already included in this Dolibarr Module. The documentation, accessible through the provided link, offers in-depth information about these functions and their functionalities.
 
 ## Bugfish Dolibarr Module Features
 

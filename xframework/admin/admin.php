@@ -84,7 +84,7 @@
 	echo "<hr>";
 
 	// If Init has been Executed, then Do...
-	if(@$_GET["op"] != NULL AND @trim($_GET["op"]) != "") {d_c_addInitNow($db, @$_GET["op"]);}
+	if(@$_GET["op"] != NULL AND @trim($_GET["op"] ?? '') != "") {d_c_addInitNow($db, @$_GET["op"]);}
 	
 	// Show Buttons with Function to Initialize Areas for Changelog
 	m_button_link("Neu einlesen: Rechnung[facture]", DOL_URL_ROOT."/custom/xframework/admin/admin.php?op=facture"); echo "<br /><br />";

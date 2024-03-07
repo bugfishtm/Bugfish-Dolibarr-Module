@@ -52,6 +52,7 @@
 		function __construct($mysql, $tablename, $maxvalue = 50000) { 
 			if(!is_numeric($maxvalue)) { $maxvalue = false; }
 			$this->mysql = $mysql; $this->table = $tablename; $this->max  = $maxvalue;
+			if(!is_numeric($this->max)) { $this->max = 50000; } 
 			$this->ip = trim(strtolower(@$_SERVER["REMOTE_ADDR"] ?? '') ?? ''); 
 			if(!$this->mysql->table_exists($tablename)) { $this->create_table(); $this->mysql->free_all();  }
 			$this->int_block_renew();}

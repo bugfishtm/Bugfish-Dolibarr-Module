@@ -49,7 +49,9 @@
 	function x_getRelativeFolderFromURL($url) {
 			if(strpos($url, "http://")) { $url = substr($url, 7); }
 			elseif(strpos($url, "https://")) { $url = substr($url, 8); }
-			$url = substr($url, strpos($url, "/")); return $url;}	
+			if(strpos($url, "/") > 1) { $url = substr($url, strpos($url, "/")); return $url; }
+			else { return "/"; }
+	}	
 	
 	function x_firstimagetext($text, $all = false) {
 		@preg_match_all('/<img[^>]+>/i', $text, $result11); 
@@ -64,8 +66,9 @@
 		return false;}
 		
 	function x_inCLI() {
-		$sapi_type = php_sapi_name(); 
-		if (substr($sapi_type, 0, 3) == 'cgi' || substr($sapi_type, 0, 3) == 'cli') { return true;
+		$sapi_type = php_sapi_name();  
+		if ( substr($sapi_type, 0, 3) == 'cli' /*|| substr($sapi_type, 0, 3) == 'cli'*/) { 
+			return true;
 		} else { return false; }}
 
 	function x_rmdir($dir) {

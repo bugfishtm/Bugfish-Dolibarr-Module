@@ -39,6 +39,7 @@
 												  `id` int(10) NOT NULL AUTO_INCREMENT COMMENT 'Unique ID to Identify',
 												  `type` int(10) DEFAULT '0' COMMENT '0 - Unspecified | 1 - Error | 2 - Warning | 3 - Notification',
 												  `message` text COMMENT 'Message Text',
+												  `ref` text COMMENT 'Message Reference',
 												  `section` VARCHAR(128) NULL COMMENT 'Multi Section',
 												  `creation` datetime DEFAULT CURRENT_TIMESTAMP COMMENT 'Creation Date | Will be Auto-Set',
 												  PRIMARY KEY (`id`) );");
@@ -64,56 +65,44 @@
 		######################################################
 		// Send a Messge / Notification
 		######################################################
-		public function post($message, $type = 3) { return $this->message($message, $type); } 
-		public function send($message, $type = 3) { return $this->message($message, $type); }
-		public function write($message, $type = 3) { return $this->message($message, $type); }		
-		public function message($message, $type = 3) {
+		public function post($message, $type = 3, $ref = false) { return $this->message($message, $type, $ref); } 
+		public function send($message, $type = 3, $ref = false) { return $this->message($message, $type, $ref); }
+		public function write($message, $type = 3, $ref = false) { return $this->message($message, $type, $ref); }		
+		public function message($message, $type = 3, $ref = false) {
 			if(is_numeric($type)) { 
 				$b[0]["type"]	=	"s";
 				$b[0]["value"]	=	$message;
 				$b[1]["type"]	=	"s";
 				$b[1]["value"]	=	$this->section;
-				return $this->mysql->query("INSERT INTO `".$this->table."` (type, message, section) VALUES (\"".$type."\", ?, ?)", $b);}
-			else { return false; }			
+				if(!$ref) { 
+					return $this->mysql->query("INSERT INTO `".$this->table."` (type, message, section) VALUES (\"".$type."\", ?, ?)", $b); 
+				} else { 
+					$b[2]["type"]	=	"s";
+					$b[2]["value"]	=	$ref;
+					return $this->mysql->query("INSERT INTO `".$this->table."` (type, message, section, ref) VALUES (\"".$type."\", ?, ?, ?)", $b); 
+				}
+			} else { return false; }			
 		}	
 		
 		######################################################
 		// Send Notification
 		######################################################		
-		public function info($message) { return $this->notify($message); }
-		public function notify($message) {
-			$b[0]["type"]	=	"s";
-			$b[0]["value"]	=	$message;
-			$b[1]["type"]	=	"s";
-			$b[1]["value"]	=	$this->section;
-			return $this->mysql->query("INSERT INTO `".$this->table."` (type, message, section) VALUES (3, ?, ?)", $b);
-		}		
+		public function info($message, $ref = false) { return $this->notify($message, $ref); }
+		public function notify($message, $ref = false) { $this->message($message, 3, $ref); }		
 		
 		######################################################
 		// Send Warning
 		######################################################		
-		public function warn($message) { return $this->warning($message); }
-		public function warning($message) {
-			$b[0]["type"]	=	"s";
-			$b[0]["value"]	=	$message;
-			$b[1]["type"]	=	"s";
-			$b[1]["value"]	=	$this->section;
-			return $this->mysql->query("INSERT INTO `".$this->table."` (type, message, section) VALUES (2, ?, ?)", $b);
-		}		
+		public function warn($message, $ref = false) { return $this->warning($message, $ref); }
+		public function warning($message, $ref = false) { $this->message($message, 2, $ref); }		
 		
 		######################################################
 		// Send Error
 		######################################################
-		public function err($message) { return $this->error($message); }
-		public function failure($message) { return $this->error($message); }
-		public function fail($message) { return $this->error($message); }
-		public function error($message) {
-			$b[0]["type"]	=	"s";
-			$b[0]["value"]	=	$message;
-			$b[1]["type"]	=	"s";
-			$b[1]["value"]	=	$this->section;
-			return $this->mysql->query("INSERT INTO `".$this->table."` (type, message, section) VALUES (1, ?, ?)", $b);
-		}		
+		public function err($message, $ref = false) { return $this->error($message, $ref); }
+		public function failure($message, $ref = false) { return $this->error($message, $ref); }
+		public function fail($message, $ref = false) { return $this->error($message, $ref); }
+		public function error($message, $ref = false) { $this->message($message, 1, $ref); }		
 
 		######################################################
 		// Get Log Table Entries as Array

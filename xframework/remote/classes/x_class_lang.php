@@ -47,6 +47,10 @@
 		// Construct the Class		
 		private $filemode = false;
 		function __construct($mysql = false, $table = false, $lang = "none", $section = "none", $file_name = false) {
+			if($lang == false AND $section = false AND $file_name = false) {
+				if(is_object($mysql)) { if(!$this->mysql->table_exists($table)) { $this->create_table(); $this->mysql->free_all();  } }
+				return 0;
+			}
 			$this->mysql = $mysql;
 			$this->table = $table;
 			$this->lang = $lang;

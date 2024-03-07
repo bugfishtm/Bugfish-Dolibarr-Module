@@ -49,7 +49,7 @@
 		for($i = 0; $i < count($array); $i++) {
 			foreach($array[$i] as $key => $value) {
 				if($key == "username") {$array[$i]["username"] = m_login_name_from_id($db, $array[$i]["username"]);}
-				if($key == "triggername") {$array[$i]["triggername"] = htmlspecialchars($array[$i]["triggername"]);}
+				if($key == "triggername") {$array[$i]["triggername"] = htmlspecialchars($array[$i]["triggername"] ?? '');}
 			}
 		}
 	} echo "<h2>Demo of m_table_complex!</h2>";

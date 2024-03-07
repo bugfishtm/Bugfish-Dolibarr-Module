@@ -105,7 +105,12 @@
 					$b[7]["value"]	=	$this->section;
 					$this->mysql->update("UPDATE `".$this->mysqltable."` SET full_url = ?, section = ?, value_time = ?, value_memory = ?, value_load = ?, value_queries = ? WHERE full_url = ? AND section = ?;", $b);
 				} else {
-					$this->mysql->query("INSERT INTO `".$this->mysqltable."` (full_url, section, value_time, value_memory, value_load, value_queries) VALUES (?, ?, ?, ?, ?, ?)", $b);
+					$this->mysql->query("INSERT IGNORE INTO `".$this->mysqltable."` (full_url, section, value_time, value_memory, value_load, value_queries) VALUES (?, ?, ?, ?, ?, ?)", $b);
+					$b[6]["type"]	=	"s";
+					$b[6]["value"]	=	$this->urlpath;
+					$b[7]["type"]	=	"s";
+					$b[7]["value"]	=	$this->section;
+					$this->mysql->update("UPDATE `".$this->mysqltable."` SET full_url = ?, section = ?, value_time = ?, value_memory = ?, value_load = ?, value_queries = ? WHERE full_url = ? AND section = ?;", $b);
 				}
 			}
 		}

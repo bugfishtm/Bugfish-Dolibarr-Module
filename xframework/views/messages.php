@@ -64,13 +64,13 @@
 		for($i = 0; $i < count($array); $i++) {
 			foreach($array[$i] as $key => $value) {
 				if($key == "username") {$array[$i]["username"] = m_login_name_from_id($db, $value);}
-				if($key == "notification") {$array[$i]["notification"] = htmlspecialchars_decode($array[$i]["notification"]);}
+				if($key == "notification") {$array[$i]["notification"] = htmlspecialchars_decode($array[$i]["notification"] ?? '');}
 				if(!is_string($array[$i]["username"])) {$array[$i]["username"] = "Not Found";}
 				//if($key == "changesstring") {$array[$i]["changesstring"] = str_replace("&amp;", "&", $value) ;}
 			}
 		}
 	} echo "<h2>Demo of m_table_complex!</h2>";
-	if(is_numeric(@$_GET["ref"]) OR is_string(@$_GET["ref"]) AND strlen(trim(@$_GET["ref"])) > 0) { m_table_complex("Modul-Nachrichten", $array, $titlelist, "table", $alignlist); } else { echo "Please choose an Area with an Button at the top!"; }
+	if(is_numeric(@$_GET["ref"]) OR is_string(@$_GET["ref"]) AND strlen(trim(@$_GET["ref"] ?? '')) > 0) { m_table_complex("Modul-Nachrichten", $array, $titlelist, "table", $alignlist); } else { echo "Please choose an Area with an Button at the top!"; }
 	
 	// Close the Dolibarr Footer
 	llxFooter();

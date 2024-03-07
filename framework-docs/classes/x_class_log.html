@@ -131,6 +131,12 @@
     <td>Logged Text</td>
   </tr>
   <tr>
+    <td>ref</td>
+    <td>text</td>
+    <td></td>
+    <td>Optional Reference for this entry</td>
+  </tr>
+  <tr>
     <td>section</td>
     <td>VARCHAR(128)</td>
     <td>NULL</td>
@@ -192,19 +198,19 @@
 </thead>
 <tbody>
 <tr>
-<td>message($message, $type = 3)</td>
+<td>message($message, $type = 3, $ref = false)</td>
 <td>Write an Message to Log with own Type Number</td>
 </tr>
 <tr>
-<td>post($message, $type = 3)</td>
+<td>post($message, $type = 3, $ref = false)</td>
 <td>Alias</td>
 </tr>
 <tr>
-<td>send($message, $type = 3)</td>
+<td>send($message, $type = 3, $ref = false)</td>
 <td>Alias</td>
 </tr>
 <tr>
-<td>write($message, $type = 3)</td>
+<td>write($message, $type = 3, $ref = false)</td>
 <td>Alias</td>
 </tr>
 </tbody>
@@ -216,11 +222,11 @@
 </thead>
 <tbody>
 <tr>
-<td>notify($message)</td>
+<td>notify($message, $ref = false)</td>
 <td>Write an Type 3 Message to Log</td>
 </tr>
 <tr>
-<td>info($message)</td>
+<td>info($message, $ref = false)</td>
 <td>Alias</td>
 </tr>
 </tbody>
@@ -232,11 +238,11 @@
 </thead>
 <tbody>
 <tr>
-<td>warning($message)</td>
+<td>warning($message, $ref = false)</td>
 <td>Write an Type 2 Message to Log</td>
 </tr>
 <tr>
-<td>warn($message)</td>
+<td>warn($message, $ref = false)</td>
 <td>Alias</td>
 </tr>
 </tbody>
@@ -248,19 +254,19 @@
 </thead>
 <tbody>
 <tr>
-<td>error($message)</td>
+<td>error($message, $ref = false)</td>
 <td>Write an Type 1 Message to Log</td>
 </tr>
 <tr>
-<td>failure($message)</td>
+<td>failure($message, $ref = false)</td>
 <td>Alias</td>
 </tr>
 <tr>
-<td>err($message)</td>
+<td>err($message, $ref = false)</td>
 <td>Alias</td>
 </tr>
 <tr>
-<td>fail($message)</td>
+<td>fail($message, $ref = false)</td>
 <td>Alias</td>
 </tr>
 </tbody>
