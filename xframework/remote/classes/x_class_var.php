@@ -60,7 +60,7 @@
 			
 
 		// Init as Constant
-		public function init_constant(){ 
+		public function init_constant($unserialize_arrays = true){ 
 			$b[0]["type"]	=	"s";
 			$b[0]["value"]	=	$this->sections_name;
 			if(!$this->db_r_c_section) { $section = ""; } else { $section = " WHERE `".$this->db_r_c_section."` = ? ";}
@@ -68,6 +68,10 @@
 			if(is_array($rres)) {
 				foreach($rres AS $key => $value) {	
 					if(!defined($value[$this->db_r_c_title])) { 
+						$data = @unserialize($value["".$this->db_r_c_value.""]);
+						if ($data !== false AND $unserialize_arrays) {
+							$value["".$this->db_r_c_value.""] = $data;
+						} 
 						define($value[$this->db_r_c_title], $value["".$this->db_r_c_value.""]);
 					}	
 				}

@@ -51,3 +51,18 @@
 /** Generate Passwords **/
 	function xjs_genkey(length = 12, charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789") { retVal = ""; for (var i = 0, n = charset.length; i < length; ++i) {retVal += charset.charAt(Math.floor(Math.random() * n));} return retVal;}
 
+/** Sort a Dropdown Menu alphabetically **/
+	function xjs_dropdown_sort_abc(idname) {
+		// Select the dropdown by its ID
+		var dropdown = document.getElementById(idname);
+		// Get the options and convert to array for sorting
+		var options = Array.from(dropdown.options);
+		// Sort the options based on their text content
+		options.sort(function(a, b) { return a.text.localeCompare(b.text); });
+		// Remove existing options
+		while (dropdown.options.length > 0) { dropdown.remove(0); }
+		// Add sorted options back to the dropdown
+		options.forEach(function(option) {
+			dropdown.add(option);
+		});
+	}

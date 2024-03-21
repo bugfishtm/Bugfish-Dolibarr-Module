@@ -145,5 +145,13 @@
 		// Translate for the current Loaded Language 
 		public function translate($key) {
 			if(isset($this->array[$key])) { return $this->array[$key]; } else { return $key; }
-		}		
+		}	
+		// Translate for the current Loaded Language Extension
+		public function extend($key, $value, $overwrite = true) {
+			if($overwrite) {
+				$this->array[$key] = $value;
+			} else {
+				if(!isset($this->array[$key])) { return $this->array[$key]; }
+			}
+		}			
 	}

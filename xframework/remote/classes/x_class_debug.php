@@ -82,12 +82,13 @@
 			$bind[0]["type"] = "s"; 
 			$bind[1]["value"] = $into_array["errormsg"];
 			$bind[1]["type"] = "s";	
-			$bind[1]["value"] = $section;
-			$bind[1]["type"] = "s";	
+			$bind[2]["value"] = $section;
+			$bind[2]["type"] = "s";	
 			$x_class_mysql->query("INSERT INTO ".$table."(urlstring, fk_user, errormsg, section) VALUES(?, '".$into_array["fk_user"]."', ?, ?);", $bind);
 		}
 		
-		private function js_error_create_db($x_class_mysql, $table) {
+		public function js_error_create_db($x_class_mysql, $table) {
+			if(!$x_class_mysql->table_exists($table)) {
 			return $x_class_mysql->query("CREATE TABLE IF NOT EXISTS `".$table."` (
 										  `id` int(11) NOT NULL AUTO_INCREMENT,
 										  `fk_user` int(11) NOT NULL DEFAULT 0,
@@ -97,5 +98,6 @@
 										  `section` varchar(128) DEFAULT NULL,
 										  PRIMARY KEY (`id`)
 										);");
+			}
 		}
 	}

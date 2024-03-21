@@ -28,6 +28,85 @@
 	.xfpe_paddingauto { padding: auto; }
 	.xfpe_paddingauto_f { padding: auto !important; }
 	/* ################################################################## */
+	/* Columns/Rows in Elements
+	/* ################################################################## */
+	.xfpe_row { display: flex; flex-wrap: wrap; }
+	.xfpe_col { flex: 1; padding: 10px; }
+	.xfpe_col-1 { flex-basis: 8.33%; }
+	.xfpe_col-2 { flex-basis: 16.66%; }
+	.xfpe_col-3 { flex-basis: 25%; }
+	.xfpe_col-4 { flex-basis: 33.33%; }
+	.xfpe_col-5 { flex-basis: 41.66%; }
+	.xfpe_col-6 { flex-basis: 50%; }
+	.xfpe_col-7 { flex-basis: 58.33%; }
+	.xfpe_col-8 { flex-basis: 66.66%; }
+	.xfpe_col-9 { flex-basis: 75%; }
+	.xfpe_col-10 { flex-basis: 83.33%; }
+	.xfpe_col-11 { flex-basis: 91.66%; }
+	.xfpe_col-12 { flex-basis: 100%; }
+	/* ################################################################## */
+	/* Colors
+	/* ################################################################## */
+	.xfpe_colorred { color: red; }
+	.xfpe_colorred_f { color: red !important; }
+	.xfpe_coloryellow { color: yellow; }
+	.xfpe_coloryellow_f { color: yellow !important; }
+	.xfpe_colorgreen { color: green; }
+	.xfpe_colorgreen_f { color: green !important; }
+	.xfpe_colorblue { color: blue; }
+	.xfpe_colorblue_f { color: blue !important; }
+	.xfpe_colororange { color: orange; }
+	.xfpe_colororange_f { color: orange !important; }
+	.xfpe_colorpurple { color: purple; }
+	.xfpe_colorpurple_f { color: purple !important; }
+	.xfpe_colorpink { color: pink; }
+	.xfpe_colorpink_f { color: pink !important; }
+	.xfpe_colorbrown { color: brown; }
+	.xfpe_colorbrown_f { color: brown !important; }
+	.xfpe_colorblack { color: black; }
+	.xfpe_colorblack_f { color: black !important; }
+	.xfpe_colorwhite { color: white; }
+	.xfpe_colorwhite_f { color: white !important; }
+	.xfpe_colorgray { color: gray; }
+	.xfpe_colorgray_f { color: gray !important; }
+	.xfpe_colorcyan { color: cyan; }
+	.xfpe_colorcyan_f { color: cyan !important; }
+	.xfpe_colormagenta { color: magenta; }
+	.xfpe_colormagenta_f { color: magenta !important; }
+	.xfpe_colorlime { color: lime; }
+	.xfpe_colorlime_f { color: lime !important; }
+	/* ################################################################## */
+	/* Background Colors
+	/* ################################################################## */
+	.xfpe_backgroundred { background-color: red; }
+	.xfpe_backgroundred_f { background-color: red !important; }
+	.xfpe_backgroundyellow { background-color: yellow; }
+	.xfpe_backgroundyellow_f { background-color: yellow !important; }
+	.xfpe_backgroundgreen { background-color: green; }
+	.xfpe_backgroundgreen_f { background-color: green !important; }
+	.xfpe_backgroundblue { background-color: blue; }
+	.xfpe_backgroundblue_f { background-color: blue !important; }
+	.xfpe_backgroundorange { background-color: orange; }
+	.xfpe_backgroundorange_f { background-color: orange !important; }
+	.xfpe_backgroundpurple { background-color: purple; }
+	.xfpe_backgroundpurple_f { background-color: purple !important; }
+	.xfpe_backgroundpink { background-color: pink; }
+	.xfpe_backgroundpink_f { background-color: pink !important; }
+	.xfpe_backgroundbrown { background-color: brown; }
+	.xfpe_backgroundbrown_f { background-color: brown !important; }
+	.xfpe_backgroundblack { background-color: black; }
+	.xfpe_backgroundblack_f { background-color: black !important; }
+	.xfpe_backgroundwhite { background-color: white; }
+	.xfpe_backgroundwhite_f { background-color: white !important; }
+	.xfpe_backgroundgray { background-color: gray; }
+	.xfpe_backgroundgray_f { background-color: gray !important; }
+	.xfpe_backgroundcyan { background-color: cyan; }
+	.xfpe_backgroundcyan_f { background-color: cyan !important; }
+	.xfpe_backgroundmagenta { background-color: magenta; }
+	.xfpe_backgroundmagenta_f { background-color: magenta !important; }
+	.xfpe_backgroundlime { background-color: lime; }
+	.xfpe_backgroundlime_f { background-color: lime !important; }
+	/* ################################################################## */
 	/* No Padding
 	/* ################################################################## */
 	.xfpe_nopadding { padding: 0px 0px 0px 0px; }

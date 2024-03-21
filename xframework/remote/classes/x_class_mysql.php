@@ -375,6 +375,7 @@
 					$before_prepare	=	"";
 					$params	=	array(); 
 					foreach ($bindarray as $key => $value) {
+						if(!@$value["type"]) { $value["type"] = "s"; }
 						$before_prepare .= $value["type"];
 						array_push($params, $value["value"]);
 					};		
@@ -446,6 +447,7 @@
 					$before_prepare	=	"";
 					$params	=	array(); 
 					foreach ($bindarray as $key => $value) {
+						if(!@$value["type"]) { $value["type"] = "s"; }
 						$before_prepare .= $value["type"];
 						array_push($params, $value["value"]);
 					};		
@@ -490,6 +492,7 @@
 					$before_prepare	=	"";
 					$params	=	array(); 
 					foreach ($bindarray as $key => $value) {
+						if(!@$value["type"]) { $value["type"] = "s"; }
 						$before_prepare .= $value["type"];
 						array_push($params, $value["value"]);
 					};		
@@ -538,6 +541,7 @@
 						$before_prepare	=	"";
 						$params	=	array(); 
 						foreach ($bindarray as $key => $value) {
+							if(!@$value["type"]) { $value["type"] = "s"; }
 							$before_prepare .= $value["type"];
 							array_push($params, $value["value"]);};
 						array_unshift($params, $before_prepare);

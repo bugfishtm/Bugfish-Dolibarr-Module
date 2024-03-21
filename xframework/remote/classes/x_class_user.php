@@ -1010,7 +1010,7 @@ class x_class_user {
 			// Update Last Reset Var
 			$this->mysql->query("UPDATE `".$this->dt_users."` SET last_reset = CURRENT_TIMESTAMP() WHERE id = '".$userid."'");
 			// Last Activation Date Update
-			$this->mysql->query("UPDATE `".$this->dt_users."` SET last_activation = CURRENT_TIMESTAMP() WHERE id = '".$userid."' AND activation_date IS NULL");
+			$this->mysql->query("UPDATE `".$this->dt_users."` SET last_activation = CURRENT_TIMESTAMP() WHERE id = '".$userid."' AND last_activation IS NULL");
 			// Confirm User on Recover Password
 			$this->mysql->query("UPDATE `".$this->dt_users."` SET user_confirmed = 1 WHERE id = '".$userid."'");
 			// Log Activation Token

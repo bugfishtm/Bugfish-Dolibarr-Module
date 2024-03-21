@@ -35,7 +35,18 @@
 		private $urlmd5 		=  false;		
 		
 		private $enabled 		=  true; 	public function enabled($bool = true) {$this->enabled = $bool;}	
-		private $clearget 		=  true; 	public function clearget($bool = true) {$this->enabled = $bool;}	
+		private $clearget 		=  true; 	public function clearget($bool = true) {
+			$this->clearget = $bool;
+			if($bool) { 
+				$this->urlpath = $this->prepareUrl(@$_SERVER['HTTP_HOST'].@$_SERVER['REQUEST_URI']); 
+				$this->urlmd5 = md5(@$this->urlpath);						
+			} else {
+
+				$this->urlpath = $this->prepareUrl(@$_SERVER['HTTP_HOST'].@$_SERVER['REQUEST_URI']); 
+				$this->urlmd5 = md5(@$this->urlpath);						
+			}				
+			$this->refresh_counters();
+		}	
 
 		######################################################
 		// Public Class Variables
@@ -112,15 +123,15 @@
 		######################################################
 		// Execute Function
 		######################################################
-		function execute() {
+		function execute() { 
 			$b[0]["type"]	=	"s";
 			$b[0]["value"]	=	$this->urlpath;
 			$b[1]["type"]	=	"s";
 			$b[1]["value"]	=	$this->section;
-			if($this->enabled) {
+			if($this->enabled) { 
 				// Count Arrivals
 				$isarrival = false;	
-				if(@$_SESSION[$this->precookie."x_class_hitcounter"] != "ok") { 		
+				if(@$_SESSION[$this->precookie."x_class_hitcounter"] != "ok") { 
 					$isarrival = true;
 					$ar = $this->mysql->select("SELECT * FROM `".$this->mysqltable."` WHERE full_url = ? AND section = ?;",false, $b);
 					if(is_array($ar)) {

@@ -190,21 +190,23 @@
 									}
 								?>
 							<!-- Int -->
-							<?php if($value["field_type"] == "int") { ?> <input class="<?php echo $value["field_classes"]; ?>" placeholder="<?php echo $value["field_ph"]; ?>"  type="number" value="" name="x_class_table_post_<?php echo $this->id."_".$value["field_name"]; ?>"><br /><?php } ?>				
+							<?php if($value["field_type"] == "int") { ?> <input class="<?php echo @$value["field_classes"]; ?>" placeholder="<?php echo @$value["field_ph"]; ?>"  type="number" value="<?php echo $value["field_pre"]; ?>" name="x_class_table_post_<?php echo $this->id."_".$value["field_name"]; ?>"><br /><?php } ?>				
 							<!-- String -->
-							<?php if($value["field_type"] == "string") { ?> <input class="<?php echo $value["field_classes"]; ?>" placeholder="<?php echo $value["field_ph"]; ?>"  type="text" value="" name="x_class_table_post_<?php echo $this->id."_".$value["field_name"]; ?>"><br /><?php } ?>					
+							<?php if($value["field_type"] == "string") { ?> <input class="<?php echo @$value["field_classes"]; ?>" placeholder="<?php echo @$value["field_ph"]; ?>"  type="text" value="<?php echo @$value["field_pre"]; ?>" name="x_class_table_post_<?php echo $this->id."_".$value["field_name"]; ?>"><br /><?php } ?>					
 							<!-- Text -->
-							<?php if($value["field_type"] == "text") { ?> <textarea class="<?php echo $value["field_classes"]; ?>" placeholder="<?php echo $value["field_ph"]; ?>"  name="x_class_table_post_<?php echo $this->id."_".$value["field_name"]; ?>"></textarea><br /><?php } ?>
+							<?php if($value["field_type"] == "text") { ?> <textarea class="<?php echo @$value["field_classes"]; ?>" placeholder="<?php echo @$value["field_ph"]; ?>"  name="x_class_table_post_<?php echo $this->id."_".$value["field_name"]; ?>"><?php echo @$value["field_pre"]; ?></textarea><br /><?php } ?>
 							<!-- Bool -->
-							<?php if(false) { ?>Configure: <input class="<?php echo $value["field_classes"]; ?>" type="checkbox" name="x_class_table_post_<?php echo $this->id."_".$value["field_name"]; ?>" ><br /><?php } ?>		
+							<?php if(false) { ?>Configure: <input class="<?php echo @$value["field_classes"]; ?>" type="checkbox" name="x_class_table_post_<?php echo $this->id."_".$value["field_name"]; ?>" ><br /><?php } ?>		
 							<!-- Select -->
 							<?php if($value["field_type"] == "select") { ?>
 								<select class="<?php echo $value["field_classes"]; ?>"  name="x_class_table_post_<?php echo $this->id."_".$value["field_name"]; ?>">
 									<?php
-										 foreach($value["select_array"] AS $key => $value) { if(is_array($value)) {
-											echo '<option value="'.$value[1].'">'.$value[0]."</option>";
+										 foreach($value["select_array"] AS $key => $valuex) { if(is_array($valuex)) {
+												if($valuex[1] == @$value["field_pre"]) { $seltmp = "selected"; } else { $seltmp = ""; }
+											echo '<option value="'.$valuex[1].'" '.$seltmp.'>'.$valuex[0]."</option>";
 										} else {
-												echo '<option value="'.$value.'">'.$value."</option>";	
+												if($valuex == @$value["field_pre"]) { $seltmp = "selected"; } else { $seltmp = ""; }
+												echo '<option value="'.$valuex.'" '.$seltmp.'>'.$valuex."</option>";	
 										} }
 									?>
 								</select><br />
@@ -246,13 +248,13 @@
 								<!-- Select -->
 								<?php if($value["field_type"] == "select") { ?>
 									<select class="<?php echo $value["field_classes"]; ?>"  name="x_class_table_post_<?php echo $this->id."_".$value["field_name"]; ?>">
-										<option value="<?php echo htmlentities($current[$value["field_name"]]); ?>">Actual: <?php 
-											$nochange = @htmlentities($current[$value["field_name"]]);
+										<option value="<?php echo htmlentities($current[$value["field_name"]] ?? ''); ?>"><?php 
+											$nochange = @htmlentities($current[$value["field_name"]] ?? '');
 											if(is_array($value["select_array"])) {
 												foreach($value["select_array"] AS $kk => $vv) {
 													if(is_array($vv)) {
 														if($vv[1] == $current[$value["field_name"]]) {
-															$nochange = @htmlentities($vv[0]);
+															$nochange = @htmlentities($vv[0] ?? '');
 														}
 													}
 												}

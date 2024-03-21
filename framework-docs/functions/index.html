@@ -111,11 +111,11 @@
 </thead>
 <tbody>
 	<tr>
-	<td>x_curl_getfile($file, $newFileName)</td>
+	<td><code>x_curl_getfile($file, $newFileName)</code></td>
 	<td>Download a File with Curl and Save to NewFileName.</td>
 	</tr>
 	<tr>
-	<td>x_curl_gettext($url) </td>
+	<td><code>x_curl_gettext($url)</code> </td>
 	<td>Get Text Content of a Curl Request to URL.</td>
 	</tr>
 
@@ -225,7 +225,7 @@
 </tbody>
 </table></div>
 <h3>Validation Functions</h3><p>Functions to work or validate parameters!</p>
-<table class="table table-bordered table-dark">
+<div style="max-width: 100%; overflow-x: scroll;"><table class="table table-bordered table-dark">
 <thead>
 <tr>
 <th>Validation Functions</th>
@@ -255,7 +255,15 @@
 </tr>
 <tr>
 <td><code>x_hsc</code></td>
-<td>This function is a simple replacement for <code>htmlspecialchars</code>.</td>
+<td>This function is a simple replacement for <code>htmlspecialchars()</code>.</td>
+</tr>
+<tr>
+<td><code>x_het</code></td>
+<td>This function is a simple replacement for <code>htmlentities()</code>.</td>
+</tr>
+<tr>
+<td><code>x_trim</code></td>
+<td>This function is a simple replacement for <code>trim()</code>.</td>
 </tr>
 <tr>
 <td><code>x_getint</code></td>
@@ -278,9 +286,9 @@
 <td>This function checks if one date is a certain length of time before another date.</td>
 </tr>
 </tbody>
-</table>
+</table></div>
 <h3>Button Functions</h3><p>Functions to work with some buttons, which can execude code and more!</p>
-<table class="table table-bordered table-dark">
+<div style="max-width: 100%; overflow-x: scroll;"><table class="table table-bordered table-dark">
 <thead>
 <tr>
 <th>Button Functions</th>
@@ -300,9 +308,9 @@
 <td>- <code>$name</code>: Button name.<br> - <code>$url</code>: URL to navigate to.<br> - <code>$break</code>: Whether to add a line break after the button.<br> - <code>$style</code>: CSS style for the button.<br> - <code>$reacttourl</code>: Whether to style the button differently if it matches the current URL.</td>
 </tr>
 </tbody>
-</table>
+</table></div>
 <h3>Eventbox Functions</h3><p>Functions to spawn notification boxes for users.</p>
-<table class="table table-bordered table-dark">
+<div style="max-width: 100%; overflow-x: scroll;"><table class="table table-bordered table-dark">
 <thead>
 <tr>
 <th>EventBox Functions</th>
@@ -332,9 +340,9 @@
 <td>- <code>$precookie</code>: Session variable name for event box content. Sets a flag to skip displaying the event box.</td>
 </tr>
 </tbody>
-</table>
+</table></div>
 <h3>Cookie Banner Functions</h3><p>Function to spawn a simple cookie-banner for users!</p>
-<table class="table table-bordered table-dark">
+<div style="max-width: 100%; overflow-x: scroll;"><table class="table table-bordered table-dark">
 <thead>
 <tr>
 <th>CookieBanner Functions</th>
@@ -351,10 +359,10 @@
 <tr>
 <td><code>x_cookieBanner</code></td>
 <td>Spawn a simple Cookie Banner!</td>
-<td>- <code>$precookie</code>: Session variable name for tracking if the cookie banner has been accepted.<br> - <code>$use_post</code>: Whether to use POST method for accepting the banner.<br> - <code>$text</code>: Text to display in the cookie banner.<br> - <code>$url_cookies</code>: URL to the cookies policy.</td>
+<td>- <code>$precookie</code>: Session variable name for tracking if the cookie banner has been accepted.<br> - <code>$use_post</code>: Whether to use POST method for accepting the banner.<br> - <code>$text</code>: Text to display in the cookie banner.<br> - <code>$url_cookies</code>: URL to the cookies policy.<br>  - <code>$redirect_url</code>: URL to be redirect if using default banner text<br>  - <code>$button_text</code>: Text for Agree Button.</td>
 </tr>
 </tbody>
-</table>
+</table></div>
 <h3>RSS Functions</h3><p>Functions related to RSS-Feeds.</p>
 <table class="table table-bordered table-dark">
 <thead>

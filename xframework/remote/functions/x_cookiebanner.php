@@ -30,7 +30,7 @@
 			if(@$_POST["x_cookieBanner"] == "submit") { $_SESSION[$precookie ."x_cookieBanner"] = true; $set = true; }
 			if(@$_GET["x_cookieBanner"] == "submit")  { $_SESSION[$precookie ."x_cookieBanner"] = true; $set = true; }
 			if($set AND $redirect) { Header("Location: ".@$_SERVER['REQUEST_URI']); exit(); }}
-	function x_cookieBanner($precookie = "", $use_post = false, $text = false, $url_cookies = "", $redirect_url = false) { 
+	function x_cookieBanner($precookie = "", $use_post = false, $text = false, $url_cookies = "", $redirect_url = false, $button_text = "I Agree") { 
 		if (session_status() !== PHP_SESSION_ACTIVE) {@session_start();}
 		if(@$_GET["x_cookieBanner"] == "submit")  { $_SESSION[$precookie ."x_cookieBanner"] = true; }
 		if(@$_SESSION[$precookie ."x_cookieBanner"] == true) { return false; }
@@ -42,7 +42,7 @@
 		echo '<div class="x_cookieBanner">';
 			echo '<div class="x_cookieBanner_inner">';
 				echo $text;
-					if(!$redirect_url) {  echo '<form method="get"><input type="submit" value="I Agree" class="x_cookieBanner_close"><input type="hidden" value="submit" name="x_cookieBanner"></form>'; }
+					if(!$redirect_url) {  echo '<form method="get"><input type="submit" value="'.$button_text.'" class="x_cookieBanner_close"><input type="hidden" value="submit" name="x_cookieBanner"></form>'; }
 					else {  echo '<form method="get" action="'.$redirect_url.'"><input type="submit" value="I Agree" class="x_cookieBanner_close"><input type="hidden" value="submit" name="x_cookieBanner"></form>';  }
 			echo '</div>';		
 		echo '</div>';
@@ -52,7 +52,7 @@
 		echo '<div class="x_cookieBanner">';
 			echo '<div class="x_cookieBanner_inner">';
 				echo $text;
-						if(!$redirect_url) { echo '<form method="post"><input type="submit" value="I Agree" class="x_cookieBanner_close"><input type="hidden" value="submit" name="x_cookieBanner"></form>'; }
+						if(!$redirect_url) { echo '<form method="post"><input type="submit" value="'.$button_text.'" class="x_cookieBanner_close"><input type="hidden" value="submit" name="x_cookieBanner"></form>'; }
 						else { echo '<form method="post" action="'.$redirect_url.'"><input type="submit" value="I Agree" class="x_cookieBanner_close"><input type="hidden" value="submit" name="x_cookieBanner"></form>'; }
 			echo '</div>';		
 		echo '</div>';

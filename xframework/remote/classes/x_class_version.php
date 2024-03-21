@@ -28,6 +28,6 @@
 		public $contact 	= "request@bugfish.eu";
 		public $website 	= "https://www.bugfish.eu";
 		public $github 		= "https://github.com/bugfishtm";
-		public $version 	= "2.90";
+		public $version 	= "3.00";
 		public $beta 		= false;
 	}
