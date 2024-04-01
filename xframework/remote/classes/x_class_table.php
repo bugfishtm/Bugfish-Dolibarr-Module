@@ -30,7 +30,7 @@
 		private $id     	= false;
 		private $idf    	= false;
 		private $csrf    	= false;
-		private $csrfobj    = false;
+		public $csrfobj    = false;
 		
 		// Constructor
 		function __construct($mysql, $table_name, $id = false, $id_field = "id") {
@@ -307,8 +307,8 @@
 								}
 								if($deleting OR $editing) {
 									echo "<td>";
-										if($editing) { echo "<form method='post' action='".$this->rel_url."'><input type='hidden' name='x_class_table_exec_edit".$this->id."' value='".$id."'><button type='submit' name='x_class_table_exec_ed_submit".$this->id."'>".$editing."</a></form>"; }
-										if($deleting) { echo "<form method='post' action='".$this->rel_url."' class='x_class_table_button_delete'><input type='hidden' name='x_class_table_exec_delete".$this->id."' value='".$id."'><input type='hidden' name='x_class_table_exec_del_submit".$this->id."' value='".$id."'><input type='hidden' name='x_class_table_exec_csrf".$this->id."' value='".$this->csrfobj->get()."'><button type='submit' name='x_class_table_exec_del_submit".$id."'>".$deleting."</a></form>"; }
+										if($editing) { echo "<form method='post' class='x_class_table_button x_class_table_button_delete' action='".$this->rel_url."'><input type='hidden' name='x_class_table_exec_edit".$this->id."' value='".$id."' ><button type='submit' name='x_class_table_exec_ed_submit".$this->id."'>".$editing."</button></form>"; }
+										if($deleting) { echo "<form method='post' action='".$this->rel_url."' class='x_class_table_button x_class_table_button_delete'><input type='hidden' name='x_class_table_exec_delete".$this->id."' value='".$id."'><input type='hidden' name='x_class_table_exec_del_submit".$this->id."' value='".$id."'><input type='hidden' name='x_class_table_exec_csrf".$this->id."' value='".$this->csrfobj->get()."'><button type='submit' name='x_class_table_exec_del_submit".$id."'>".$deleting."</button></form>"; }
 									echo "</td>"; 
 									
 								}								
