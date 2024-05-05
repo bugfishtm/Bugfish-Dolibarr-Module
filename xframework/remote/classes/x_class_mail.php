@@ -97,8 +97,7 @@
 		// Execute Mail Logging if Needed
 		private function log_execute($subject, $content, $receiver, $attachments, $cc, $bcc, $success, $debug_message, $settings) {		
 			if($this->l_active) { if($success) { $success = 1; }
-			else { $success = 0; }
-			if($success AND $this->l_ok) { return false; }
+			else { $success = 0; }  if($success AND !$this->l_ok) { return false; }
 			$b[0]["type"] = "s";
 			$b[0]["value"] = @serialize(@$receiver);
 			$b[1]["type"] = "s";
@@ -182,7 +181,7 @@
 				return true;
 			} else {
 				// Mail Sending Fail
-				$this->log_execute($title, $realcontent, $to, $attachments, array(), array(), true, $tmp_mailer->ErrorInfo, false);	
+				$this->log_execute($title, $realcontent, $to, $attachments, array(), array(), false, $tmp_mailer->ErrorInfo, false);	
 				$this->set_info($tmp_mailer->ErrorInfo);
 				unset($tmp_mailer);
 				return false;

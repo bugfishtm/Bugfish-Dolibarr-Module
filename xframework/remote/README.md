@@ -3,14 +3,14 @@
 ![Bugfish](https://img.shields.io/badge/Bugfish-Framework-orange)
 ![Status](https://img.shields.io/badge/Status-Finished-green)
 ![License](https://img.shields.io/badge/License-GPLv3-black)
-![Version](https://img.shields.io/badge/Version-3.10-white)
+![Version](https://img.shields.io/badge/Version-3.20-white)
 
 # Bugfish Framework Documentation
 
 **Repository:** [Bugfish Framework on GitHub](https://github.com/bugfishtm/bugfish-framework)  
 **Documentation:** [Bugfish Framework Documentation](https://bugfishtm.github.io/bugfish-framework/)
 
-![a](./logo.jpg)
+![a](./bugfish-framework-banner.jpg)
 
 **Comprehensive Documentation Available:** The Bugfish Framework project is proud to provide a detailed documentation that elucidates every function and class within the framework. This extensive documentation can be found at [bugfish-github.de](https://bugfishtm.github.io/bugfish-framework/) and offers invaluable insights into the operation of each component.
 
@@ -79,7 +79,7 @@ Explore an array of JavaScript functions designed for universal integration acro
 If you want to support us, include this image somewhere in your project, that people can see this project has been created with help of this framework:
 
 
-![a](./banner.jpg)
+![a](./bugfish-framework-banner.jpg)
 
 
 ## Get Support

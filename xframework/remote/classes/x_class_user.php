@@ -80,6 +80,8 @@ class x_class_user {
 		public function mail_unique($bool = false) { $this->mail_unique = $bool; } 
 	private $user_unique = false; // User dont have to be unique if not in reference
 		public function user_unique($bool = false) { $this->user_unique = $bool; } 
+	private $spoof_check = false; // Enable IP Checking in Sessions for Hijacking Prevention?
+		public function ip_spoof_check($bool = true) { $this->spoof_check = $bool; } 
 	## Logging Setup		
 	private $log_ip=false; // Log IP Adresses?
 		public function log_ip($bool=false){$this->log_ip = $bool;} 
@@ -533,7 +535,17 @@ class x_class_user {
 	public function init() {
 		if($this->login_field == "user_name") { $this->user_unique = true; }
 		if($this->login_field == "user_mail") { $this->mail_unique = true; }
-		if(@$_SESSION[$this->sessions."x_users_ip"] == @$_SERVER["REMOTE_ADDR"]
+		$internal_ip_check = $this->spoof_check;
+		if($internal_ip_check) {
+			if(@$_SESSION[$this->sessions."x_users_ip"] == @$_SERVER["REMOTE_ADDR"]) {
+				$internal_ip_check = true;
+			} else {
+				$internal_ip_check = false;
+			}
+		} else {
+			$internal_ip_check = true;
+		}
+		if($internal_ip_check 
 			AND isset($_SESSION[$this->sessions."x_users_key"])
 			AND is_bool($_SESSION[$this->sessions."x_users_stay"])
 			AND is_numeric($_SESSION[$this->sessions."x_users_id"])) {
