@@ -16,7 +16,7 @@ The Bugfish Dolibarr Module integrates the Bugfish Framework into Dolibarr, offe
 
 ## Bugfish Framework Integration
 
-The module includes Bugfish Framework v.2.75, which may not be the latest version. Instructions for updating the framework can be found in the `FRAMEWORK_UPDATE.md` file.
+The module includes Bugfish Framework v.2.75, which may not be the latest version. Instructions for updating the framework can be found in this readme file.
 
 ## Extension Functions
 
