@@ -6,13 +6,13 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="This module integrates the Bugfish Framework into Dolibarr, providing additional functions, development tools, and useful coding and logging features. Key features include:">
       
       
       
+        <link rel="prev" href="features.html">
       
       
-        <link rel="next" href="installation.html">
+        <link rel="next" href="permissions.html">
       
       
       <link rel="icon" href="favicon.ico">
@@ -20,7 +20,7 @@
     
     
       
-        <title>Bugfish Dolibarr Module</title>
+        <title>Functions - Bugfish Dolibarr Module</title>
       
     
     
@@ -70,7 +70,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#dolibarr-module-xframework-934285" class="md-skip">
+        <a href="#functions-overview" class="md-skip">
           Skip to content
         </a>
       
@@ -105,7 +105,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Home
+              Functions
             
           </span>
         </div>
@@ -230,30 +230,10 @@
       
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  <span class="md-ellipsis">
-    Home
-  </span>
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="index.html" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="index.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -262,44 +242,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#compatibility-information" class="md-nav__link">
-    <span class="md-ellipsis">
-      Compatibility Information
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#updating-the-bugfish-framework" class="md-nav__link">
-    <span class="md-ellipsis">
-      Updating the Bugfish Framework
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -348,10 +290,30 @@
       
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="functions.html" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Functions
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="functions.html" class="md-nav__link md-nav__link--active">
         
   
   <span class="md-ellipsis">
@@ -360,6 +322,89 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#m_library" class="md-nav__link">
+    <span class="md-ellipsis">
+      m_library
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#m_button" class="md-nav__link">
+    <span class="md-ellipsis">
+      m_button
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#m_table" class="md-nav__link">
+    <span class="md-ellipsis">
+      m_table
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#m_mysql" class="md-nav__link">
+    <span class="md-ellipsis">
+      m_mysql
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#m_mastertable" class="md-nav__link">
+    <span class="md-ellipsis">
+      m_mastertable
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#data-triggers" class="md-nav__link">
+    <span class="md-ellipsis">
+      Data Triggers
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#logging" class="md-nav__link">
+    <span class="md-ellipsis">
+      Logging
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -511,18 +556,63 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#compatibility-information" class="md-nav__link">
+  <a href="#m_library" class="md-nav__link">
     <span class="md-ellipsis">
-      Compatibility Information
+      m_library
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#updating-the-bugfish-framework" class="md-nav__link">
+  <a href="#m_button" class="md-nav__link">
     <span class="md-ellipsis">
-      Updating the Bugfish Framework
+      m_button
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#m_table" class="md-nav__link">
+    <span class="md-ellipsis">
+      m_table
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#m_mysql" class="md-nav__link">
+    <span class="md-ellipsis">
+      m_mysql
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#m_mastertable" class="md-nav__link">
+    <span class="md-ellipsis">
+      m_mastertable
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#data-triggers" class="md-nav__link">
+    <span class="md-ellipsis">
+      Data Triggers
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#logging" class="md-nav__link">
+    <span class="md-ellipsis">
+      Logging
     </span>
   </a>
   
@@ -546,89 +636,193 @@
   
 
 
-<div><h1 id="dolibarr-module-xframework-934285">Dolibarr Module - xframework [934285]</h1>
-<p>This module integrates the Bugfish Framework into Dolibarr, providing additional functions, development tools, and useful coding and logging features. Key features include:</p>
-<ul>
-<li>Interception of MySQL and JavaScript errors</li>
-<li>A fully functional changelog for different internal areas</li>
-<li>Messaging capabilities for various modules (for developers)</li>
-</ul>
-<h3 id="compatibility-information">Compatibility Information</h3>
-<p>Here is the compatibility information for the Dolibarr Module and Bugfish Framework versions:</p>
+<div><h1 id="functions-overview">Functions Overview</h1>
+<h2 id="m_library">m_library</h2>
 <table>
 <thead>
 <tr>
-<th>Dolibarr Module Version</th>
-<th>Framework Version (Bugfish-Framework)</th>
+<th>Function Name</th>
+<th>Description</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>3.20</td>
-<td>3.20</td>
+<td><code>m_month_num_to_name($number)</code></td>
+<td>Return Month Name or Error if Wrong (input number 1-12 to get German month name)</td>
 </tr>
 <tr>
-<td>3.10</td>
-<td>3.10</td>
+<td><code>m_isset($var)</code></td>
+<td>If var is Empty or "" then false</td>
 </tr>
 <tr>
-<td>3.00</td>
-<td>3.00</td>
+<td><code>m_login_name_from_id($db, $userid)</code></td>
+<td>Get the current name of User by UserID, if error then false</td>
 </tr>
 <tr>
-<td>2.90</td>
-<td>2.90</td>
-</tr>
-<tr>
-<td>2.81</td>
-<td>2.75</td>
-</tr>
-<tr>
-<td>2.8</td>
-<td>2.5</td>
-</tr>
-<tr>
-<td>2.7</td>
-<td>2.4</td>
-</tr>
-<tr>
-<td>2.6</td>
-<td>2.3</td>
-</tr>
-<tr>
-<td>2.5</td>
-<td>2.2</td>
+<td><code>m_login_id($db, $tmp = false)</code></td>
+<td>Get the current rowID of logged in User, if error then false</td>
 </tr>
 </tbody>
 </table>
-<h2 id="updating-the-bugfish-framework">Updating the Bugfish Framework</h2>
-<p>To update the Bugfish Framework to a newer version, follow these steps:</p>
-<ol>
-<li><strong>Download the Latest Version</strong></li>
-<li>
-<p>Visit the <a href="https://github.com/bugfishtm/bugfish-framework">Bugfish Framework GitHub repository</a> and download the latest version.</p>
-</li>
-<li>
-<p><strong>Move Files to the Correct Directory</strong></p>
-</li>
-<li>
-<p>Extract the downloaded files and move the contents from the <code>_framework</code> folder to the <code>xframework/remote</code> folder of your Dolibarr installation. Overwrite any existing files if prompted.</p>
-</li>
-<li>
-<p><strong>Update Files on Your Server</strong></p>
-</li>
-<li>If updating directly on your server, replace the old files with the new ones. Alternatively, you can create a new zip file of the updated framework and push it to the repository.</li>
-</ol>
-<p>Feel free to reach out if you have any questions or need further assistance!</p></div>
+<h2 id="m_button">m_button</h2>
+<table>
+<thead>
+<tr>
+<th>Function Name</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>m_button_sql($db, $name, $url, $query, $get, $break = false, $style = "")</code></td>
+<td>Add a Button to Execute a Simple SQL! $msgerr = "Fehler!", $msgok = "Erfolgreich!" Function</td>
+</tr>
+<tr>
+<td><code>m_button_link($name, $url, $break = false, $style, $reacttourl = true)</code></td>
+<td>Add a Default Button Linked to another Page</td>
+</tr>
+</tbody>
+</table>
+<h2 id="m_table">m_table</h2>
+<table>
+<thead>
+<tr>
+<th>Function Name</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>m_table_simple($title, $array, $titlelist, $tableid, $alignarray = false, $imgeforlist = 'generic')</code></td>
+<td>Print a Simple Table</td>
+</tr>
+<tr>
+<td><code>m_table_complex($title, $array, $titlelist, $formid = "", $alignarray = false, $imgeforlist = "generic")</code></td>
+<td>Print a Complex Table with Search</td>
+</tr>
+</tbody>
+</table>
+<h2 id="m_mysql">m_mysql</h2>
+<table>
+<thead>
+<tr>
+<th>Function Name</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>m_db_rowsbycleanresult($db, $sql_res)</code></td>
+<td>Get Array by providing a finished result</td>
+</tr>
+<tr>
+<td><code>m_db_row($db, $query)</code></td>
+<td>Get a Single Array with $array["fieldname"] = $value back</td>
+</tr>
+<tr>
+<td><code>m_db_row_insert($db, $table, $array, $filter = true)</code></td>
+<td>Insert into a Database with array ["fieldname"] = $value</td>
+</tr>
+<tr>
+<td><code>m_db_rows($db, $query)</code></td>
+<td>Get a Multiple Array with $array<span data-autorefs-identifier='"fieldname"'>COUNT</span> = $value back</td>
+</tr>
+</tbody>
+</table>
+<h2 id="m_mastertable">m_mastertable</h2>
+<table>
+<thead>
+<tr>
+<th>Function Name</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>__construct($db, $tabletitle, $tableid = "")</code></td>
+<td>Initialize with Dolibarr DB Object, Table Title, and optional unique id</td>
+</tr>
+<tr>
+<td><code>addColumn($field_name, $view_name, $style = "", $enabled = true, $search = true, $sort = true, $sqlexec = false, $orderexec = false)</code></td>
+<td>Add a column with various attributes like field name, view name, and optional SQL execution details</td>
+</tr>
+<tr>
+<td><code>init($query, $default_limit = 50, $default_sort_order = "DESC", $default_sort_field = "rowid", $default_page = 1, $conf_paramsadd = "")</code></td>
+<td>Initialize table with SQL query, default settings for limit, sort order, and page</td>
+</tr>
+<tr>
+<td><code>prepareArray()</code></td>
+<td>Returns Array with fetched data from pre-used functions</td>
+</tr>
+<tr>
+<td><code>printTable($array, $tableimage = "", $cursiteurl = false, $hidelimit = 0, $hidetools = 0, $morecss = "", $nosuggestlstofpages = 1, $extraparam = array())</code></td>
+<td>Print a table with various display options and extra parameters</td>
+</tr>
+</tbody>
+</table>
+<h2 id="data-triggers">Data Triggers</h2>
+<table>
+<thead>
+<tr>
+<th>Function</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>d_get_change($db, $refid, $ref, $fieldname)</code></td>
+<td>Get Array with <code>x[from]</code> and <code>x[to]</code>, or <code>false</code> if error. This function checks changes for a specific database field. <br> <strong>Parameters:</strong> <br> <code>Db</code> - Dolibarr DB object <br> <code>$refid</code> - ID of the current object <br> <code>$ref</code> - Table element <br> <code>$fieldname</code> - Database field name to check</td>
+</tr>
+<tr>
+<td><code>d_is_change($db, $refid, $ref, $fieldname)</code></td>
+<td>Returns <code>true</code> if the field has changed, <code>false</code> if not. May return an error if this is the first time this reference is added in the database. <br> <strong>Parameters:</strong> <br> <code>Db</code> - Dolibarr DB object <br> <code>$refid</code> - ID of the current object <br> <code>$ref</code> - Table element <br> <code>$fieldname</code> - Database field name to check</td>
+</tr>
+</tbody>
+</table>
+<h2 id="logging">Logging</h2>
+<table>
+<thead>
+<tr>
+<th>Function</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>d_message($db, $modulename, $message)</code></td>
+<td>Write a message to the module's message area. <br> <strong>Parameters:</strong> <br> <code>Db</code> - Dolibarr DB object <br> <code>message</code> - Message to provide (filter with <code>$db-&gt;escape()</code> if needed) <br> <code>modulename</code> - Name of the section in the message overview</td>
+</tr>
+</tbody>
+</table>
+<h1 id="fast-mysqlmail-object-and-integration-of-js-functions">Fast MySQL/Mail Object and Integration of JS Functions</h1>
+<table>
+<thead>
+<tr>
+<th>Function</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>x_c_mysql()</code></td>
+<td>Create a quick xMysql object without credentials.</td>
+</tr>
+<tr>
+<td><code>x_c_mail($host, $port, $auth, $user, $pass, $from_name, $from_mail)</code></td>
+<td>Create a quick xMailer object. <br> <strong>Parameters:</strong> <br> <code>host</code> - Mail server host <br> <code>port</code> - Mail server port (25/587/465) <br> <code>auth</code> - Authentication method (tls/ssl/false) <br> <code>user</code> - Username <br> <code>pass</code> - Password <br> <code>from_name</code> - Sender name <br> <code>from_mail</code> - Sender email address</td>
+</tr>
+<tr>
+<td><code>x_l_js()</code></td>
+<td>Load content of JavaScript functions for JS files.</td>
+</tr>
+</tbody>
+</table></div>
 
 
 
 
 
 
-
-  
-  
 
 
 

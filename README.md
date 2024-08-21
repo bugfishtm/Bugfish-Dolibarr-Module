@@ -1,50 +1,40 @@
-![Bugfish](https://img.shields.io/badge/Bugfish-Framework-orange)
-![Status](https://img.shields.io/badge/Status-Finished-green)
-![License](https://img.shields.io/badge/License-GPLv3-black)
-![Version](https://img.shields.io/badge/Version-3.20-white)
-
 # Bugfish Dolibarr Module
 
-Repository: [Bugfish Dolibarr Module on GitHub](https://github.com/bugfishtm/Bugfish-Dolibarr-Module)  
-Documentation: [Comprehensive Documentation](https://bugfishtm.github.io/Bugfish-Dolibarr-Module/)
+**Repository:** [Bugfish Dolibarr Module on GitHub](https://github.com/bugfishtm/Bugfish-Dolibarr-Module)  
+**Documentation:** [Comprehensive Documentation](https://bugfishtm.github.io/Bugfish-Dolibarr-Module/)
 
-For detailed explanations of every function and class within this project, please refer to the full documentation available on [bugfish-github.de](https://bugfishtm.github.io/Bugfish-Dolibarr-Module/), which comprehensively covers all aspects of this Dolibarr Framework.
+The Bugfish Dolibarr Module integrates the Bugfish Framework into Dolibarr, offering advanced features for development and debugging. For detailed information, refer to the [full documentation](https://bugfishtm.github.io/Bugfish-Dolibarr-Module/).
 
 ![Bugfish Framework Banner](./_images/bugfish-framework-banner.jpg)
-This module integrates the Bugfish Framework into dolibarr. You can find the Bugfish-Framework Documentation here or inside this repository in the framework-docs folder!
 
-Framework Documentation: [Comprehensive Documentation](https://bugfishtm.github.io/bugfish-framework/)
+## Key Features
+
+- **Trigger and Object Logging:** View detailed trigger and object information under Utilities in the xFramework menu.
+- **JavaScript Error Logging:** Track and access JavaScript errors caused by users under Utilities -> xFramework -> JavaScript Logging.
+- **MySQL Error Logging:** Access logs for MySQL errors related to x_class_mysql under Utilities in the xFramework menu.
+- **Changelog:** Monitor changes in various areas (e.g., facture, bank_account, user) under Utilities -> xFramework -> Process Logs.
+
 ## Bugfish Framework Integration
 
-The "Bugfish Framework" is seamlessly integrated and readily available for use in Dolibarr module development. This framework enhances the functionality of the Dolibarr Module, adding advanced features such as trigger and object logging, JavaScript error tracking, MySQL error logging, and an extensive changelog system for different internal areas. It allows developers to intercept triggers and view detailed information, making it an invaluable tool for development and debugging.
-
-**Eventually the integrated Bugfish Framework (v.2.75) may not be the newest anymore. You can find informations on how to update the Bugfish Framework inside that module manually at the FRAMEWORK_UPDATE.md file inside that repository!**
+The module includes Bugfish Framework v.2.75, which may not be the latest version. Instructions for updating the framework can be found in the `FRAMEWORK_UPDATE.md` file.
 
 ## Extension Functions
 
-All extension functions found in the `m_library.php` file in the dolibarr-functions module are already included in this Dolibarr Module. The documentation, accessible through the provided link, offers in-depth information about these functions and their functionalities.
+All extension functions from the `m_library.php` file in the Dolibarr functions module are included. For detailed information, refer to the documentation linked above.
 
-## Bugfish Dolibarr Module Features
+## Updating the Bugfish Framework
 
-The Bugfish Dolibarr Module offers a wide range of features designed to enhance development and improve the debugging process. See the Documentation for Bugfish Framework to get more Information about Licenses and more!
+To update the Bugfish Framework to a newer version:
+1. Download the latest version from [Bugfish Framework GitHub](https://github.com/bugfishtm/bugfish-framework).
+2. Move files from the "_framework" folder to the `xframework/remote` folder, overwriting existing files.
+3. Update files directly on your server or create a new zip file and push it to the repository.
 
-### Trigger and Object Logging
-Triggers and associated object information are intercepted and can be conveniently viewed in the Triggers section under Utilities in the xFramework menu item.
+## Support and Reporting Issues
 
-### JavaScript Error Logging
-JavaScript errors caused by users are tracked and can be accessed in the log under Utilities -> xFramework -> JavaScript Logging.
+For support or to report issues:
+- Visit [Bugfish Forum](https://www.bugfish.eu/forum)
+- Email [request@bugfish.eu](mailto:request@bugfish.eu)
 
-### MySQL Error Logging
-This feature logs queries used with x_class_mysql. MySQL error messages related to the use of x_class_mysql can be easily viewed under the Utilities section in the xFramework menu.
+## License
 
-### Changelog
-The module intercepts changes in various areas, including facture, bank_account, facture_fourn, commande, propal, user, societe, product, orderpicking, expedition, supplier_proposal, commande_fournisseur, and fichinter. These changes can be viewed under Utilities -> xFramework -> Process Logs, provided you have the necessary permissions. Certain fields are ignored, marked with prefixes, and clearly documented in the system.
-
-## Reporting Issues and Support
-
-If you encounter any issues or have questions while using this software, we encourage you to visit our dedicated forum at [www.bugfish.eu/forum](https://www.bugfish.eu/forum) for assistance and discussions. Additionally, you can reach out to us for support at [request@bugfish.eu](mailto:request@bugfish.eu).
-
-Please note that the Bugfish Dolibarr Module is licensed under the GPLv3 License, while it may also be subject to additional licensing restrictions due to its status as a module extension of the Dolibarr framework. This project is built upon the foundation of Dolibarr and contributes to the enhancement of its capabilities.
-
-## License Information
-The license details for this Bugfish-Dolibarr-Module project can be found in the "license.md" file within the project repository. Please review this file to understand the terms and conditions of use and distribution. It is essential to comply with the project's license to ensure legal and ethical usage of the provided resources.
+The module is licensed under GPLv3. For complete license details, refer to the `license.md` file in the repository.
