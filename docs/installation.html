@@ -11,7 +11,7 @@
       
       
       
-        <link rel="prev" href="index.html">
+        <link rel="prev" href="download.html">
       
       
         <link rel="next" href="features.html">
@@ -32,16 +32,17 @@
         <link rel="stylesheet" href="assets/stylesheets/palette.06af60db.min.css">
       
       
+
      <script type="application/ld+json">
     {
-      "@context": "http://schema.org",
+      "@context": "https://schema.org",
       "@type": "WebSite",
       "name": "Bugfish Dolibarr Module",
     }
     </script>     
 	<script type="application/ld+json">
 	{
-	  "@context": "http://schema.org",
+	  "@context": "https://schema.org",
 	  "@type": "TechArticle",
 	  "headline": "Installation",
 	  "description": "Follow the simple steps to install the Bugfish Dolibarr Framework module. This guide covers uploading the module, adjusting configuration settings, and ensuring a smooth installation process for integrating the Bugfish Framework with Dolibarr.",
@@ -62,6 +63,38 @@
 	  }
 	}
 	</script>
+	
+	<script type="application/ld+json">
+	{
+	  "@context": "https://schema.org",
+	  "@type": "HowTo",
+	  "name": "Installation Instructions for Dolibarr Module",
+	  "description": "Follow these steps to install the module in Dolibarr.",
+	  "step": [
+		{
+		  "@type": "HowToStep",
+		  "name": "Step 1: Upload and install the module",
+		  "text": "Upload and install the module in Dolibarr."
+		},
+		{
+		  "@type": "HowToStep",
+		  "name": "Step 2: Adjust the Dolibarr configuration file",
+		  "text": "Adjust the Dolibarr configuration file (etc/dolibarr/conf.php) and add the following at the end:",
+		  "itemListElement": [
+			{
+			  "@type": "HowToTip",
+			  "text": "Add the following code to the configuration file."
+			}
+		  ],
+		  "example": {
+			"@type": "CreativeWork",
+			"text": "if (file_exists(\"/usr/share/dolibarr/htdocs/custom/xframework/remote/loader.php\")) { require_once(\"/usr/share/dolibarr/htdocs/custom/xframework/remote/loader.php\"); }"
+		  }
+		}
+	  ]
+	}
+	</script>
+
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="subject" content="documentation">
 	<meta name="copyright" content="bugfish">
@@ -74,7 +107,6 @@
 	<meta name="description" content="Follow the simple steps to install the Bugfish Dolibarr Framework module. This guide covers uploading the module, adjusting configuration settings, and ensuring a smooth installation process for integrating the Bugfish Framework with Dolibarr.">  
 	<meta name="og:description" content="Follow the simple steps to install the Bugfish Dolibarr Framework module. This guide covers uploading the module, adjusting configuration settings, and ensuring a smooth installation process for integrating the Bugfish Framework with Dolibarr.">  
 	<meta property="og:image" content="./meta.png" />
-
     
     
       
@@ -94,7 +126,16 @@
     
     
     
-  </head>
+   <link href="assets/stylesheets/glightbox.min.css" rel="stylesheet"/><style>
+    html.glightbox-open { overflow: initial; height: 100%; }
+    .gslide-title { margin-top: 0px; user-select: text; }
+    .gslide-desc { color: #666; user-select: text; }
+    .gslide-image img { background: white; }
+    .gscrollbar-fixer { padding-right: 15px; }
+    .gdesc-inner { font-size: 0.75rem; }
+    body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color);}
+    body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color);}
+    body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color);}</style> <script src="assets/javascripts/glightbox.min.js"></script></head>
   
   
     
@@ -280,7 +321,27 @@
         
   
   <span class="md-ellipsis">
-    Home
+    Introduction
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="download.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Download
   </span>
   
 
@@ -525,10 +586,10 @@
 <p>Adjust the Dolibarr configuration file (<code>etc/dolibarr/conf.php</code>) and add the following at the end:</p>
 </li>
 </ol>
-<p><code>
-   if (file_exists("/usr/share/dolibarr/htdocs/custom/xframework/remote/loader.php")) {
-       require_once("/usr/share/dolibarr/htdocs/custom/xframework/remote/loader.php");
-   }</code></p></div>
+<div class="language-php highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="x">   if (file_exists("/usr/share/dolibarr/htdocs/custom/xframework/remote/loader.php")) {</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="x">       require_once("/usr/share/dolibarr/htdocs/custom/xframework/remote/loader.php");</span>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="x">   }</span>
+</span></code></pre></div></div>
 
 
 
@@ -578,7 +639,7 @@
     </div>
     
     
-    <script id="__config" type="application/json">{"base": ".", "features": [], "search": "assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    <script id="__config" type="application/json">{"base": ".", "features": ["content.code.copy"], "search": "assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
     
     
       <script src="assets/javascripts/bundle.fe8b6f2b.min.js"></script>
@@ -586,5 +647,7 @@
         <script src="javascripts/extra.js"></script>
       
     
-  </body>
+  <script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
+document$.subscribe(() => { lightbox.reload() });
+</script></body>
 </html>

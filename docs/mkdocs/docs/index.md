@@ -1,5 +1,7 @@
 # Dolibarr Module - xframework [934285]
 
+## Introduction
+
 This module integrates the Bugfish Framework into Dolibarr, providing additional functions, development tools, and useful coding and logging features. Key features include:
 
 - Interception of MySQL and JavaScript errors
