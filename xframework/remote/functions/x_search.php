@@ -1,13 +1,15 @@
 <?php
-	/* 	__________ ____ ___  ___________________.___  _________ ___ ___  
-		\______   \    |   \/  _____/\_   _____/|   |/   _____//   |   \ 
-		 |    |  _/    |   /   \  ___ |    __)  |   |\_____  \/    ~    \
-		 |    |   \    |  /\    \_\  \|     \   |   |/        \    Y    /
-		 |______  /______/  \______  /\___  /   |___/_______  /\___|_  / 
-				\/                 \/     \/                \/       \/  	
-							www.bugfish.eu
-							
-	    Bugfish Framework
+	/* 
+		 ____  __  __  ___  ____  ____  ___  _   _ 
+		(  _ \(  )(  )/ __)( ___)(_  _)/ __)( )_( )
+		 ) _ < )(__)(( (_-. )__)  _)(_ \__ \ ) _ ( 
+		(____/(______)\___/(__)  (____)(___/(_) (_) www.bugfish.eu
+			  ___                                         _     
+			 / __)                                       | |    
+			| |__ ____ ____ ____   ____ _ _ _  ___   ____| |  _ 
+			|  __) ___) _  |    \ / _  ) | | |/ _ \ / ___) | / )
+			| | | |  ( ( | | | | ( (/ /| | | | |_| | |   | |< ( 
+			|_| |_|   \_||_|_|_|_|\____)\____|\___/|_|   |_| \_)
 		Copyright (C) 2024 Jan Maurice Dahlmanns [Bugfish]
 
 		This program is free software: you can redistribute it and/or modify
@@ -25,16 +27,16 @@
 	*/
 	function x_search($mysql, $table, $search_fields = array(), $get_fields = array(), $search_string = "", $uniqueref = "id") {
 		// Abort if Search String if not Set
-		if(empty($search_string) OR trim(@$search_string) == "" OR @$search_string == false) { return false; }
+		if(empty($search_string) OR trim(@$search_string ?? '') == "" OR @$search_string == false) { return false; }
 		
 		// Trim Search String
-		$search_string = trim($search_string);
+		$search_string = trim($search_string ?? '');
 		
 		// Get Current Search Tag Array
 		if(strpos($search_string, " ") > -1) { 
 			$search_string = preg_replace('/\s+/', ' ', $search_string); 
 			$search_array =  explode(" ", $search_string);
-		} else {$search_array[0] = trim($search_string);}
+		} else {$search_array[0] = trim($search_string ?? '');}
 		
 
 		// Prepare Array for Binds for Search Query

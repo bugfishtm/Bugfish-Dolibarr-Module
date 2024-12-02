@@ -1,13 +1,15 @@
 <?php
-	/* 	__________ ____ ___  ___________________.___  _________ ___ ___  
-		\______   \    |   \/  _____/\_   _____/|   |/   _____//   |   \ 
-		 |    |  _/    |   /   \  ___ |    __)  |   |\_____  \/    ~    \
-		 |    |   \    |  /\    \_\  \|     \   |   |/        \    Y    /
-		 |______  /______/  \______  /\___  /   |___/_______  /\___|_  / 
-				\/                 \/     \/                \/       \/  	
-							www.bugfish.eu
-							
-	    Bugfish Framework
+	/* 
+		 ____  __  __  ___  ____  ____  ___  _   _ 
+		(  _ \(  )(  )/ __)( ___)(_  _)/ __)( )_( )
+		 ) _ < )(__)(( (_-. )__)  _)(_ \__ \ ) _ ( 
+		(____/(______)\___/(__)  (____)(___/(_) (_) www.bugfish.eu
+			  ___                                         _     
+			 / __)                                       | |    
+			| |__ ____ ____ ____   ____ _ _ _  ___   ____| |  _ 
+			|  __) ___) _  |    \ / _  ) | | |/ _ \ / ___) | / )
+			| | | |  ( ( | | | | ( (/ /| | | | |_| | |   | |< ( 
+			|_| |_|   \_||_|_|_|_|\____)\____|\___/|_|   |_| \_)
 		Copyright (C) 2024 Jan Maurice Dahlmanns [Bugfish]
 
 		This program is free software: you can redistribute it and/or modify
@@ -29,7 +31,7 @@
 		private $table   = false; 
 		private $section = "none"; 	
 		private $lang = false; 	
-		private $array = array(); 	
+		public $array = array(); 	
 		
 		// Table Initialization
 		private function create_table() {
@@ -88,8 +90,7 @@
 			if(is_array($rres)) {
 				foreach($rres as $key => $value) {
 					$newar = array();
-					$newar[$value["identificator"]] = $value;
-					array_push($this->array, $newar);
+					$this->array[$value["identificator"]] = $value["translation"];
 				}
 			} 
 		}
@@ -143,9 +144,17 @@
 		}
 
 		// Translate for the current Loaded Language 
-		public function translate($key) {
-			if(isset($this->array[$key])) { return $this->array[$key]; } else { return $key; }
+		public function translate($key, $substitution = false) {
+			$val = "";
+			if(isset($this->array[$key])) { $val = $this->array[$key]; } else { $val = $key; }
+			if(is_array($substitution)) { 
+				foreach($substitution as $key => $value) { 
+					$val = preg_replace(" %repsub% ", " ".$value." ", $val, 1);
+				}
+			}
+			return $val;
 		}	
+		
 		// Translate for the current Loaded Language Extension
 		public function extend($key, $value, $overwrite = true) {
 			if($overwrite) {

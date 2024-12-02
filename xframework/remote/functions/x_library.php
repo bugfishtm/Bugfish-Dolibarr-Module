@@ -1,13 +1,15 @@
 <?php
-	/* 	__________ ____ ___  ___________________.___  _________ ___ ___  
-		\______   \    |   \/  _____/\_   _____/|   |/   _____//   |   \ 
-		 |    |  _/    |   /   \  ___ |    __)  |   |\_____  \/    ~    \
-		 |    |   \    |  /\    \_\  \|     \   |   |/        \    Y    /
-		 |______  /______/  \______  /\___  /   |___/_______  /\___|_  / 
-				\/                 \/     \/                \/       \/  	
-							www.bugfish.eu
-							
-	    Bugfish Framework
+	/* 
+		 ____  __  __  ___  ____  ____  ___  _   _ 
+		(  _ \(  )(  )/ __)( ___)(_  _)/ __)( )_( )
+		 ) _ < )(__)(( (_-. )__)  _)(_ \__ \ ) _ ( 
+		(____/(______)\___/(__)  (____)(___/(_) (_) www.bugfish.eu
+			  ___                                         _     
+			 / __)                                       | |    
+			| |__ ____ ____ ____   ____ _ _ _  ___   ____| |  _ 
+			|  __) ___) _  |    \ / _  ) | | |/ _ \ / ___) | / )
+			| | | |  ( ( | | | | ( (/ /| | | | |_| | |   | |< ( 
+			|_| |_|   \_||_|_|_|_|\____)\____|\___/|_|   |_| \_)
 		Copyright (C) 2024 Jan Maurice Dahlmanns [Bugfish]
 
 		This program is free software: you can redistribute it and/or modify
@@ -57,8 +59,8 @@
 		@preg_match_all('/<img[^>]+>/i', $text, $result11); 
 		@preg_match_all('/(src)=("[^"]*")/i', $result11[0][0], $img);
 		if($all) { return $img[0]; }
-		$x	=	trim($img[0][0]);
-		if (trim($x) != "") { return $x; } 
+		$x	=	trim($img[0][0] ?? '');
+		if (trim($x ?? '') != "") { return $x; } 
 		return false;}
 		
 	function x_connection_check($host, $port, $timeout = 1) {

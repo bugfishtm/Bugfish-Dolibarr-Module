@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file.
 
+## [3.35] - 2024-05-05
+
+### Release Summary
+
+- Updated to Bugfish Framework v3.35.
+
+---
+
 ## [3.20] - 2024-05-05
 
 ### Release Summary

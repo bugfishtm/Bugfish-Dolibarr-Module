@@ -1,13 +1,15 @@
 <?php
-	/* 	__________ ____ ___  ___________________.___  _________ ___ ___  
-		\______   \    |   \/  _____/\_   _____/|   |/   _____//   |   \ 
-		 |    |  _/    |   /   \  ___ |    __)  |   |\_____  \/    ~    \
-		 |    |   \    |  /\    \_\  \|     \   |   |/        \    Y    /
-		 |______  /______/  \______  /\___  /   |___/_______  /\___|_  / 
-				\/                 \/     \/                \/       \/  	
-							www.bugfish.eu
-							
-	    Bugfish Framework
+	/* 
+		 ____  __  __  ___  ____  ____  ___  _   _ 
+		(  _ \(  )(  )/ __)( ___)(_  _)/ __)( )_( )
+		 ) _ < )(__)(( (_-. )__)  _)(_ \__ \ ) _ ( 
+		(____/(______)\___/(__)  (____)(___/(_) (_) www.bugfish.eu
+			  ___                                         _     
+			 / __)                                       | |    
+			| |__ ____ ____ ____   ____ _ _ _  ___   ____| |  _ 
+			|  __) ___) _  |    \ / _  ) | | |/ _ \ / ___) | / )
+			| | | |  ( ( | | | | ( (/ /| | | | |_| | |   | |< ( 
+			|_| |_|   \_||_|_|_|_|\____)\____|\___/|_|   |_| \_)
 		Copyright (C) 2024 Jan Maurice Dahlmanns [Bugfish]
 
 		This program is free software: you can redistribute it and/or modify
@@ -202,7 +204,7 @@ class x_class_user {
 		|___|___|  /__|  \___  >__|  |___|  (____  /____/
 				 \/          \/           \/     \/      Private Functions only used internaly in this class*/
 	## Cookies Functions
-	private function cookie_set($id, $key){if($this->cookies_use){setcookie($this->cookies."session_userid", $id, time() + $this->cookies_days * 24 * 60 * 60);setcookie($this->cookies."session_key", $key, time() + $this->cookies_days * 24 * 60 * 60);} return true;}
+	private function cookie_set($id, $key){if($this->cookies_use){ setcookie($this->cookies."session_userid", $id, time() + $this->cookies_days * 24 * 60 * 60);setcookie($this->cookies."session_key", $key, time() + $this->cookies_days * 24 * 60 * 60);} return true;}
 	private function cookie_unset(){if($this->cookies_use){unset($_COOKIE[$this->cookies.'session_key']);@setcookie($this->cookies.'session_key', '', time() - 3600, '/');unset($_COOKIE[$this->cookies.'session_userid']);@setcookie($this->cookies.'session_userid', '', time() - 3600, '/');} return true;}	
 	private function cookie_restore(){if($this->cookies_use){if(@is_numeric($_COOKIE[$this->cookies."session_userid"]) OR @isset($_COOKIE[$this->cookies."session_key"])){if(@$this->session_token_valid(@$_COOKIE[$this->sessions."session_userid"], @$_COOKIE[$this->sessions."session_key"])){@$_SESSION[$this->sessions."x_users_stay"] = true;@$_SESSION[$this->sessions."x_users_key"] = @$_COOKIE[$this->sessions."session_key"];@$_SESSION[$this->sessions."x_users_id"] = @$_COOKIE[$this->sessions."session_userid"];@$_SESSION[$this->sessions."x_users_ip"] = @$_SERVER["REMOTE_ADDR"];$this->session_restore();return true;}else{$this->cookie_unset();return false;}}return false;}return true;}			
 	## Check Time Interval Function	
@@ -273,17 +275,7 @@ class x_class_user {
 	## Session Function to Restore
 	private function session_restore(){
 		if(is_numeric($_SESSION[$this->sessions."x_users_id"])) {
-			/////// SHADOW LOGIN EXTENSIONS
-			if(!is_numeric(@$_SESSION[$this->sessions."x_users_login_shadow"])) { 
-				$checkuser = $_SESSION[$this->sessions."x_users_id"]; 
-			} else { 
-			if($this->exists($_SESSION[$this->sessions."x_users_id"])) { 
-				$checkuser = $_SESSION[$this->sessions."x_users_login_shadow"]; 
-				} else { 
-				$_SESSION[$this->sessions."x_users_id"] = $_SESSION[$this->sessions."x_users_login_shadow"];
-				$_SESSION[$this->sessions."x_users_login_shadow"] = false;
-				$checkuser = $_SESSION[$this->sessions."x_users_id"]; } 
-			} 
+			$checkuser = $_SESSION[$this->sessions."x_users_id"];
 			if(!is_numeric($checkuser)) { $this->object_user_unset(); $this->cookie_unset(); return false; }
 			$r = $this->mysql->query("SELECT * FROM `".$this->dt_users."` WHERE id = '".$checkuser."'");
 			if($cr = $this->mysql->fetch_array($r)){
@@ -329,6 +321,12 @@ class x_class_user {
 		if(!$this->exists($userid)) { return false; }
 		$tmp = $this->get($userid);
 		$tmp2 = $this->extrafield_get($userid);
+		
+		if(is_numeric(@$_SESSION[$this->sessions."x_users_login_shadow"])) { 
+			$tmp = $this->get($_SESSION[$this->sessions."x_users_login_shadow"]);
+			$tmp2 = $this->extrafield_get($_SESSION[$this->sessions."x_users_login_shadow"]);
+		}
+		
 		$tmp["x_users_key"]		=	@$_SESSION[$this->sessions."x_users_key"];
 		$tmp["x_users_stay"]	=	@$_SESSION[$this->sessions."x_users_stay"];
 		$tmp["x_users_ip"]		=	@$_SESSION[$this->sessions."x_users_ip"];
@@ -336,7 +334,7 @@ class x_class_user {
 		$tmp["loggedIn"] = true;				$tmp["loggedin"]		=	true;
 		$tmp["user_loggedIn"] = true;			$tmp["user_loggedin"] = true;
 		$this->user_rank = $tmp["user_rank"]; 	$this->rank = $tmp["user_rank"];
-		$this->user_id = $userid; 				$this->id = $userid;
+		$this->user_id = $tmp["id"]; 				$this->id = $tmp["id"];
 		$this->user_lang = @$tmp["user_lang"]; 	$this->lang = @$tmp["user_lang"];
 		$this->user_theme = @$tmp["user_theme"]; $this->theme = @$tmp["user_theme"];
 		$this->user_name = $tmp["user_name"]; 	$this->name = $tmp["user_name"];
@@ -470,6 +468,7 @@ class x_class_user {
 								  `user_initial` int(1) DEFAULT 0 COMMENT '1 if this user is initial created user',
 								  `user_pass` varchar(512) DEFAULT NULL COMMENT 'Users Pass for Login',
 								  `user_mail` varchar(512) NULL COMMENT 'Users Mail for Login if Ref',
+								  `user_2fa` text DEFAULT NULL COMMENT 'Users 2FA key',
 								  `user_shadow` varchar(512) DEFAULT NULL COMMENT 'Users Store for Mail if Renew',
 								  `user_rank` int(9) NULL DEFAULT NULL COMMENT 'Users Rank',
 								  `user_confirmed` tinyint(1) DEFAULT '0' COMMENT 'User Activation Status',
@@ -549,18 +548,7 @@ class x_class_user {
 			AND isset($_SESSION[$this->sessions."x_users_key"])
 			AND is_bool($_SESSION[$this->sessions."x_users_stay"])
 			AND is_numeric($_SESSION[$this->sessions."x_users_id"])) {
-				/////// SHADOW LOGIN EXTENSIONS
-				if(!is_numeric(@$_SESSION[$this->sessions."x_users_login_shadow"])) { 
-					$checkuser = $_SESSION[$this->sessions."x_users_id"]; 
-				} else { 
-				if($this->exists($_SESSION[$this->sessions."x_users_id"])) { 
-					$checkuser = $_SESSION[$this->sessions."x_users_login_shadow"]; 
-					} else { 
-					$_SESSION[$this->sessions."x_users_id"] = $_SESSION[$this->sessions."x_users_login_shadow"];
-					$_SESSION[$this->sessions."x_users_login_shadow"] = false;
-					$checkuser = $_SESSION[$this->sessions."x_users_id"]; } 
-				} 
-				if(!$this->session_token_valid($checkuser, $_SESSION[$this->sessions."x_users_key"])) {
+				if(!$this->session_token_valid($_SESSION[$this->sessions."x_users_id"], $_SESSION[$this->sessions."x_users_key"])) {
 					$this->object_user_unset();
 					$this->cookie_restore();} 
 				else { $this->session_restore(); }
@@ -637,12 +625,11 @@ class x_class_user {
 		// Does the user exist?
 		if(!$this->exists($id)) { return false; }
 		// Loggin as the other User
-		$_SESSION[$this->sessions."x_users_login_shadow"] = $this->user_id;
-		$_SESSION[$this->sessions."x_users_id"] = $id;}
+		$_SESSION[$this->sessions."x_users_login_shadow"] = $id;}
 		
 	// Check if Logged In As Another User
 	public function login_as_is() {
-		if(is_numeric($_SESSION[$this->sessions."x_users_login_shadow"])) { return true;
+		if(is_numeric(@$_SESSION[$this->sessions."x_users_login_shadow"]) AND $_SESSION[$this->sessions."x_users_login_shadow"] != $_SESSION[$this->sessions."x_users_id"]) { return true;
 		} else { return false; } }
 		
 	// Go back to old User State
@@ -650,7 +637,6 @@ class x_class_user {
 		// If no shadow Login do nothing
 		if(!is_numeric($_SESSION[$this->sessions."x_users_login_shadow"])) { return false; }
 		// Remove Login
-		$_SESSION[$this->sessions."x_users_id"] = $_SESSION[$this->sessions."x_users_login_shadow"];
 		$_SESSION[$this->sessions."x_users_login_shadow"] = false; }	
 		
 	/*								   __  .__               
@@ -796,7 +782,7 @@ class x_class_user {
 			$this->mysql->query("UPDATE `".$this->dt_users."` SET user_shadow = ? WHERE id = '".$id."'", $bind);
 			return true;
 		}else{ 
-			if($this->mailExistsActive($new)){return false;}else{$this->mysql->query("UPDATE `".$this->dt_users."` SET user_shadow = ? WHERE id = '".$id."'", $bind); return true;}}
+			if($this->mailExists($new)){return false;}else{$this->mysql->query("UPDATE `".$this->dt_users."` SET user_shadow = ? WHERE id = '".$id."'", $bind); return true;}}
 		return false;}	
 	# Extradata User Array Field Modifications
 	public function get_extra($id = "undefined_framework_var") {
@@ -816,6 +802,10 @@ class x_class_user {
 		if(is_numeric($id)){$r = $this->mysql->query("SELECT * FROM `".$this->dt_users."` WHERE id = '".$id."'");
 		if($x = $this->mysql->fetch_array($r)){if($x["user_confirmed"] == 1){return true;}}}
 		return false;}		
+	public function confirm_user($id = "undefined_framework_var"){ 
+		if(!$this->int_opid($id)){ return false; } else { $id = $this->int_opid($id);} 
+		if(is_numeric($id) AND is_numeric($new)){return $this->mysql->query("UPDATE `".$this->dt_users."` SET user_confirmed = 1 WHERE id = '".$id."'");}
+		return false;}
 	## Add a User
 	public function add_user($nameref, $mail, $password = false, $rank = false, $activated = false){ return $this->addUser($nameref, $mail, $password, $rank, $activated);}
 	public function addUser($nameref, $mail, $password = false, $rank = false, $activated = false) { 
@@ -824,7 +814,8 @@ class x_class_user {
 			if($this->login_field == "user_mail") { $ref = $mail; } else { $ref = $nameref;  }
 			$bind[0]["value"] = strtolower(trim($ref ?? '')); $bind[0]["type"] = "s";
 			// Find Ref
-			$r = $this->mysql->select("SELECT * FROM `".$this->dt_users."` WHERE LOWER(".$this->login_field.") = ? AND user_confirmed = 1", false, $bind);
+			//$r = $this->mysql->select("SELECT * FROM `".$this->dt_users."` WHERE LOWER(".$this->login_field.") = ? AND user_confirmed = 1", false, $bind);
+			$r = $this->mysql->select("SELECT * FROM `".$this->dt_users."` WHERE LOWER(".$this->login_field.") = ?", false, $bind);
 			// User Exists Active with Ref
 			if(is_array($r)){ return false;   }  		
 		// Prepare Activated
@@ -834,7 +825,7 @@ class x_class_user {
 		// Prepare Password
 		if(!$password OR trim($password ?? '') == "") {$password = "NULL";} else {$password = $this->password_crypt($password);}		
 		//Delete Other Unconfirmed
-		$this->mysql->query("DELETE FROM `".$this->dt_users."` WHERE user_confirmed = 0  AND LOWER(".$this->login_field.") = ?", $bind);
+		//$this->mysql->query("DELETE FROM `".$this->dt_users."` WHERE user_confirmed = 0  AND LOWER(".$this->login_field.") = ?", $bind);
 		$this->mysql->query("UPDATE `".$this->dt_users."` SET user_shadow = NULL WHERE LOWER(user_shadow) = ?", $bind);
 		//Query
 		$bind[0]["value"] = trim($nameref ?? ''); $bind[0]["type"] = "s";
@@ -853,8 +844,8 @@ class x_class_user {
 		} else { 
 			$r = $this->mysql->query("SELECT * FROM `".$this->dt_users."` WHERE id = '".$id."'");
 			if($rrx = $this->mysql->fetch_array($r)){ if(trim(strtolower($rrx["user_mail"]) ?? '') == trim(strtolower($new) ?? '')) {return true;}}
-			if($this->mailExistsActive($new)) {return false;} else {
-				$this->mysql->query("DELETE FROM `".$this->dt_users."` WHERE user_confirmed = 0 AND LOWER(user_mail) = ?", $bind);
+			if($this->mailExists($new)) {return false;} else {
+				//$this->mysql->query("DELETE FROM `".$this->dt_users."` WHERE user_confirmed = 0 AND LOWER(user_mail) = ?", $bind);
 				$this->mysql->query("UPDATE `".$this->dt_users."` SET user_shadow = NULL WHERE LOWER(user_shadow) = ?", $bind);
 				$this->mysql->query("UPDATE `".$this->dt_users."` SET user_mail = ? WHERE id = '".$id."'", $bind);
 				return  true;}
@@ -1112,10 +1103,10 @@ class x_class_user {
 						// Set Shadow Mail to Null
 						$this->mysql->query("UPDATE `".$this->dt_users."` SET user_shadow = NULL WHERE id = '".$userid."'");
 					} else {
-			// Prepare Mail Bind
+						// Prepare Mail Bind
 						$bindm[0]["type"] = "s"; $bindm[0]["value"] =strtolower(trim($xf["user_shadow"] ?? '' ));
 						// Delete Unconfirmed Account if Exists
-						$this->mysql->query("DELETE FROM `".$this->dt_users."` WHERE LOWER(user_mail) = ? AND user_confirmed = 0", $bindm);
+						// $this->mysql->query("DELETE FROM `".$this->dt_users."` WHERE LOWER(user_mail) = ? AND user_confirmed = 0", $bindm);
 						// Mail already Existant otherwhise change
 						if(!$this->changeUserMail($f["fk_user"], $xf["user_shadow"])) { $this->mc_request_code = 6; return 6; }		
 						// Update Edit Counter

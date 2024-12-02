@@ -1,11 +1,17 @@
 # Bugfish Dolibarr Module
 
-**Repository:** [Bugfish Dolibarr Module on GitHub](https://github.com/bugfishtm/Bugfish-Dolibarr-Module)  
-**Documentation:** [Comprehensive Documentation](https://bugfishtm.github.io/Bugfish-Dolibarr-Module/)
+## Introduction 
 
 The Bugfish Dolibarr Module integrates the Bugfish Framework into Dolibarr, offering advanced features for development and debugging. For detailed information, refer to the [full documentation](https://bugfishtm.github.io/Bugfish-Dolibarr-Module/).
 
 ![Bugfish Framework Banner](./_images/bugfish-framework-banner.jpg)
+
+## Documentation
+This framework is documented inside the files you can find in the "docs" folder. Just open the index.html with your web browser and you can navigate through the documentation of every class and function.
+
+You can also find the documentation at: 
+https://bugfishtm.github.io/Bugfish-Dolibarr-Module/
+
 
 ## Key Features
 
@@ -38,3 +44,5 @@ For support or to report issues:
 ## License
 
 The module is licensed under GPLv3. For complete license details, refer to the `license.md` file in the repository.
+
+🐟 Bugfish <3

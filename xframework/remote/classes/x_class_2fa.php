@@ -25,11 +25,39 @@
 		You should have received a copy of the GNU General Public License
 		along with this program.  If not, see <https://www.gnu.org/licenses/>.
 	*/
-	class x_class_version {
-		public $autor 		= "Bugfish (Jan-Maurice Dahlmanns)";
-		public $contact 	= "request@bugfish.eu";
-		public $website 	= "https://www.bugfish.eu";
-		public $github 		= "https://github.com/bugfishtm";
-		public $version 	= "3.35";
-		public $beta 		= false;
+	class x_class_2fa {
+		
+		private $secretKey;
+		private $codeLength;
+		
+		public function __construct($secretKey, $codeLength = 6) {
+			$this->secretKey = $secretKey;
+			$this->codeLength = $codeLength;
+		}
+		
+		// Generate a random secret key
+		public static function generateSecretKey($length = 16) {
+			return base64_encode(random_bytes($length));
+		}
+		
+		// Generate a 2FA code
+		public function generateCode() {
+			$time = floor(time() / 30); // Time-based code, expires every 30 seconds
+			$secret = base64_decode($this->secretKey);
+			$time = pack('N', $time);
+			$hash = hash_hmac('sha1', $time, $secret, true);
+			$offset = ord(substr($hash, -1)) & 0x0F;
+			$hash = substr($hash, $offset, 4);
+			$value = unpack('N', $hash);
+			$value = $value[1];
+			$value = $value & 0x7FFFFFFF; // Remove the most significant bit
+			$modulo = pow(10, $this->codeLength);
+			return str_pad($value % $modulo, $this->codeLength, '0', STR_PAD_LEFT);
+		}
+		
+		// Verify a 2FA code
+		public function verifyCode($code) {
+			$generatedCode = $this->generateCode();
+			return hash_equals($generatedCode, $code);
+		}
 	}
