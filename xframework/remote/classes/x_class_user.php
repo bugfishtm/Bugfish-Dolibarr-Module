@@ -472,6 +472,15 @@ class x_class_user {
 								  `user_shadow` varchar(512) DEFAULT NULL COMMENT 'Users Store for Mail if Renew',
 								  `user_rank` int(9) NULL DEFAULT NULL COMMENT 'Users Rank',
 								  `user_confirmed` tinyint(1) DEFAULT '0' COMMENT 'User Activation Status',
+								  `user_firstname` TEXT NULL COMMENT 'Users First Name',
+								  `user_lastname` TEXT NULL COMMENT 'Users Last Name',
+								  `user_street` TEXT NULL COMMENT 'Users Street',
+								  `user_company` TEXT NULL COMMENT 'Users Company Name',
+								  `user_postcode` TEXT NULL COMMENT 'Users Postcode',
+								  `user_country` TEXT NULL COMMENT 'Users Country',
+								  `user_city` TEXT NULL COMMENT 'Users City',
+								  `user_region` TEXT NULL COMMENT 'Users Region',
+								  `user_tel` TEXT NULL COMMENT 'Users Mobile',
 								  `req_activation` datetime DEFAULT NULL COMMENT 'Activation Date Counter for new Requests',
 								  `last_activation` datetime DEFAULT NULL COMMENT 'Activation Date Counter for new Requests',
 								  `user_disabled` int(1) DEFAULT 0 COMMENT '1 - User is Disabled',
@@ -518,7 +527,7 @@ class x_class_user {
 			$bind[2]["value"] = $this->password_crypt($initialpass);
 			$this->mysql->query("INSERT INTO `".$this->dt_users."` (user_name, user_mail, user_confirmed, user_pass, user_rank, user_initial)
 									VALUES(?, ?, 1, ?, '".$initialrank."', 1);", $bind);}}	
-
+									
 	######################################################################################################################################################
 	/* . ____                 .__        
 		|    |    ____   ____ |__| ____  

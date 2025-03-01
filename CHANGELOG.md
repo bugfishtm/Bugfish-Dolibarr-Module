@@ -157,3 +157,5 @@ We're thrilled to announce the release of Bugfish Dolibarr Module version 2.5! T
 - **Download**: Obtain the latest version from [link_to_download].
 - **Installation**: Follow the installation instructions provided in the module documentation.
 - **Compatibility Check**: Ensure compatibility with your Dolibarr instance before upgrading.
+
+🐟 Bugfish <3  
