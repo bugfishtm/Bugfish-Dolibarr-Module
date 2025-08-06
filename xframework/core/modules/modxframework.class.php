@@ -60,7 +60,7 @@ class modxframework extends DolibarrModules {
 		$this->editor_name = 'Bugfish Industries';
 		$this->editor_url = 'https://www.bugfish.eu';
 		// Possible values for version are: 'development', 'experimental', 'dolibarr', 'dolibarr_deprecated' or a version string like 'x.y.z'
-		$this->version = '3.38';
+		$this->version = '3.39';
         // Url to the file with your last numberversion of this module
         // $this->url_last_version = 'http://www.example.com/versionmodule.txt';
 		// Key used in llx_const table to save module status enabled/disabled (where xframework is value of property name of module in uppercase)		

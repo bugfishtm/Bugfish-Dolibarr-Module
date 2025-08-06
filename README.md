@@ -20,10 +20,6 @@ The Bugfish Dolibarr Module integrates the Bugfish Framework into Dolibarr, offe
 - **MySQL Error Logging:** Access logs for MySQL errors related to x_class_mysql under Utilities in the xFramework menu.
 - **Changelog:** Monitor changes in various areas (e.g., facture, bank_account, user) under Utilities -> xFramework -> Process Logs.
 
-### Bugfish Framework Integration
-
-The module includes Bugfish Framework v.3.20, which may not be the latest version. Instructions for updating the framework can be found in this readme file.
-
 ### Extension Functions
 
 All extension functions from the `m_library.php` file in the Dolibarr functions module are included. For detailed information, refer to the documentation linked above.
