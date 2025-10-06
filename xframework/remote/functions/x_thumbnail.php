@@ -25,12 +25,26 @@
 	#	along with this program; if not, see <https://www.gnu.org/licenses/>.
 
 	########################################################################
-	// Button SQL Execution
+	// Create a Thumbnail and Return Object
 	########################################################################
-	function x_executionButton($db, $name, $url, $query, $get, $msgerr = "Fehler!", $msgok = "Erfolgreich!", $break = false, $style = ""){
-		if(strpos(trim($url ?? ''), "?") > 2) { $xurl = trim($url ?? '')."&".$get."=x"; } else {$xurl = trim($url ?? '')."?".$get."=x";} print "<a href='".$xurl."' class='x_executionButton' style='".$style."'>".$name."</a>";if($break) {echo "<br />";} if(@$_GET[$get] == "x") { if($db->query($query)) { return true; } else {return false;}  $url = str_replace("?".$get."=x&", "?", $url); $url = str_replace("&".$get."=x", "", $url);  print '<meta http-equiv="refresh" content="0; url='.$url.'">';} return false;}	
-	
+	function x_thumbnail($url, $filename, $width = 600, $height = true) {
+		 $image = ImageCreateFromString(file_get_contents($url));
+		 $height = $height === true ? (ImageSY($image) * $width / ImageSX($image)) : $height;
+		 $output = ImageCreateTrueColor($width, $height);
+		 ImageCopyResampled($output, $image, 0, 0, 0, 0, $width, $height, ImageSX($image), ImageSY($image));
+		 ImageJPEG($output, $filename, 95); 
+		 return $output; }
+
 	########################################################################
-	// Button without SQL Execution
+	// Create a Thumbnail and write to File
 	########################################################################
-	function x_button($name, $url, $break = false, $style = "", $reacttourl = true){  if($reacttourl AND strpos($url."&", $_SERVER["REQUEST_URI"]."&") > -1) {$style .= ";background: grey !important;";} print "<a href='".$url."' class='x_button' style='".$style."'>".$name."</a>"; if($break) {echo "<br />";}}
+	function x_thumbnail_save($url,  $save_path = null, $width = 600, $height = true) {
+		  $image = imagecreatefrompng($url);
+		  $thumbnail = imagecreatetruecolor($width, $height);
+		  imagecopyresized($thumbnail, $image, 0, 0, 0, 0, $width, $height, imagesx($image), imagesy($image));
+		  imagedestroy($image);
+		  if ($save_path !== null) {
+			imagepng($thumbnail, $save_path);
+		  }
+		  imagedestroy($thumbnail);
+		  return true; }

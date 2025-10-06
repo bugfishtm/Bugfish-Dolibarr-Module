@@ -25,12 +25,48 @@
 	#	along with this program; if not, see <https://www.gnu.org/licenses/>.
 
 	########################################################################
-	// Button SQL Execution
+	// Recursive Copy a Directory
 	########################################################################
-	function x_executionButton($db, $name, $url, $query, $get, $msgerr = "Fehler!", $msgok = "Erfolgreich!", $break = false, $style = ""){
-		if(strpos(trim($url ?? ''), "?") > 2) { $xurl = trim($url ?? '')."&".$get."=x"; } else {$xurl = trim($url ?? '')."?".$get."=x";} print "<a href='".$xurl."' class='x_executionButton' style='".$style."'>".$name."</a>";if($break) {echo "<br />";} if(@$_GET[$get] == "x") { if($db->query($query)) { return true; } else {return false;}  $url = str_replace("?".$get."=x&", "?", $url); $url = str_replace("&".$get."=x", "", $url);  print '<meta http-equiv="refresh" content="0; url='.$url.'">';} return false;}	
-	
+	function x_copy_directory($src, $dst) { 
+		$dir = opendir($src);  
+		@mkdir($dst);  
+		while( $file = readdir($dir) ) {  
+			if (( $file != '.' ) && ( $file != '..' )) {  
+				if ( is_dir($src . '/' . $file) )  
+				{  
+					x_copy_directory($src . '/' . $file, $dst . '/' . $file);  
+				}  
+				else {  
+					copy($src . '/' . $file, $dst . '/' . $file);  
+				}  
+			}  
+		}  
+		closedir($dir); 
+	}  
+			
 	########################################################################
-	// Button without SQL Execution
+	// Deny Folder Access by Creating HTAccess File in it
 	########################################################################
-	function x_button($name, $url, $break = false, $style = "", $reacttourl = true){  if($reacttourl AND strpos($url."&", $_SERVER["REQUEST_URI"]."&") > -1) {$style .= ";background: grey !important;";} print "<a href='".$url."' class='x_button' style='".$style."'>".$name."</a>"; if($break) {echo "<br />";}}
+	function x_htaccess_secure($path) {
+		if(!file_exists($path."/.htaccess")) {
+			file_put_contents($path."/.htaccess", "# Deny a Folders Access\r\nDeny from all");
+		}}
+		
+	########################################################################
+	// Recursive Delete a Folder
+	########################################################################
+	function x_rmdir($dir) {
+		if (is_dir($dir)) {
+			$objects = scandir($dir);
+			foreach ($objects as $object) {
+				if ($object != "." && $object != "..") {
+					if (filetype($dir . "/" . $object) == "dir") {
+						x_rmdir($dir . "/" . $object); 
+					} else {
+						unlink($dir . "/" . $object);
+					}
+				}
+			}
+			reset($objects);
+			rmdir($dir);
+		}}		
